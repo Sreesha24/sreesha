@@ -54,18 +54,6 @@
 .ab-rows__main i { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--text-meta); margin-left: 4px; }
 .ab-rows__meta { font-size: 13px; color: var(--text-meta); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
-/* side quests */
-.ab-quests { margin-top: 140px; display: flex; flex-direction: column; gap: 24px; }
-.ab-quests__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.ab-quest {
-  display: flex; justify-content: space-between; align-items: center; padding: 22px 20px;
-  border: 1px solid var(--line); font-family: var(--serif); font-size: 28px; color: var(--ink);
-  transition: border-color .25s, background .25s;
-}
-.ab-quest__go { font-family: var(--sans); font-size: 18px; color: var(--text-meta); transition: transform .35s cubic-bezier(.3,1.5,.5,1), color .25s; }
-.ab-quest:hover { border-color: var(--ink); background: #fbfbf9; }
-.ab-quest:hover .ab-quest__go { transform: translate(3px, -3px); color: var(--green-dark); }
-
 /* connect */
 .ab-connect { margin-top: 160px; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .ab-connect__title { font-family: var(--serif); font-size: clamp(64px, 11vw, 150px); line-height: 1; letter-spacing: -2px; color: var(--black); }
@@ -81,8 +69,6 @@
   .ab-facts__wall { height: 440px; }
   .ab-story, .ab-records { grid-template-columns: 1fr; gap: 24px; margin-top: 96px; }
   .ab-records { gap: 64px; }
-  .ab-quests { margin-top: 96px; }
-  .ab-quests__row { grid-template-columns: 1fr; }
   .ab-connect { margin-top: 110px; }
   .ab-connect__row { flex-direction: column; gap: 14px; }
 }
