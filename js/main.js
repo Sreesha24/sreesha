@@ -20,7 +20,7 @@
         caret.classList.add('is-done');
       }
     };
-    setTimeout(tick, 500);
+    setTimeout(tick, 750);   // starts right after the photo and "hi" appear
   }
 
   /* ---------- 2. 3D swivel avatar ---------- */
@@ -128,7 +128,10 @@
     scale = h / CANVAS_H;
     otc.style.setProperty('--s', scale.toFixed(4));
     otc.style.setProperty('--strip-h', `${h}px`);
-    distance = Math.max(0, CANVAS_W * scale - vw);
+    // lead-in on the left so "4x Global Design Awards" (≈ x 290 in the design) starts centred on screen
+    const pad = Math.max(0, Math.min(1400, vw / (2 * scale) - 290));
+    otc.style.setProperty('--pad', `${pad.toFixed(1)}px`);
+    distance = Math.max(0, (CANVAS_W + pad) * scale - vw);
     otc.style.height = `${vh + distance}px`;
     updateOtc();
   }
