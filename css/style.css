@@ -267,6 +267,15 @@ main, .footer { position: relative; z-index: 1; }
 .otc__stack { display: flex; flex-direction: column; gap: 4px; }
 .otc__stack img { width: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.3,1.5,.5,1); }
 .otc__stack img:hover { transform: translateX(6px); }
+/* concept-art reel: images drift down in an endless loop, fading out at the bottom and back in from the top */
+.otc__reel { display: block; overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); }
+.otc__reel-track { display: flex; flex-direction: column; gap: 4px; animation: reel 9s linear infinite; }
+.otc__reel:hover .otc__reel-track { animation-play-state: paused; }
+.otc__reel img:hover { transform: none; }
+@keyframes reel { from { transform: translateY(calc(-50% - 2px)); } to { transform: translateY(0); } }   /* drifts down, re-enters from above */
+@media (prefers-reduced-motion: reduce) { .otc__reel-track { animation: none; } }
 .otc__label {
   font-family: var(--serif); font-style: italic; line-height: 1; color: var(--black);
   white-space: nowrap; transform: rotate(var(--r, 0deg)); transform-origin: left center; z-index: 5;
