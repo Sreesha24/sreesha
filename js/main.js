@@ -142,7 +142,11 @@
       lastTick = at;
     }
     const r = otc.getBoundingClientRect();
-    document.body.classList.toggle('otc-on', r.top < 300 && r.bottom > 60);   // strip is behind the side nav
+    // when the strip starts leaving the screen, send the side nav down to sit above the footer
+    const navBox = ruler.getBoundingClientRect();
+    const footerTop = vh - 120;
+    ruler.style.setProperty('--navdrop', `${Math.max(0, footerTop - 87 - navBox.height)}px`);
+    document.body.classList.toggle('nav-down', r.bottom < vh - 2);
   }
 
   let ticking = false;

@@ -111,14 +111,10 @@ main, .footer { position: relative; z-index: 1; }
 }
 .ruler.is-pressed .ruler__indicator { transition-duration: .42s; }
 
-.ruler { transition: opacity .35s, transform .35s; }
 @media (min-width: 1101px) {
-  .ruler::before {
-    content: ""; position: absolute; inset: -24px -28px -24px -24px; z-index: -1; border-radius: 14px;
-    background: rgba(255,255,255,.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    opacity: 0; transition: opacity .35s;
-  }
-  body.otc-on .ruler::before { opacity: 1; }
+  /* once the off-the-clock strip scrolls up, the nav glides down to rest above the footer */
+  .ruler { transition: transform .9s cubic-bezier(.65,0,.25,1); }
+  body.nav-down .ruler { transform: translateY(var(--navdrop, 0px)); }
 }
 
 /* ---------- Top links ---------- */
