@@ -212,70 +212,189 @@
     window.addEventListener('scroll', () => vl.classList.remove('is-on'), { passive: true });
   }
 
-  /* ---------- 7. Botanical blooms grow through a few letters of "Work with me" ---------- */
+  /* ---------- 7. "Work with me": vine grows along the heading, then real flowers open ---------- */
   const cta = document.querySelector('.cta__inner');
-  const bloomBox = document.getElementById('blooms');
-  // one photographic garland, tiled (alternately mirrored) along the heading
-  const GARLAND = { src: 'assets/img/bloom-garland.webp', ratio: 1584 / 672, branchY: 0.76,
-    // flowers (x%, y%) that come forward over the letters
-    front: [[22, 58], [33, 47], [48, 65], [68, 69], [94, 62]] };
-  function layoutBlooms() {
-    bloomBox.innerHTML = '';
+  const gBackSvg = document.getElementById('gardenBack'), gFrontSvg = document.getElementById('gardenFront');
+  const NS = 'http://www.w3.org/2000/svg';
+  const GPAD = 200;
+  const FLOWERS = {
+    orange: ['gerbera-2', 'gerbera-3', 'calendula-1', 'calendula-3', 'calendula-4'],
+    pink: ['rose-1', 'rose-2', 'rose-3', 'rose-4'],
+    white: ['cosmos-1', 'cosmos-2', 'cosmos-3', 'cosmos-4'],
+    small: ['calendula-2', 'calendula-5', 'rose-4', 'cosmos-3'],
+  };
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function el(tag, attrs, parent) { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
+  function smooth(pts) {
+    let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      d += ` C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
+    return d;
+  }
+  function timing(n, inD, outD) { n.style.setProperty('--in', `${inD.toFixed(2)}s`); n.style.setProperty('--out', `${outD.toFixed(2)}s`); return n; }
+  function stemPath(parent, d, width, color, inD, dur, outD) {
+    const p = el('path', { class: 'stem', d, 'stroke-width': width.toFixed(2), stroke: color }, parent);
+    const L = p.getTotalLength();
+    p.style.setProperty('--len', (L + 2).toFixed(1));
+    p.style.setProperty('--dur', `${dur.toFixed(2)}s`);
+    p.style.setProperty('--dout', `${Math.max(0.25, dur * 0.35).toFixed(2)}s`);
+    timing(p, inD, outD);
+    return p;
+  }
+  function makeDefs(svg) {
+    const defs = el('defs', {}, svg);
+    [['leafA', '#2f5d2a', '#6f9e4f'], ['leafB', '#3d6b30', '#8db56a'], ['leafC', '#284f26', '#5e8b45']].forEach(([id, a, b]) => {
+      const g = el('linearGradient', { id, x1: '0', y1: '0', x2: '1', y2: '0' }, defs);
+      el('stop', { offset: '0', 'stop-color': a }, g); el('stop', { offset: '1', 'stop-color': b }, g);
+    });
+  }
+  function leafAt(parent, x, y, angle, size, inD, outD, rnd) {
+    const s = size;
+    const g = el('g', { class: 'leaf' }, parent);
+    const tone = 'ABC'[Math.floor(rnd() * 3)];
+    // lower (shaded) half, upper (lit) half, then the midrib
+    el('path', { d: `M${x} ${y} C${x + s * 0.35} ${y + s * 0.44} ${x + s * 1.35} ${y + s * 0.5} ${x + s * 2.1} ${y} Z`, fill: '#2a4f25' }, g);
+    el('path', { d: `M${x} ${y} C${x + s * 0.35} ${y - s * 0.44} ${x + s * 1.35} ${y - s * 0.5} ${x + s * 2.1} ${y} Z`, fill: `url(#leaf${tone})` }, g);
+    el('path', { d: `M${x} ${y} Q${x + s} ${y - s * 0.04} ${x + s * 2.05} ${y}`, stroke: 'rgba(220,236,190,.6)', 'stroke-width': Math.max(0.6, s * 0.045), fill: 'none' }, g);
+    for (let k = 1; k <= 3; k++) {   // side veins
+      const vx = x + s * 0.45 * k;
+      el('path', { d: `M${vx} ${y - s * 0.02} q${s * 0.18} ${-s * 0.14} ${s * 0.32} ${-s * 0.24}`, stroke: 'rgba(220,236,190,.35)', 'stroke-width': Math.max(0.4, s * 0.025), fill: 'none' }, g);
+    }
+    g.style.setProperty('--rot', `${angle.toFixed(1)}deg`);
+    g.style.setProperty('--ox', `${x}px`); g.style.setProperty('--oy', `${y}px`);
+    return timing(g, inD, outD);
+  }
+  function flowerAt(parent, name, x, y, size, inD, outD, rnd) {
+    const g = el('g', { class: 'flower' }, parent);
+    el('image', { href: `assets/img/flowers/${name}.webp`, x: x - size / 2, y: y - size / 2, width: size, height: size, preserveAspectRatio: 'xMidYMid meet' }, g);
+    g.style.setProperty('--ox', `${x}px`); g.style.setProperty('--oy', `${y}px`);
+    g.style.setProperty('--r0', `${Math.round(-60 + rnd() * 30)}deg`);
+    return timing(g, inD, outD);
+  }
+  function budAt(parent, x, y, r, inD, outD) {
+    const g = el('g', { class: 'bud' }, parent);
+    el('circle', { cx: x, cy: y, r, fill: '#fbfaf4', stroke: '#d9d6c4', 'stroke-width': Math.max(0.5, r * 0.15) }, g);
+    el('circle', { cx: x, cy: y, r: r * 0.35, fill: '#e9d98a' }, g);
+    g.style.setProperty('--ox', `${x}px`); g.style.setProperty('--oy', `${y}px`);
+    return timing(g, inD, outD);
+  }
+  function buildGarden() {
+    gBackSvg.innerHTML = ''; gFrontSvg.innerHTML = '';
+    makeDefs(gBackSvg); makeDefs(gFrontSvg);
     const title = cta.querySelector('.cta__title a');
     const fs = parseFloat(getComputedStyle(title).fontSize);
+    const sc = fs / 184;
     const box = cta.getBoundingClientRect();
-    const chars = [];
+    const letters = [];
     const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
       for (let i = 0; i < node.length; i++) {
         if (!node.data[i].trim()) continue;
         const r = document.createRange(); r.setStart(node, i); r.setEnd(node, i + 1);
-        chars.push(r.getBoundingClientRect());
+        const b = r.getBoundingClientRect();
+        letters.push({ ch: node.data[i], x: b.left - box.left + GPAD, w: b.width, base: b.top - box.top + GPAD + b.height * 0.77 });
       }
     }
-    const baseline = (rect) => rect.top - box.top + rect.height * 0.77;
+    if (!letters.length) return;
+    const rnd = rng(5);
+    const back = el('g', {}, gBackSvg), front = el('g', {}, gFrontSvg), top = el('g', {}, gFrontSvg);
+    const base = letters[0].base + fs * 0.07;
+    const x0 = letters[0].x - fs * 0.25, x1 = letters[letters.length - 1].x + letters[letters.length - 1].w + fs * 0.25;
+    const RUN = 2.6;                                   // seconds for the main vine to cross the heading
+    const tAt = (x) => ((x - x0) / (x1 - x0)) * RUN;
+    const outAt = (x) => ((x1 - x) / (x1 - x0)) * 0.6;
+    const VINE = '#5b6b38', STEM = '#5f7d3c';
 
-    // badge sits just off the top-right of the final "e"
-    const badge = cta.querySelector('.cta__badge');
-    badge.removeAttribute('style');
-    if (window.innerWidth > 860 && chars.length) {
-      const last = chars[chars.length - 1];
-      const mctx = document.createElement('canvas').getContext('2d');
-      mctx.font = `${fs}px ${getComputedStyle(title).fontFamily}`;
-      const mx = mctx.measureText('x'), me = mctx.measureText('e');
-      const eRight = Math.max(title.getBoundingClientRect().right, last.left + me.actualBoundingBoxRight) - box.left;
-      const xTop = baseline(last) - mx.actualBoundingBoxAscent;
-      const maxLeft = document.documentElement.clientWidth - 24 - box.left - badge.offsetWidth;   // never run off the screen
-      Object.assign(badge.style, { left: `${Math.min(eRight + fs * 0.06, maxLeft)}px`, top: `${xTop - badge.offsetHeight - fs * 0.04}px` });
+    // main vine: gentle wave along the baseline, split so it passes behind some letters and in front of others
+    const pts = [];
+    for (let x = x0, k = 0; x <= x1 + 1; x += fs * 0.22, k++) pts.push([x, base + Math.sin(k * 0.9) * fs * 0.05]);
+    const yAt = (x) => { const k = (x - x0) / (fs * 0.22); return base + Math.sin(k * 0.9) * fs * 0.05; };
+    let segStart = 0;
+    const layerFor = (x) => {
+      const L = letters.find((l) => x >= l.x && x <= l.x + l.w);
+      return L ? (letters.indexOf(L) % 2 ? front : back) : front;
+    };
+    for (let i = 1; i <= pts.length; i++) {
+      if (i === pts.length || layerFor(pts[i][0]) !== layerFor(pts[segStart][0])) {
+        const seg = pts.slice(Math.max(0, segStart - 1), Math.min(pts.length, i + 1));
+        if (seg.length > 1) {
+          const sx = seg[0][0], ex = seg[seg.length - 1][0];
+          stemPath(layerFor(pts[segStart][0]), smooth(seg), 4.2 * sc, VINE, tAt(sx), tAt(ex) - tAt(sx), outAt(ex) + 0.35);
+        }
+        segStart = i;
+      }
+    }
+    // leaves along the main vine
+    for (let x = x0 + fs * 0.08, k = 0; x < x1 - fs * 0.08; x += fs * (0.1 + rnd() * 0.08), k++) {
+      const up = k % 2 === 0;
+      leafAt(rnd() < 0.55 ? front : back, x, yAt(x), (up ? -35 : 30) + (rnd() - 0.5) * 40 + (rnd() < 0.5 ? 0 : 180), (17 + rnd() * 11) * sc, tAt(x) + 0.15, outAt(x) + 0.2, rnd);
     }
 
-    const first = chars[0], lastC = chars[chars.length - 1];
-    const textL = first.left - box.left - fs * 0.1, textR = lastC.right - box.left + fs * 0.1;
-    const hG = fs * 1.38, wG = hG * GARLAND.ratio;
-    const top = baseline(first) + fs * 0.1 - hG * GARLAND.branchY;   // branch runs just under the baseline
-    const n = Math.max(1, Math.ceil((textR - textL) / (wG * 0.9)));
-    const step = n > 1 ? (textR - textL - wG) / (n - 1) : 0;
-    const frontMask = GARLAND.front.map(([x, y]) => `radial-gradient(ellipse 4.2% 9.5% at ${x}% ${y}%, #000 78%, transparent 100%)`).join(',');
-    for (let i = 0; i < n; i++) {
-      const left = n > 1 ? textL + step * i : (textL + textR) / 2 - wG / 2;
-      const flip = i % 2 === 1;
-      ['back', 'front'].forEach((layer) => {
-        const img = document.createElement('img');
-        img.src = GARLAND.src; img.alt = '';
-        img.className = `bloom bloom--${layer}${flip ? ' is-flip' : ''}`;
-        Object.assign(img.style, { left: `${left}px`, top: `${top}px`, width: `${wG}px`, height: `${hG}px` });
-        img.style.setProperty('--d', `${(i * 0.55 + (layer === 'front' ? 0.25 : 0)).toFixed(2)}s`);
-        img.style.setProperty('--dout', `${((n - 1 - i) * 0.25).toFixed(2)}s`);
-        if (layer === 'front') { img.style.webkitMaskImage = frontMask; img.style.maskImage = frontMask; }
-        bloomBox.appendChild(img);
+    // sprays rising from the vine, ending in flowers (positions loosely follow the reference)
+    const palette = ['orange', 'pink', 'white', 'pink', 'orange', 'white', 'pink', 'orange'];
+    const anchors = [];
+    letters.forEach((l, i) => {
+      if (i % 1 === 0) anchors.push(l.x + l.w * (i % 2 ? 0.85 : 0.2));
+    });
+    anchors.push(x1 - fs * 0.1);
+    anchors.forEach((ax, i) => {
+      const tall = i % 3 !== 1 && i < anchors.length - 2;   // keep the right end low, clear of the badge
+      const h = fs * (tall ? 0.55 + rnd() * 0.5 : 0.25 + rnd() * 0.2);
+      const lean = (rnd() - 0.5) * fs * 0.35;
+      const sy = yAt(ax);
+      const tip = [ax + lean, sy - h];
+      const mid = [ax + lean * 0.3 + (rnd() - 0.5) * fs * 0.1, sy - h * 0.5];
+      const layer = i % 2 ? back : front;
+      const start = tAt(ax);
+      const dur = 0.5 + h / fs * 0.5;
+      const p = stemPath(layer, smooth([[ax, sy], mid, tip]), 2.4 * sc, STEM, start, dur, outAt(ax) + 0.25);
+      const L = p.getTotalLength();
+      // leaves on the spray
+      [0.22, 0.42, 0.6, 0.78].forEach((t, j) => {
+        const q = p.getPointAtLength(L * t), q2 = p.getPointAtLength(Math.min(L, L * t + 2));
+        const tan = Math.atan2(q2.y - q.y, q2.x - q.x) * 180 / Math.PI;
+        leafAt(rnd() < 0.5 ? front : back, q.x, q.y, tan + (j % 2 ? 50 : -50) + (rnd() - 0.5) * 20, (13 + rnd() * 8) * sc * (1 - t * 0.35), start + dur * t, outAt(ax) + 0.1, rnd);
       });
-    }
+      // a side twig with tiny buds
+      if (rnd() < 0.6) {
+        const q = p.getPointAtLength(L * 0.55);
+        const side = rnd() < 0.5 ? -1 : 1;
+        const tw = [q.x + side * fs * 0.14, q.y - fs * 0.12];
+        stemPath(layer, smooth([[q.x, q.y], [q.x + side * fs * 0.07, q.y - fs * 0.08], tw]), 1.4 * sc, STEM, start + dur * 0.55, 0.4, outAt(ax));
+        for (let b = 0; b < 6; b++) {
+          const bx = tw[0] + (rnd() - 0.5) * 16 * sc, by = tw[1] + (rnd() - 0.6) * 14 * sc;
+          budAt(top, bx, by, (2.4 + rnd() * 1.8) * sc, start + dur * 0.55 + 0.3 + b * 0.05, outAt(ax) * 0.5);
+        }
+      }
+      // the flower opens once the stem arrives
+      const kind = tall ? palette[i % palette.length] : 'small';
+      const list = FLOWERS[kind];
+      const size = fs * (tall ? 0.3 + rnd() * 0.08 : 0.17 + rnd() * 0.05);
+      flowerAt(top, list[i % list.length], tip[0], tip[1], size, start + dur * 0.9, outAt(ax) * 0.4, rnd);
+      if (tall && rnd() < 0.5) {
+        const q = p.getPointAtLength(L * 0.5);
+        const side = lean > 0 ? -1 : 1;
+        const fork = [q.x + side * fs * 0.2, q.y - fs * 0.16];
+        stemPath(layer, smooth([[q.x, q.y], [q.x + side * fs * 0.1, q.y - fs * 0.12], fork]), 1.8 * sc, STEM, start + dur * 0.5, 0.45, outAt(ax));
+        const k2 = palette[(i + 3) % palette.length];
+        flowerAt(top, FLOWERS[k2][(i + 2) % FLOWERS[k2].length], fork[0], fork[1], size * 0.7, start + dur * 0.5 + 0.4, outAt(ax) * 0.4, rnd);
+      }
+    });
+    // a few flowers tucked along the vine at the foot of the letters
+    letters.forEach((l, i) => {
+      if (i % 3 !== 2) return;
+      const fx = l.x + l.w * 0.5;
+      const kind = ['pink', 'white', 'orange'][i % 3];
+      flowerAt(top, FLOWERS[kind][(i + 1) % FLOWERS[kind].length], fx, yAt(fx) - fs * 0.02, fs * 0.2, tAt(fx) + 0.4, outAt(fx) * 0.4, rnd);
+    });
   }
   const grow = () => cta.classList.add('is-grown');
   const retract = () => cta.classList.remove('is-grown');
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-    layoutBlooms();
+    buildGarden();
     if (window.matchMedia('(hover: hover)').matches) {
       cta.querySelector('.cta__title').addEventListener('pointerenter', grow);
       cta.addEventListener('pointerleave', retract);
@@ -283,7 +402,26 @@
       new IntersectionObserver(([en]) => (en.isIntersecting ? grow() : retract()), { threshold: 0.6 }).observe(cta);
     }
   });
-  let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(layoutBlooms, 200); });
+  let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(buildGarden, 200); });
+
+  // badge sits just off the top-right of the final "e"
+  function placeBadge() {
+    const title = cta.querySelector('.cta__title a');
+    const badge = cta.querySelector('.cta__badge');
+    badge.removeAttribute('style');
+    if (window.innerWidth <= 860) return;
+    const fs = parseFloat(getComputedStyle(title).fontSize);
+    const box = cta.getBoundingClientRect();
+    const t = title.getBoundingClientRect();
+    const mctx = document.createElement('canvas').getContext('2d');
+    mctx.font = `${fs}px ${getComputedStyle(title).fontFamily}`;
+    const mx = mctx.measureText('x');
+    const baseY = t.top - box.top + t.height * 0.77;
+    const maxLeft = document.documentElement.clientWidth - 24 - box.left - badge.offsetWidth;
+    Object.assign(badge.style, { left: `${Math.min(t.right - box.left + fs * 0.06, maxLeft)}px`, top: `${baseY - mx.actualBoundingBoxAscent - badge.offsetHeight - fs * 0.04}px` });
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(placeBadge);
+  window.addEventListener('resize', placeBadge);
 
   /* ---------- 8. "Coming soon" for pages not built yet ---------- */
   const toast = document.getElementById('toast');
