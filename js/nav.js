@@ -34,6 +34,31 @@
     });
   }
 
+  // Sticker board: drag stickers around (desktop); last one touched comes to the top
+  const board = document.getElementById('board');
+  if (board && window.matchMedia('(min-width: 861px)').matches) {
+    let z = 10;
+    board.querySelectorAll('.stk').forEach((st) => {
+      let sx, sy, ox = 0, oy = 0, lim;
+      st.addEventListener('pointerdown', (e) => {
+        e.preventDefault(); st.setPointerCapture(e.pointerId);
+        sx = e.clientX; sy = e.clientY;
+        ox = parseFloat(st.style.getPropertyValue('--dx')) || 0; oy = parseFloat(st.style.getPropertyValue('--dy')) || 0;
+        // how far it can travel while keeping ~40% of it on the board
+        const b = board.getBoundingClientRect(), r = st.getBoundingClientRect();
+        lim = { l: b.left - r.left - r.width * 0.6, r: b.right - r.right + r.width * 0.6, t: b.top - r.top - r.height * 0.6, b: b.bottom - r.bottom + r.height * 0.6 };
+        st.classList.add('is-drag'); st.style.zIndex = ++z;
+      });
+      st.addEventListener('pointermove', (e) => {
+        if (!st.classList.contains('is-drag')) return;
+        const mx = Math.max(lim.l, Math.min(lim.r, e.clientX - sx)), my = Math.max(lim.t, Math.min(lim.b, e.clientY - sy));
+        st.style.setProperty('--dx', `${ox + mx}px`); st.style.setProperty('--dy', `${oy + my}px`);
+      });
+      const end = () => st.classList.remove('is-drag');
+      st.addEventListener('pointerup', end); st.addEventListener('pointercancel', end);
+    });
+  }
+
   // "Coming soon" for pages that aren't built yet
   const toast = document.getElementById('toast');
   let tt;
