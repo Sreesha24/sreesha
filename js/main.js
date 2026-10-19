@@ -238,24 +238,20 @@
     }
     const baseline = (rect) => rect.top - box.top + rect.height * 0.77;
 
-    // badge + arrow: arrow tip points at the top-right of the final "e", badge sits on the arrow's tail
-    const badge = cta.querySelector('.cta__badge'), arrow = cta.querySelector('.cta__arrow');
-    [badge, arrow].forEach((n) => n.removeAttribute('style'));
+    // badge sits just off the top-right of the final "e"
+    const badge = cta.querySelector('.cta__badge');
+    badge.removeAttribute('style');
     if (window.innerWidth > 860 && chars.length) {
       const last = chars[chars.length - 1];
       const mctx = document.createElement('canvas').getContext('2d');
       mctx.font = `${fs}px ${getComputedStyle(title).fontFamily}`;
       const mx = mctx.measureText('x'), me = mctx.measureText('e');
-      // right edge of the whole heading (its advance box), which always sits just past the final "e"
       const eRight = Math.max(title.getBoundingClientRect().right, last.left + me.actualBoundingBoxRight) - box.left;
       const xTop = baseline(last) - mx.actualBoundingBoxAscent;
-      const size = Math.max(36, 51 * fs / 184), k = size / 52;
-      const tipX = eRight + fs * 0.06, tipY = xTop + fs * 0.16;   // a clear gap so the tip never touches the letter
-      const aLeft = tipX - 4 * k, aTop = tipY - 46 * k;
-      Object.assign(arrow.style, { left: `${aLeft}px`, top: `${aTop}px`, width: `${size}px`, height: `${size}px`, transform: 'none' });
       const maxLeft = document.documentElement.clientWidth - 24 - box.left - badge.offsetWidth;   // never run off the screen
-      Object.assign(badge.style, { left: `${Math.min(aLeft + 38 * k, maxLeft)}px`, top: `${aTop + 6 * k - badge.offsetHeight}px` });
+      Object.assign(badge.style, { left: `${Math.min(eRight + fs * 0.06, maxLeft)}px`, top: `${xTop - badge.offsetHeight - fs * 0.04}px` });
     }
+
     BLOOMS.forEach((b, n) => {
       const c = chars[b.letter < 0 ? chars.length + b.letter : b.letter];
       if (!c) return;
