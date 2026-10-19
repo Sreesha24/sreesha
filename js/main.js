@@ -129,7 +129,7 @@
     otc.style.setProperty('--s', scale.toFixed(4));
     otc.style.setProperty('--strip-h', `${h}px`);
     // lead-in on the left so "4x Global Design Awards" (≈ x 290 in the design) starts centred on screen
-    const pad = Math.max(0, Math.min(1150, (vw * 0.3) / scale - 290));   // awards sit left of centre
+    const pad = Math.max(0, Math.min(1150, (vw * 0.22) / scale - 276));   // awards sit left of centre
     otc.style.setProperty('--pad', `${pad.toFixed(1)}px`);
     distance = Math.max(0, (CANVAS_W + pad) * scale - vw);
     otc.style.height = `${vh + distance}px`;
