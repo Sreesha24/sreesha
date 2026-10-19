@@ -420,8 +420,27 @@
     const maxLeft = document.documentElement.clientWidth - 24 - box.left - badge.offsetWidth;
     Object.assign(badge.style, { left: `${Math.min(t.right - box.left + fs * 0.06, maxLeft)}px`, top: `${baseY - mx.actualBoundingBoxAscent - badge.offsetHeight - fs * 0.04}px` });
   }
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(placeBadge);
-  window.addEventListener('resize', placeBadge);
+  // badge types itself out the first time "Work with me" comes into view
+  const badgeText = cta.querySelector('.cta__badge-text'), badgeCaret = cta.querySelector('.cta__caret');
+  const badgeFull = badgeText.textContent;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    placeBadge();                                  // measure with the full text first
+    if (reduceMotion || !('IntersectionObserver' in window)) { badgeCaret.classList.add('is-done'); return; }
+    badgeText.textContent = '';
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      let i = 0;
+      const step = () => {
+        badgeText.textContent = badgeFull.slice(0, ++i);
+        if (i < badgeFull.length) setTimeout(step, 38 + Math.random() * 40);
+        else badgeCaret.classList.add('is-done');
+      };
+      setTimeout(step, 350);
+    }, { threshold: 0.6 });
+    io.observe(cta);
+  });
+  window.addEventListener('resize', () => { const t = badgeText.textContent; badgeText.textContent = badgeFull; placeBadge(); badgeText.textContent = t; });
 
   /* ---------- 8. "Coming soon" for pages not built yet ---------- */
   const toast = document.getElementById('toast');
