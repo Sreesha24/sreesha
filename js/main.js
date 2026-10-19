@@ -175,7 +175,6 @@
     document.querySelector('.hero'),
     document.getElementById('work'),
     document.querySelector('.otc__sticky'),
-    document.querySelector('.cta'),
   ].filter(Boolean);
   focusEls.forEach((el) => el.classList.add('focusable'));
   function updateFocus() {
@@ -280,116 +279,127 @@
     g.style.setProperty('--ox', `${x}px`); g.style.setProperty('--oy', `${y}px`);
     return timing(g, inD, outD);
   }
+  // finds a letter's main vertical stroke by rendering it to a small canvas
+  function mainStroke(ch, font, w, h, baseline, fs, pad) {
+    const cv = document.createElement('canvas'); cv.width = Math.ceil(w); cv.height = Math.ceil(h);
+    const ctx = cv.getContext('2d'); ctx.font = font; ctx.fillText(ch, pad, baseline);
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let cur = null; const stems = [];
+    for (let x = 0; x < cv.width; x++) {
+      let best = 0, run = 0, end = 0;
+      for (let y = 0; y < cv.height; y++) { if (d[(y * cv.width + x) * 4 + 3] > 120) { if (++run > best) { best = run; end = y; } } else run = 0; }
+      if (best >= fs * 0.3) {
+        if (cur && x === cur.xR + 1) { cur.xR = x; cur.top = Math.min(cur.top, end - best); cur.bot = Math.max(cur.bot, end); cur.len = Math.max(cur.len, best); }
+        else { cur = { xL: x, xR: x, top: end - best, bot: end, len: best }; stems.push(cur); }
+      } else cur = null;
+    }
+    const ok = stems.filter((st) => st.xR - st.xL < fs * 0.2);
+    return ok.length ? ok.reduce((a, c) => (c.len > a.len ? c : a)) : null;
+  }
   function buildGarden() {
     gBackSvg.innerHTML = ''; gFrontSvg.innerHTML = '';
     makeDefs(gBackSvg); makeDefs(gFrontSvg);
     const title = cta.querySelector('.cta__title a');
-    const fs = parseFloat(getComputedStyle(title).fontSize);
+    const cs = getComputedStyle(title);
+    const fs = parseFloat(cs.fontSize);
     const sc = fs / 184;
     const box = cta.getBoundingClientRect();
-    const letters = [];
+    const rnd = rng(9);
+    const back = el('g', {}, gBackSvg), front = el('g', {}, gFrontSvg), top = el('g', {}, gFrontSvg);
+    const VINE = '#4f6b34';
+    const mctx = document.createElement('canvas').getContext('2d');
+    // which letters get a creeper (index among non-space characters), and what blooms at the tip
+    const PLAN = { 0: 'orange', 3: 'pink', 5: 'white', 7: 'orange', 8: 'pink', 9: 'white' };
+    let n = 0, order = 0;
     const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
+      const italic = getComputedStyle(node.parentElement).fontStyle === 'italic';
+      const font = `${italic ? 'italic ' : ''}${fs}px ${cs.fontFamily}`;
+      mctx.font = font;
+      const m = mctx.measureText('Hg');
       for (let i = 0; i < node.length; i++) {
-        if (!node.data[i].trim()) continue;
+        const ch = node.data[i];
+        if (!ch.trim()) continue;
+        const idx = n++;
+        if (!(idx in PLAN)) continue;
         const r = document.createRange(); r.setStart(node, i); r.setEnd(node, i + 1);
         const b = r.getBoundingClientRect();
-        letters.push({ ch: node.data[i], x: b.left - box.left + GPAD, w: b.width, base: b.top - box.top + GPAD + b.height * 0.77 });
-      }
-    }
-    if (!letters.length) return;
-    const rnd = rng(5);
-    const back = el('g', {}, gBackSvg), front = el('g', {}, gFrontSvg), top = el('g', {}, gFrontSvg);
-    const base = letters[0].base + fs * 0.07;
-    const x0 = letters[0].x - fs * 0.25, x1 = letters[letters.length - 1].x + letters[letters.length - 1].w + fs * 0.25;
-    const RUN = 2.6;                                   // seconds for the main vine to cross the heading
-    const tAt = (x) => ((x - x0) / (x1 - x0)) * RUN;
-    const outAt = (x) => ((x1 - x) / (x1 - x0)) * 0.6;
-    const VINE = '#5b6b38', STEM = '#5f7d3c';
-
-    // main vine: gentle wave along the baseline, split so it passes behind some letters and in front of others
-    const pts = [];
-    for (let x = x0, k = 0; x <= x1 + 1; x += fs * 0.22, k++) pts.push([x, base + Math.sin(k * 0.9) * fs * 0.05]);
-    const yAt = (x) => { const k = (x - x0) / (fs * 0.22); return base + Math.sin(k * 0.9) * fs * 0.05; };
-    let segStart = 0;
-    const layerFor = (x) => {
-      const L = letters.find((l) => x >= l.x && x <= l.x + l.w);
-      return L ? (letters.indexOf(L) % 2 ? front : back) : front;
-    };
-    for (let i = 1; i <= pts.length; i++) {
-      if (i === pts.length || layerFor(pts[i][0]) !== layerFor(pts[segStart][0])) {
-        const seg = pts.slice(Math.max(0, segStart - 1), Math.min(pts.length, i + 1));
-        if (seg.length > 1) {
-          const sx = seg[0][0], ex = seg[seg.length - 1][0];
-          stemPath(layerFor(pts[segStart][0]), smooth(seg), 4.2 * sc, VINE, tAt(sx), tAt(ex) - tAt(sx), outAt(ex) + 0.35);
+        const lineH = b.height;
+        const baseline = (lineH - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + m.fontBoundingBoxAscent;
+        const pad = fs * 0.15;
+        const ox = b.left - box.left + GPAD - pad, oy = b.top - box.top + GPAD;
+        const st = /[Ww]/.test(ch) ? null : mainStroke(ch, font, b.width + pad * 2, lineH, baseline, fs, pad);   // W/w only have diagonals
+        // axis of the coil: the vertical stroke if there is one, otherwise the letter's first diagonal (W, w)
+        let bx, by, tx, ty, rad;
+        if (st) {
+          const cx = ox + (st.xL + st.xR) / 2;
+          rad = (st.xR - st.xL) / 2 + 5 * sc;
+          by = oy + st.bot - fs * 0.01; ty = oy + st.top + fs * 0.04;
+          const lean = italic ? (by - ty) * 0.2 : 0;
+          bx = cx - lean / 2; tx = cx + lean / 2;
+        } else {
+          const capTop = oy + baseline - fs * (/[A-Z]/.test(ch) ? 0.68 : 0.46);
+          bx = ox + pad + b.width * 0.3; by = oy + baseline - fs * 0.02;
+          tx = ox + pad + b.width * 0.06; ty = capTop + fs * 0.03;
+          rad = fs * 0.07;
         }
-        segStart = i;
-      }
-    }
-    // leaves along the main vine
-    for (let x = x0 + fs * 0.08, k = 0; x < x1 - fs * 0.08; x += fs * (0.1 + rnd() * 0.08), k++) {
-      const up = k % 2 === 0;
-      leafAt(rnd() < 0.55 ? front : back, x, yAt(x), (up ? -35 : 30) + (rnd() - 0.5) * 40 + (rnd() < 0.5 ? 0 : 180), (17 + rnd() * 11) * sc, tAt(x) + 0.15, outAt(x) + 0.2, rnd);
-    }
-
-    // sprays rising from the vine, ending in flowers (positions loosely follow the reference)
-    const palette = ['orange', 'pink', 'white', 'pink', 'orange', 'white', 'pink', 'orange'];
-    const anchors = [];
-    letters.forEach((l, i) => {
-      if (i % 1 === 0) anchors.push(l.x + l.w * (i % 2 ? 0.85 : 0.2));
-    });
-    anchors.push(x1 - fs * 0.1);
-    anchors.forEach((ax, i) => {
-      const tall = i % 3 !== 1 && i < anchors.length - 2;   // keep the right end low, clear of the badge
-      const h = fs * (tall ? 0.55 + rnd() * 0.5 : 0.25 + rnd() * 0.2);
-      const lean = (rnd() - 0.5) * fs * 0.35;
-      const sy = yAt(ax);
-      const tip = [ax + lean, sy - h];
-      const mid = [ax + lean * 0.3 + (rnd() - 0.5) * fs * 0.1, sy - h * 0.5];
-      const layer = i % 2 ? back : front;
-      const start = tAt(ax);
-      const dur = 0.5 + h / fs * 0.5;
-      const p = stemPath(layer, smooth([[ax, sy], mid, tip]), 2.4 * sc, STEM, start, dur, outAt(ax) + 0.25);
-      const L = p.getTotalLength();
-      // leaves on the spray
-      [0.22, 0.42, 0.6, 0.78].forEach((t, j) => {
-        const q = p.getPointAtLength(L * t), q2 = p.getPointAtLength(Math.min(L, L * t + 2));
-        const tan = Math.atan2(q2.y - q.y, q2.x - q.x) * 180 / Math.PI;
-        leafAt(rnd() < 0.5 ? front : back, q.x, q.y, tan + (j % 2 ? 50 : -50) + (rnd() - 0.5) * 20, (13 + rnd() * 8) * sc * (1 - t * 0.35), start + dur * t, outAt(ax) + 0.1, rnd);
-      });
-      // a side twig with tiny buds
-      if (rnd() < 0.6) {
-        const q = p.getPointAtLength(L * 0.55);
-        const side = rnd() < 0.5 ? -1 : 1;
-        const tw = [q.x + side * fs * 0.14, q.y - fs * 0.12];
-        stemPath(layer, smooth([[q.x, q.y], [q.x + side * fs * 0.07, q.y - fs * 0.08], tw]), 1.4 * sc, STEM, start + dur * 0.55, 0.4, outAt(ax));
-        for (let b = 0; b < 6; b++) {
-          const bx = tw[0] + (rnd() - 0.5) * 16 * sc, by = tw[1] + (rnd() - 0.6) * 14 * sc;
-          budAt(top, bx, by, (2.4 + rnd() * 1.8) * sc, start + dur * 0.55 + 0.3 + b * 0.05, outAt(ax) * 0.5);
+        const H = Math.hypot(tx - bx, ty - by);
+        const ux = (tx - bx) / H, uy = (ty - by) / H, nx = -uy, ny = ux;   // axis + its normal
+        const turns = Math.max(1.6, H / (fs * 0.17));
+        const ph0 = rnd() * Math.PI * 2;
+        const t0 = order * 0.42, outBase = (6 - order) * 0.08;
+        order++;
+        const pts = [];
+        const N = Math.ceil(turns * 26);
+        for (let k = 0; k <= N; k++) {
+          const t = k / N, ph = ph0 + t * turns * Math.PI * 2;
+          const swell = 1 + 0.12 * Math.sin(t * Math.PI);                  // slightly fuller mid-coil
+          pts.push({ x: bx + ux * H * t + nx * Math.sin(ph) * rad * swell, y: by + uy * H * t + ny * Math.sin(ph) * rad * swell, front: Math.cos(ph) > 0 });
         }
+        // free tendril curling up past the top of the letter
+        const last = pts[pts.length - 1];
+        const isLast = idx === Math.max(...Object.keys(PLAN).map(Number));
+        let ang = Math.atan2(uy, ux) + (isLast ? -0.6 : (rnd() - 0.5) * 0.8), cx2 = last.x, cy2 = last.y;   // last one curls away from the badge
+        const tail = fs * (0.18 + rnd() * 0.16), steps = 12, curl = (isLast ? -1 : (rnd() < 0.5 ? -1 : 1)) * (0.12 + rnd() * 0.06);
+        for (let k = 1; k <= steps; k++) { ang += curl; cx2 += Math.cos(ang) * tail / steps; cy2 += Math.sin(ang) * tail / steps; pts.push({ x: cx2, y: cy2, front: true }); }
+        // draw in front/back runs, timed so the vine grows continuously from the bottom up
+        let total = 0; const cum = [0];
+        for (let k = 1; k < pts.length; k++) { total += Math.hypot(pts[k].x - pts[k - 1].x, pts[k].y - pts[k - 1].y); cum.push(total); }
+        const speed = 340 * sc;
+        let s0 = 0;
+        for (let k = 1; k <= pts.length; k++) {
+          if (k === pts.length || pts[k].front !== pts[s0].front) {
+            const seg = pts.slice(s0, Math.min(k + 1, pts.length));
+            if (seg.length > 1) {
+              const d = 'M' + seg.map((p) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' L');
+              const L = cum[Math.min(k, pts.length - 1)] - cum[s0];
+              stemPath(pts[s0].front ? front : back, d, 2.8 * sc, VINE, t0 + cum[s0] / speed, Math.max(0.05, L / speed), outBase + (total - cum[Math.min(k, pts.length - 1)]) / (speed * 3));
+            }
+            s0 = k;
+          }
+        }
+        const tAt = (k) => t0 + cum[k] / speed, outK = (k) => outBase + (total - cum[k]) / (speed * 3);
+        // leaves on the front of the coil, pointing outward so the letter stays readable
+        for (let k = 10; k < pts.length - 4; k += 14 + Math.floor(rnd() * 8)) {
+          if (!pts[k].front) continue;
+          const side = (pts[k].x - (bx + ux * (pts[k].y - by) / (uy || -1))) >= 0 ? 1 : -1;
+          const outward = Math.atan2(ny * side, nx * side) * 180 / Math.PI;
+          leafAt(front, pts[k].x, pts[k].y, outward + (rnd() - 0.5) * 50 - 20, (12 + rnd() * 8) * sc, tAt(k), outK(k), rnd);
+        }
+        // a small bloom halfway up, sitting beside the stroke (not on top of it)
+        const midK = Math.floor(N * (0.45 + rnd() * 0.2));
+        const sideSign = rnd() < 0.5 ? -1 : 1;
+        const mx = bx + ux * H * (midK / N) + nx * sideSign * (rad + fs * 0.07), my = by + uy * H * (midK / N) + ny * sideSign * (rad + fs * 0.07);
+        const kindMid = ['pink', 'white', 'orange'][(order + 1) % 3];
+        if (rnd() < 0.85) flowerAt(top, FLOWERS[kindMid][order % FLOWERS[kindMid].length], mx, my, fs * 0.15, tAt(midK) + 0.15, outK(midK) * 0.5, rnd);
+        else for (let q = 0; q < 5; q++) budAt(top, mx + (rnd() - 0.5) * 14 * sc, my + (rnd() - 0.5) * 12 * sc, (2.4 + rnd() * 1.6) * sc, tAt(midK) + 0.1 + q * 0.05, outK(midK) * 0.5);
+        // the main flower opens at the tip of the tendril
+        const kind = PLAN[idx];
+        flowerAt(top, FLOWERS[kind][idx % FLOWERS[kind].length], cx2, cy2, fs * (0.26 + rnd() * 0.06), t0 + total / speed - 0.05, 0, rnd);
+        leafAt(front, cx2, cy2 + fs * 0.03, 120 + rnd() * 40, 14 * sc, t0 + total / speed - 0.2, 0.05, rnd);
       }
-      // the flower opens once the stem arrives
-      const kind = tall ? palette[i % palette.length] : 'small';
-      const list = FLOWERS[kind];
-      const size = fs * (tall ? 0.3 + rnd() * 0.08 : 0.17 + rnd() * 0.05);
-      flowerAt(top, list[i % list.length], tip[0], tip[1], size, start + dur * 0.9, outAt(ax) * 0.4, rnd);
-      if (tall && rnd() < 0.5) {
-        const q = p.getPointAtLength(L * 0.5);
-        const side = lean > 0 ? -1 : 1;
-        const fork = [q.x + side * fs * 0.2, q.y - fs * 0.16];
-        stemPath(layer, smooth([[q.x, q.y], [q.x + side * fs * 0.1, q.y - fs * 0.12], fork]), 1.8 * sc, STEM, start + dur * 0.5, 0.45, outAt(ax));
-        const k2 = palette[(i + 3) % palette.length];
-        flowerAt(top, FLOWERS[k2][(i + 2) % FLOWERS[k2].length], fork[0], fork[1], size * 0.7, start + dur * 0.5 + 0.4, outAt(ax) * 0.4, rnd);
-      }
-    });
-    // a few flowers tucked along the vine at the foot of the letters
-    letters.forEach((l, i) => {
-      if (i % 3 !== 2) return;
-      const fx = l.x + l.w * 0.5;
-      const kind = ['pink', 'white', 'orange'][i % 3];
-      flowerAt(top, FLOWERS[kind][(i + 1) % FLOWERS[kind].length], fx, yAt(fx) - fs * 0.02, fs * 0.2, tAt(fx) + 0.4, outAt(fx) * 0.4, rnd);
-    });
+    }
   }
   const grow = () => cta.classList.add('is-grown');
   const retract = () => cta.classList.remove('is-grown');
