@@ -309,7 +309,7 @@
     const VINE = '#4f6b34';
     const mctx = document.createElement('canvas').getContext('2d');
     // which letters get a creeper (index among non-space characters), and what blooms at the tip
-    const PLAN = { 0: 'orange', 3: 'pink', 5: 'white', 7: 'orange', 8: 'pink', 9: 'white' };
+    const PLAN = { 0: 'orange', 1: 'pink', 3: 'pink', 5: 'white', 7: 'orange', 8: 'pink', 9: 'white' };
     let n = 0, order = 0;
     const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
     let node;
@@ -329,6 +329,49 @@
         const baseline = (lineH - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + m.fontBoundingBoxAscent;
         const pad = fs * 0.15;
         const ox = b.left - box.left + GPAD - pad, oy = b.top - box.top + GPAD;
+        if (ch === 'o') {   // the "o" gets a wreath: a vine coiling round its bowl, with flowers tucked in
+          const mo = mctx.measureText('o');
+          const cxo = ox + pad + b.width / 2, oBase = oy + baseline;
+          const xh = mo.actualBoundingBoxAscent;
+          const cyo = oBase - xh / 2, rxo = b.width * 0.47, ryo = xh * 0.53, coil = fs * 0.045;
+          const t0 = order * 0.42, outBase = (7 - order) * 0.08; order++;
+          const start = Math.PI * 0.62, sweep = Math.PI * 1.75, turnsO = 9, N = 260;
+          const pts = [];
+          for (let k = 0; k <= N; k++) {
+            const t = k / N, th = start + t * sweep, ph = t * turnsO * Math.PI * 2;
+            const ex = Math.cos(th), ey = Math.sin(th);
+            const w = coil * Math.sin(ph);
+            pts.push({ x: cxo + ex * (rxo + w), y: cyo + ey * (ryo + w), front: Math.cos(ph) > 0, ex, ey });
+          }
+          let total = 0; const cum = [0];
+          for (let k = 1; k < pts.length; k++) { total += Math.hypot(pts[k].x - pts[k - 1].x, pts[k].y - pts[k - 1].y); cum.push(total); }
+          const speed = 420 * sc;
+          let s0 = 0;
+          for (let k = 1; k <= pts.length; k++) {
+            if (k === pts.length || pts[k].front !== pts[s0].front) {
+              const seg = pts.slice(s0, Math.min(k + 1, pts.length));
+              if (seg.length > 1) {
+                const kk = Math.min(k, pts.length - 1);
+                stemPath(pts[s0].front ? front : back, 'M' + seg.map((p) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' L'), 2.6 * sc, VINE, t0 + cum[s0] / speed, Math.max(0.05, (cum[kk] - cum[s0]) / speed), outBase + (total - cum[kk]) / (speed * 3));
+              }
+              s0 = k;
+            }
+          }
+          const tAt = (k) => t0 + cum[k] / speed, outK = (k) => outBase + (total - cum[k]) / (speed * 3);
+          for (let k = 12; k < N - 6; k += 22 + Math.floor(rnd() * 8)) {        // leaves point outward from the ring
+            const p = pts[k];
+            const outward = Math.atan2(p.ey, p.ex) * 180 / Math.PI;
+            leafAt(rnd() < 0.7 ? front : back, p.x, p.y, outward + (rnd() - 0.5) * 60, (11 + rnd() * 7) * sc, tAt(k), outK(k), rnd);
+          }
+          const at = (frac) => { const k = Math.floor(N * frac); const p = pts[k]; return [cxo + p.ex * (rxo + fs * 0.03), cyo + p.ey * (ryo + fs * 0.03), k]; };
+          const [f1x, f1y, k1] = at(0.38);   // lower right
+          flowerAt(top, 'rose-2', f1x, f1y, fs * 0.17, tAt(k1) + 0.1, outK(k1) * 0.5, rnd);
+          const [f2x, f2y, k2] = at(0.97);   // top left, where the vine ends
+          flowerAt(top, 'calendula-2', f2x, f2y, fs * 0.13, tAt(k2) + 0.05, 0, rnd);
+          const [bxq, byq, kq] = at(0.7);
+          for (let q = 0; q < 5; q++) budAt(top, bxq + (rnd() - 0.5) * 14 * sc, byq + (rnd() - 0.5) * 12 * sc, (2.3 + rnd() * 1.6) * sc, tAt(kq) + q * 0.05, outK(kq) * 0.5);
+          continue;
+        }
         const st = /[Ww]/.test(ch) ? null : mainStroke(ch, font, b.width + pad * 2, lineH, baseline, fs, pad);   // W/w only have diagonals
         // axis of the coil: the vertical stroke if there is one, otherwise the letter's first diagonal (W, w)
         let bx, by, tx, ty, rad;
