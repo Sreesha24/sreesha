@@ -215,12 +215,10 @@
   /* ---------- 7. Botanical blooms grow through a few letters of "Work with me" ---------- */
   const cta = document.querySelector('.cta__inner');
   const bloomBox = document.getElementById('blooms');
-  // which letter, which illustration, how tall (× font size), and the flower that sits in front of the letter
-  const BLOOMS = [
-    { letter: 0, src: 'assets/img/bloom-nasturtium.webp', ratio: 719 / 909, h: 1.22, dx: 0.02, front: [[60, 38, 17]] },
-    { letter: 3, src: 'assets/img/bloom-calendula.webp', ratio: 621 / 889, h: 1.15, dx: 0.08, front: [[36, 38, 13], [74, 40, 11]] },
-    { letter: -1, src: 'assets/img/bloom-peony.webp', ratio: 662 / 857, h: 1.0, dx: -0.02, front: [[40, 47, 21]] },
-  ];
+  // one photographic garland, tiled (alternately mirrored) along the heading
+  const GARLAND = { src: 'assets/img/bloom-garland.webp', ratio: 1584 / 672, branchY: 0.76,
+    // flowers (x%, y%) that come forward over the letters
+    front: [[22, 58], [33, 47], [48, 65], [68, 69], [94, 62]] };
   function layoutBlooms() {
     bloomBox.innerHTML = '';
     const title = cta.querySelector('.cta__title a');
@@ -252,24 +250,27 @@
       Object.assign(badge.style, { left: `${Math.min(eRight + fs * 0.06, maxLeft)}px`, top: `${xTop - badge.offsetHeight - fs * 0.04}px` });
     }
 
-    BLOOMS.forEach((b, n) => {
-      const c = chars[b.letter < 0 ? chars.length + b.letter : b.letter];
-      if (!c) return;
-      const h = fs * b.h, w = h * b.ratio;
-      const left = c.left - box.left + c.width / 2 - w / 2 + fs * b.dx;
-      const top = baseline(c) + fs * 0.12 - h;   // stems poke out a little below the letter
-      const mask = b.front.map(([x, y, r]) => `radial-gradient(circle at ${x}% ${y}%, #000 ${r * 0.72}%, transparent ${r}%)`).join(',');
+    const first = chars[0], lastC = chars[chars.length - 1];
+    const textL = first.left - box.left - fs * 0.1, textR = lastC.right - box.left + fs * 0.1;
+    const hG = fs * 1.38, wG = hG * GARLAND.ratio;
+    const top = baseline(first) + fs * 0.1 - hG * GARLAND.branchY;   // branch runs just under the baseline
+    const n = Math.max(1, Math.ceil((textR - textL) / (wG * 0.9)));
+    const step = n > 1 ? (textR - textL - wG) / (n - 1) : 0;
+    const frontMask = GARLAND.front.map(([x, y]) => `radial-gradient(ellipse 4.2% 9.5% at ${x}% ${y}%, #000 78%, transparent 100%)`).join(',');
+    for (let i = 0; i < n; i++) {
+      const left = n > 1 ? textL + step * i : (textL + textR) / 2 - wG / 2;
+      const flip = i % 2 === 1;
       ['back', 'front'].forEach((layer) => {
         const img = document.createElement('img');
-        img.src = b.src; img.alt = '';
-        img.className = `bloom bloom--${layer}`;
-        Object.assign(img.style, { left: `${left}px`, top: `${top}px`, width: `${w}px`, height: `${h}px` });
-        img.style.setProperty('--d', `${n * 0.35}s`);
-        img.style.setProperty('--dout', `${(BLOOMS.length - n - 1) * 0.15}s`);
-        if (layer === 'front') { img.style.webkitMaskImage = mask; img.style.maskImage = mask; }
+        img.src = GARLAND.src; img.alt = '';
+        img.className = `bloom bloom--${layer}${flip ? ' is-flip' : ''}`;
+        Object.assign(img.style, { left: `${left}px`, top: `${top}px`, width: `${wG}px`, height: `${hG}px` });
+        img.style.setProperty('--d', `${(i * 0.55 + (layer === 'front' ? 0.25 : 0)).toFixed(2)}s`);
+        img.style.setProperty('--dout', `${((n - 1 - i) * 0.25).toFixed(2)}s`);
+        if (layer === 'front') { img.style.webkitMaskImage = frontMask; img.style.maskImage = frontMask; }
         bloomBox.appendChild(img);
       });
-    });
+    }
   }
   const grow = () => cta.classList.add('is-grown');
   const retract = () => cta.classList.remove('is-grown');

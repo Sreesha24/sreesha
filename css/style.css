@@ -281,7 +281,7 @@ main, .footer { position: relative; z-index: 1; }
 .cta__title em { font-style: italic; }
 .cta__title a { display: inline-block; }
 .cta__badge {
-  position: absolute; left: calc(100% + 13px); top: 25px;
+  position: absolute; left: calc(100% + 13px); top: 25px; z-index: 3;
   background: var(--green); color: #fff; padding: 8px; white-space: nowrap;
   font-weight: 500; font-size: 16px; letter-spacing: -0.64px; line-height: 1.2;
 }
@@ -291,22 +291,27 @@ main, .footer { position: relative; z-index: 1; }
 .blooms { position: absolute; inset: 0; pointer-events: none; }
 .bloom {
   position: absolute; max-width: none; z-index: 0;
-  transform-origin: 50% 100%;
-  clip-path: inset(100% 0 0 0);                 /* hidden: revealed from the stem up */
-  transform: scale(.82) translateY(4%);
+  transform-origin: 50% 76%;
+  /* soft fade at both ends so tiles blend into each other and into the page */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  clip-path: inset(0 100% 0 0);                 /* hidden: grows in from the left along the branch */
+  transform: translateY(5%) scale(.97);
   opacity: 0;
-  transition: clip-path 1.1s cubic-bezier(.6,0,.8,.4) var(--dout, 0s), transform 1.1s cubic-bezier(.6,0,.8,.4) var(--dout, 0s), opacity .5s .7s;
+  transition: clip-path 1.2s cubic-bezier(.6,0,.8,.4) var(--dout, 0s), transform 1.2s cubic-bezier(.6,0,.8,.4) var(--dout, 0s), opacity .4s calc(var(--dout, 0s) + .8s);
 }
-.bloom--front { z-index: 2; }                    /* one or two flowers overlap the letter */
+.bloom.is-flip { clip-path: inset(0 0 0 100%); transform: scaleX(-1) translateY(5%) scale(.97); }
+.bloom--front { z-index: 2; }                    /* a few flowers come forward over the letters */
 .cta__inner.is-grown .bloom {
-  clip-path: inset(-10% -10% -10% -10%); transform: none; opacity: 1;
-  transition: clip-path 1.6s cubic-bezier(.25,.7,.25,1) var(--d, 0s), transform 1.8s cubic-bezier(.25,.9,.3,1.1) var(--d, 0s), opacity .3s var(--d, 0s);
+  clip-path: inset(-20% -5% -20% -5%); transform: none; opacity: 1;
+  transition: clip-path 2.2s cubic-bezier(.3,.5,.25,1) var(--d, 0s), transform 2.4s cubic-bezier(.25,.9,.3,1) var(--d, 0s), opacity .3s var(--d, 0s);
 }
+.cta__inner.is-grown .bloom.is-flip { transform: scaleX(-1); }
 @media (prefers-reduced-motion: reduce) { .bloom { transition: opacity .2s !important; clip-path: none; transform: none; } }
 
 /* ---------- Footer ---------- */
 .footer {
-  max-width: var(--page); margin: -13px auto 0; padding: 0 var(--gutter) 73px;
+  max-width: var(--page); margin: 64px auto 0; padding: 0 var(--gutter) 73px;   /* room for the garland below the heading */
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 .footer__meta { font-size: 14px; line-height: 24px; color: var(--text-meta); }
