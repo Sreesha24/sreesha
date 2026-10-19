@@ -129,7 +129,7 @@
     otc.style.setProperty('--s', scale.toFixed(4));
     otc.style.setProperty('--strip-h', `${h}px`);
     // lead-in on the left so "4x Global Design Awards" (≈ x 290 in the design) starts centred on screen
-    const pad = Math.max(0, Math.min(1400, vw / (2 * scale) - 290));
+    const pad = Math.max(0, Math.min(1150, vw / (2 * scale) - 290));
     otc.style.setProperty('--pad', `${pad.toFixed(1)}px`);
     distance = Math.max(0, (CANVAS_W + pad) * scale - vw);
     otc.style.height = `${vh + distance}px`;
@@ -137,7 +137,9 @@
   }
   function updateOtc() {
     const vh = window.innerHeight;
-    const p = Math.min(1, Math.max(0, (window.scrollY - otc.offsetTop) / (distance || 1)));
+    const raw = Math.min(1, Math.max(0, (window.scrollY - otc.offsetTop) / (distance || 1)));
+    // gentle start: the first stretch of scrolling moves the strip slowly so the awards get a proper look
+    const p = raw < 0.12 ? (raw / 0.12) ** 2 * 0.04 : 0.04 + (raw - 0.12) / 0.88 * 0.96;
     track.style.transform = `translate3d(${-p * distance}px,0,0)`;
     const at = Math.round(p * (TICKS - 1));
     if (at !== lastTick) {
