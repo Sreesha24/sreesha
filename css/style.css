@@ -280,7 +280,7 @@ main, .footer { position: relative; z-index: 1; }
 .card__meta img { height: auto; flex: none; }
 .card__title { font-size: clamp(22px, 2vw, 28px); line-height: 1.15; font-weight: 600; letter-spacing: -0.9px; margin-top: 6px; color: var(--ink); text-wrap: balance; }
 .card--wide .card__title { font-size: clamp(24px, 2.3vw, 32px); }
-.card__desc { font-size: 16px; line-height: 1.45; letter-spacing: -0.2px; margin-top: 6px; color: #4a4a4a; max-width: 46ch; }
+.card__desc { font-size: 14px; line-height: 1.5; letter-spacing: -0.2px; margin-top: 6px; color: #4a4a4a; max-width: 46ch; }
 .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 23px; }
 
 /* "View project" label that follows the cursor over a project */
@@ -454,6 +454,7 @@ main, .footer { position: relative; z-index: 1; }
 @media (max-width: 860px) {
   .toplinks { position: static; justify-content: flex-start; padding: 16px var(--gutter) 0; }
   .otc__hud { right: var(--gutter); }
+  .otc__sticky { justify-content: space-between; padding-top: 76px; }   /* logos tuck under the top bar, strip stays on the bottom edge */
   .otc__progress { gap: 3px; }
   .otc__hint { display: none; }
   .hero { padding-top: 56px; }
@@ -488,7 +489,7 @@ main, .footer { position: relative; z-index: 1; }
   .card__meta { flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; flex-wrap: wrap; gap: 6px 12px; }
   .card__meta span { flex-basis: 100%; }
   .card__title { font-size: 22px; }
-  .card__desc { font-size: 15px; }
+  .card__desc { font-size: 14px; }
   .card--wide .card__body { padding: 0; }
   .clients__logos img { zoom: .62; }
   .footer__links { font-size: 18px; gap: 16px; }
