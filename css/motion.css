@@ -27,10 +27,7 @@ html.js.intro .hero__copy > p:nth-child(1) { animation-delay: 1.15s; }
 html.js.intro .hero__copy > p:nth-child(2) { animation-delay: 1.27s; }
 html.js.intro .hero__more { animation: in-up .6s cubic-bezier(.2,.8,.2,1) 1.4s both; }
 
-/* About page intro */
-html.js.intro .ab-hero__me { animation: pop .7s cubic-bezier(.3,1.4,.5,1) .3s both; }
-html.js.intro .ab-hero__title { animation: in-up .7s cubic-bezier(.2,.8,.2,1) .5s both; }
-html.js.intro .ab-hero__tag { animation: in-up .6s cubic-bezier(.2,.8,.2,1) .7s both; }
+/* About page intro lives in css/about.css */
 
 /* scroll reveals: things rise into place the first time they come on screen */
 html.js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.8,.2,1) var(--rd, 0s), transform .8s cubic-bezier(.2,.8,.2,1) var(--rd, 0s); }

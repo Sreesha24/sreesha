@@ -13,12 +13,9 @@
     ['.section-title', 'reveal--title', 0],
     ['.card', '', 0.12],
     ['.clients__logos li', 'reveal--logo', 0.05],
-    ['.ab-facts__list li', '', 0.06],
-    ['.ab-facts__wall', '', 0],
-    ['.ab-story__body p', '', 0.1],
-    ['.ab-rows li', '', 0.05],
-    ['.board', '', 0],
-    ['.ab-connect__title, .ab-connect__row', '', 0.12],
+    ['.ab-block__title', 'reveal--title', 0],
+    ['.ab-rows li', '', 0.04],
+    ['.ab-life__intro > *', '', 0.12],
   ];
   const targets = [];
   groups.forEach(([sel, extra, step]) => {

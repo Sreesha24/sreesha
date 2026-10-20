@@ -1,80 +1,160 @@
-/* Shared behaviour for inner pages (about, …): ruler nav marker, fact/photo pairing, coming-soon toast */
+/* Inner pages (about, …): the same ruler-nav behaviour as the homepage, plus the About photo pile */
 (function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Ruler nav ("clicker") — mirrors js/main.js ---------- */
   const ruler = document.querySelector('.ruler');
   const indicator = ruler.querySelector('.ruler__indicator');
+  const items = [...ruler.querySelectorAll('.ruler__item')];
   const isHorizontal = () => window.matchMedia('(max-width: 1100px)').matches;
-  function placeIndicator() {
-    const item = ruler.querySelector('.ruler__item.is-active');
-    if (!item) return;
+  const home = items.find((i) => i.classList.contains('is-active')) || items[0];   // this page's own item
+  let current = home;
+
+  function placeIndicator(item) {
+    const listBox = ruler.querySelector('.ruler__list').getBoundingClientRect();
     const t = item.querySelector('.ruler__tick').getBoundingClientRect();
     if (isHorizontal()) indicator.style.setProperty('--x', `${t.left - ruler.getBoundingClientRect().left + ruler.scrollLeft}px`);
-    else indicator.style.setProperty('--y', `${t.top - ruler.querySelector('.ruler__list').getBoundingClientRect().top + t.height / 2 - 0.75}px`);
+    else indicator.style.setProperty('--y', `${t.top - listBox.top + t.height / 2 - 0.75}px`);
   }
-  window.addEventListener('resize', placeIndicator);
-  if (document.fonts) document.fonts.ready.then(placeIndicator);
-  placeIndicator();
+  function flickBetween(from, to) {
+    // every minor tick the indicator passes "clicks"
+    const all = [...ruler.querySelectorAll('.ruler__list > li')];
+    const a = all.indexOf(from.parentElement), b = all.indexOf(to.parentElement);
+    const [lo, hi] = a < b ? [a, b] : [b, a];
+    const ticks = [];
+    for (let k = lo + 1; k < hi; k++) if (all[k].classList.contains('ruler__minor')) ticks.push(...all[k].children);
+    if (a > b) ticks.reverse();
+    ticks.forEach((el, n) => setTimeout(() => { el.classList.remove('flick'); void el.offsetWidth; el.classList.add('flick'); }, n * 38));
+  }
+  function setActive(item, animate = true) {
+    if (item === current && animate) return;
+    if (animate) flickBetween(current, item);
+    items.forEach((i) => { i.classList.toggle('is-active', i === item); i.removeAttribute('aria-current'); });
+    item.setAttribute('aria-current', 'page');
+    current = item;
+    requestAnimationFrame(() => placeIndicator(item));
+  }
 
-  // contact → glide down to the footer
-  const contactLink = ruler.querySelector('[data-nav="contact"]');
-  if (contactLink) contactLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('contact-footer').scrollIntoView({ behavior: 'smooth', block: 'end' });
+  let spyLock = 0;
+  items.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;   // let new-tab clicks through
+      const key = item.dataset.nav;
+      if (item === home) {
+        e.preventDefault(); setActive(item); window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      } else if (key === 'contact') {
+        e.preventDefault(); setActive(item); spyLock = Date.now() + 2500;
+        document.getElementById('contact-footer').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'end' });
+      } else if (item.hasAttribute('data-soon')) {
+        e.preventDefault(); setActive(item); showToast(`${key} page — coming soon ✦`);
+        setTimeout(() => setActive(items[spyIndex()]), 900);
+      } else {
+        // another page: let the marker glide there first, then go
+        e.preventDefault(); setActive(item);
+        setTimeout(() => { window.location.href = item.href; }, reduceMotion ? 0 : 420);
+      }
+    });
   });
+  const realign = () => placeIndicator(current);
+  window.addEventListener('resize', realign);
+  if (document.fonts) document.fonts.ready.then(realign);
+  realign();
+  // coming back with the back button: reset the marker to this page
+  window.addEventListener('pageshow', (e) => { if (e.persisted) setActive(items[spyIndex()], false); });
 
-  // About: hovering a fact brings its photo forward
-  const facts = document.querySelector('.ab-facts');
-  if (facts) {
-    const lines = facts.querySelectorAll('.ab-facts__list li');
-    const photos = facts.querySelectorAll('.ab-photo');
-    const show = (key) => {
-      facts.classList.toggle('has-focus', !!key);
-      lines.forEach((l) => l.classList.toggle('is-on', l.dataset.photo === key));
-      photos.forEach((p) => p.classList.toggle('is-on', p.dataset.photo === key));
-    };
-    lines.forEach((l) => {
-      l.addEventListener('pointerenter', () => show(l.dataset.photo));
-      l.addEventListener('pointerleave', () => show(null));
-    });
-    photos.forEach((p) => {
-      p.addEventListener('pointerenter', () => show(p.dataset.photo));
-      p.addEventListener('pointerleave', () => show(null));
-    });
+  // scroll spy: this page's item, or "contact" once you reach the bottom
+  function spyIndex() {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) return items.findIndex((i) => i.dataset.nav === 'contact');
+    return items.indexOf(home);
   }
-
-  // Sticker board: drag stickers around (desktop); last one touched comes to the top
-  const board = document.getElementById('board');
-  if (board && window.matchMedia('(min-width: 861px)').matches) {
-    let z = 10;
-    board.querySelectorAll('.stk').forEach((st) => {
-      let sx, sy, ox = 0, oy = 0, lim;
-      st.addEventListener('pointerdown', (e) => {
-        e.preventDefault(); st.setPointerCapture(e.pointerId);
-        sx = e.clientX; sy = e.clientY;
-        ox = parseFloat(st.style.getPropertyValue('--dx')) || 0; oy = parseFloat(st.style.getPropertyValue('--dy')) || 0;
-        // how far it can travel while keeping ~40% of it on the board
-        const b = board.getBoundingClientRect(), r = st.getBoundingClientRect();
-        lim = { l: b.left - r.left - r.width * 0.6, r: b.right - r.right + r.width * 0.6, t: b.top - r.top - r.height * 0.6, b: b.bottom - r.bottom + r.height * 0.6 };
-        st.classList.add('is-drag'); st.style.zIndex = ++z;
-      });
-      st.addEventListener('pointermove', (e) => {
-        if (!st.classList.contains('is-drag')) return;
-        const mx = Math.max(lim.l, Math.min(lim.r, e.clientX - sx)), my = Math.max(lim.t, Math.min(lim.b, e.clientY - sy));
-        st.style.setProperty('--dx', `${ox + mx}px`); st.style.setProperty('--dy', `${oy + my}px`);
-      });
-      const end = () => st.classList.remove('is-drag');
-      st.addEventListener('pointerup', end); st.addEventListener('pointercancel', end);
-    });
+  // when the last section leaves the screen, the side nav glides down to rest above the footer (as on the homepage)
+  const lastSection = document.querySelector('.ab-life') || document.querySelector('main > section:last-of-type');
+  function updateNavDrop() {
+    if (!lastSection) return;
+    const vh = window.innerHeight;
+    const navBox = ruler.getBoundingClientRect();
+    ruler.style.setProperty('--navdrop', `${Math.max(0, vh - 120 - 87 - navBox.height)}px`);
+    document.body.classList.toggle('nav-down', lastSection.getBoundingClientRect().bottom < vh - 2);
   }
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateNavDrop();
+      const idx = spyIndex();
+      if (items[idx] !== current && !current.hasAttribute('data-soon') && Date.now() > spyLock) setActive(items[idx]);
+      ticking = false;
+    });
+  }, { passive: true });
+  window.addEventListener('resize', updateNavDrop);
+  updateNavDrop();
 
-  // "Coming soon" for pages that aren't built yet
+  /* ---------- Toast ---------- */
   const toast = document.getElementById('toast');
   let tt;
-  document.querySelectorAll('[data-soon]').forEach((el) => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      toast.textContent = el.dataset.nav ? `${el.dataset.nav} page — coming soon ✦` : 'Coming soon ✦';
-      toast.classList.add('is-on');
-      clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('is-on'), 1600);
+  function showToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg; toast.classList.add('is-on');
+    clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('is-on'), 1600);
+  }
+  document.querySelectorAll('[data-soon]:not(.ruler__item)').forEach((el) => el.addEventListener('click', (e) => { e.preventDefault(); showToast('Coming soon ✦'); }));
+
+  /* ---------- About: the photo pile ---------- */
+  const pile = document.getElementById('pile');
+  if (pile) {
+    const pieces = [...pile.querySelectorAll('.pc')];
+    // each piece gets its own little tilt for hover, and a stagger for the drop-in
+    const tilts = [-2.5, 2, -1.5, 3, -2, 2.5, -3, 2, 1.5, -2, 2.5];
+    const order = [...pieces].sort((a, b) => parseFloat(a.style.getPropertyValue('--x')) - parseFloat(b.style.getPropertyValue('--x')));
+    pieces.forEach((p, i) => {
+      p.style.setProperty('--tilt', `${tilts[i % tilts.length]}deg`);
+      p.style.setProperty('--drop', `${-tilts[i % tilts.length] * 2}deg`);
+      p.style.setProperty('--d', `${(order.indexOf(p) * 0.06).toFixed(2)}s`);
     });
-  });
+    const videos = pieces.filter((p) => p.tagName === 'VIDEO');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      pile.classList.add('is-in', 'is-settled');
+    } else {
+      const io = new IntersectionObserver(([en]) => {
+        if (!en.isIntersecting) return;
+        io.disconnect(); pile.classList.add('is-in');
+        setTimeout(() => pile.classList.add('is-settled'), 1400);
+      }, { threshold: 0.25 });
+      io.observe(pile);
+    }
+    // clips only play while the pile is on screen (and never with reduced motion)
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => {
+        videos.forEach((v) => { if (en.isIntersecting) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); });
+      }, { threshold: 0.1 }).observe(pile);
+    }
+
+    // drag pieces around (mouse / trackpad); the one you touch comes to the top
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      let z = 20;
+      pieces.forEach((pc) => {
+        let sx, sy, ox = 0, oy = 0, lim;
+        pc.addEventListener('pointerdown', (e) => {
+          if (e.button !== 0) return;
+          e.preventDefault(); pc.setPointerCapture(e.pointerId);
+          sx = e.clientX; sy = e.clientY;
+          ox = parseFloat(pc.style.getPropertyValue('--dx')) || 0; oy = parseFloat(pc.style.getPropertyValue('--dy')) || 0;
+          // keep at least ~40% of the piece inside the pile
+          const b = pile.getBoundingClientRect(), r = pc.getBoundingClientRect();
+          lim = { l: b.left - r.left - r.width * 0.6, r: b.right - r.right + r.width * 0.6, t: b.top - r.top - r.height * 0.6, b: b.bottom - r.bottom + r.height * 0.6 };
+          pc.classList.add('is-drag'); pc.style.zIndex = ++z;
+        });
+        pc.addEventListener('pointermove', (e) => {
+          if (!pc.classList.contains('is-drag')) return;
+          const mx = Math.max(lim.l, Math.min(lim.r, e.clientX - sx)), my = Math.max(lim.t, Math.min(lim.b, e.clientY - sy));
+          pc.style.setProperty('--dx', `${ox + mx}px`); pc.style.setProperty('--dy', `${oy + my}px`);
+        });
+        const end = () => pc.classList.remove('is-drag');
+        pc.addEventListener('pointerup', end); pc.addEventListener('pointercancel', end);
+      });
+      // positions are in px, so a resize puts everything back where it belongs
+      window.addEventListener('resize', () => pieces.forEach((pc) => { pc.style.removeProperty('--dx'); pc.style.removeProperty('--dy'); }));
+    }
+  }
 })();
