@@ -6,9 +6,33 @@
   const typed = document.getElementById('typed');
   const caret = document.querySelector('.caret');
   const phrase = 'product designer. builder. artist.';
+  // once typed, split into words so each one can be hovered
+  const WORD_GIFS = { 'product designer.': 'assets/img/hover-product-designer.gif' };
+  function splitWords() {
+    typed.innerHTML = ['product designer.', 'builder.', 'artist.']
+      .map((w) => `<span class="tw${WORD_GIFS[w] ? ' tw--gif' : ''}" data-w="${w}">${w}</span>`).join(' ');
+    const tagline = typed.closest('.hero__tagline');
+    const pop = document.createElement('span');
+    pop.className = 'tw-pop'; pop.setAttribute('aria-hidden', 'true');
+    tagline.appendChild(pop);
+    typed.querySelectorAll('.tw--gif').forEach((el) => {
+      const src = WORD_GIFS[el.dataset.w];
+      new Image().src = src;                                   // preload
+      const show = () => {
+        pop.style.backgroundImage = `url(${src})`;
+        pop.style.left = `${el.offsetLeft + el.offsetWidth + 18}px`;
+        tagline.classList.add('is-focus'); el.classList.add('is-on'); pop.classList.add('is-on');
+      };
+      const hide = () => { tagline.classList.remove('is-focus'); el.classList.remove('is-on'); pop.classList.remove('is-on'); };
+      el.addEventListener('pointerenter', show);
+      el.addEventListener('pointerleave', hide);
+      el.addEventListener('click', () => (pop.classList.contains('is-on') ? hide() : show()));   // tap on phones
+    });
+  }
   if (reduceMotion) {
     typed.textContent = phrase;
     caret.classList.add('is-done');
+    splitWords();
   } else {
     let i = 0;
     const tick = () => {
@@ -18,6 +42,7 @@
         setTimeout(tick, ch === '.' ? 380 : 45 + Math.random() * 55);
       } else {
         caret.classList.add('is-done');
+        splitWords();
       }
     };
     setTimeout(tick, 750);   // starts right after the photo and "hi" appear
