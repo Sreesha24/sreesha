@@ -83,6 +83,9 @@
       const key = item.dataset.nav;
       if (key === 'home') {
         e.preventDefault(); setActive(item); window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      } else if (key === 'contact') {
+        e.preventDefault(); setActive(item); spyLock = Date.now() + 2500;   // don't let scroll-spy flip it back mid-glide
+        document.getElementById('contact-footer').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'end' });
       } else if (key === 'work') {
         e.preventDefault(); setActive(item);
         document.getElementById('work').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
@@ -99,8 +102,10 @@
   realign();
 
   // Scroll spy: "work" while the shipped-projects section is on screen, otherwise "home"
+  let spyLock = 0;
   const workSec = document.getElementById('work');
   function spyIndex() {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) return items.findIndex((i) => i.dataset.nav === 'contact');
     const r = workSec.getBoundingClientRect();
     const mid = window.innerHeight * 0.45;
     return (r.top < mid && r.bottom > mid) ? items.findIndex((i) => i.dataset.nav === 'work') : 0;
@@ -161,7 +166,7 @@
     requestAnimationFrame(() => {
       updateOtc();
       const idx = spyIndex();
-      if (items[idx] !== current && !current.hasAttribute('data-soon')) setActive(items[idx]);
+      if (items[idx] !== current && !current.hasAttribute('data-soon') && Date.now() > spyLock) setActive(items[idx]);
       ticking = false;
     });
   }, { passive: true });

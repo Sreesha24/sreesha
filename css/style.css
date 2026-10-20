@@ -121,7 +121,7 @@ main, .footer { position: relative; z-index: 1; }
 .toplinks {
   position: absolute; z-index: 5; top: 72px;
   right: max(71px, calc((100vw - var(--page)) / 2 + 71px));
-  display: flex; gap: 32px;
+  display: flex; gap: 28px;
   font-family: var(--serif); font-size: 18px; color: var(--text-light);
 }
 .lk { position: relative; display: inline-flex; align-items: baseline; transition: color .2s; outline: none; }
@@ -384,7 +384,7 @@ main, .footer { position: relative; z-index: 1; }
   @keyframes flick { 0% { transform: scaleY(1); } 35% { transform: scaleY(3); background: var(--ink); } 100% { transform: scaleY(1); } }
   .ruler__indicator { top: auto; bottom: 12px; left: 0; width: 1.5px; height: 14px; transform: translateX(var(--x, 0px)); }
 
-  .toplinks { top: 18px; right: var(--gutter); z-index: 25; position: absolute; font-size: 16px; gap: 20px; }
+  .toplinks { top: 18px; right: var(--gutter); z-index: 25; position: absolute; font-size: 16px; gap: 16px; }
   .hero { padding-top: 88px; }
   .work { margin-top: 120px; }
   .cta__title { font-size: clamp(72px, 15vw, 184px); }
@@ -419,7 +419,7 @@ main, .footer { position: relative; z-index: 1; }
   .ruler::-webkit-scrollbar { display: none; }
   .ruler__minor { gap: 7px; padding: 0 8px; }
   .ruler__item { font-size: 13px; }
-  .toplinks { font-size: 15px; gap: 16px; flex-wrap: wrap; }
+  .toplinks { font-size: 15px; gap: 12px; flex-wrap: wrap; }
   .hero__tagline { font-size: 28px; }
   .hero__copy { font-size: 16px; line-height: 22px; }
   .hero__community { font-size: 14px; line-height: 1.5; }

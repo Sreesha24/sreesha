@@ -14,6 +14,13 @@
   if (document.fonts) document.fonts.ready.then(placeIndicator);
   placeIndicator();
 
+  // contact → glide down to the footer
+  const contactLink = ruler.querySelector('[data-nav="contact"]');
+  if (contactLink) contactLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('contact-footer').scrollIntoView({ behavior: 'smooth', block: 'end' });
+  });
+
   // About: hovering a fact brings its photo forward
   const facts = document.querySelector('.ab-facts');
   if (facts) {
