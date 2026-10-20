@@ -10,7 +10,8 @@
   --text-muted: #555557;
   --text-meta: #6b6b6b;
   --line: #ececec;
-  --glow: #a9df9c;
+  --glow: #c6ecbb;
+  --sticker-edge: #c4c4bd;
   --green: #039100;
   --green-dark: #1b6a2c;   /* readable link-hover green (~6.6:1 on white) */
   --bg: #fff;
@@ -46,25 +47,69 @@ ol, ul { list-style: none; margin: 0; padding: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* Soft mint halo around text (tagline + off-the-clock labels) */
-.glow {   /* sticker: a crisp mint outline with a small hard shadow, not a soft glow */
+.glow {   /* sticker: light-green fill around the letters, a light-grey cut edge outside it, and a whisper of shadow for depth */
   text-shadow:
-    2.4px 0.0px 0 var(--glow),
-    2.2px 0.9px 0 var(--glow),
-    1.7px 1.7px 0 var(--glow),
-    0.9px 2.2px 0 var(--glow),
-    0.0px 2.4px 0 var(--glow),
-    -0.9px 2.2px 0 var(--glow),
-    -1.7px 1.7px 0 var(--glow),
-    -2.2px 0.9px 0 var(--glow),
-    -2.4px 0.0px 0 var(--glow),
-    -2.2px -0.9px 0 var(--glow),
-    -1.7px -1.7px 0 var(--glow),
-    -0.9px -2.2px 0 var(--glow),
-    -0.0px -2.4px 0 var(--glow),
-    0.9px -2.2px 0 var(--glow),
-    1.7px -1.7px 0 var(--glow),
-    2.2px -0.9px 0 var(--glow),
-    1.5px 3px 0 rgba(20, 60, 25, .22);
+    1.6px 0.0px 0 var(--glow),
+    1.5px 0.6px 0 var(--glow),
+    1.1px 1.1px 0 var(--glow),
+    0.6px 1.5px 0 var(--glow),
+    0.0px 1.6px 0 var(--glow),
+    -0.6px 1.5px 0 var(--glow),
+    -1.1px 1.1px 0 var(--glow),
+    -1.5px 0.6px 0 var(--glow),
+    -1.6px 0.0px 0 var(--glow),
+    -1.5px -0.6px 0 var(--glow),
+    -1.1px -1.1px 0 var(--glow),
+    -0.6px -1.5px 0 var(--glow),
+    -0.0px -1.6px 0 var(--glow),
+    0.6px -1.5px 0 var(--glow),
+    1.1px -1.1px 0 var(--glow),
+    1.5px -0.6px 0 var(--glow),
+    2.8px 0.0px 0 var(--glow),
+    2.7px 0.9px 0 var(--glow),
+    2.3px 1.6px 0 var(--glow),
+    1.6px 2.3px 0 var(--glow),
+    0.9px 2.7px 0 var(--glow),
+    0.0px 2.8px 0 var(--glow),
+    -0.9px 2.7px 0 var(--glow),
+    -1.6px 2.3px 0 var(--glow),
+    -2.3px 1.6px 0 var(--glow),
+    -2.7px 0.9px 0 var(--glow),
+    -2.8px 0.0px 0 var(--glow),
+    -2.7px -0.9px 0 var(--glow),
+    -2.3px -1.6px 0 var(--glow),
+    -1.6px -2.3px 0 var(--glow),
+    -0.9px -2.7px 0 var(--glow),
+    -0.0px -2.8px 0 var(--glow),
+    0.9px -2.7px 0 var(--glow),
+    1.6px -2.3px 0 var(--glow),
+    2.3px -1.6px 0 var(--glow),
+    2.7px -0.9px 0 var(--glow),
+    4.0px 0.0px 0 var(--sticker-edge),
+    3.9px 1.0px 0 var(--sticker-edge),
+    3.5px 2.0px 0 var(--sticker-edge),
+    2.8px 2.8px 0 var(--sticker-edge),
+    2.0px 3.5px 0 var(--sticker-edge),
+    1.0px 3.9px 0 var(--sticker-edge),
+    0.0px 4.0px 0 var(--sticker-edge),
+    -1.0px 3.9px 0 var(--sticker-edge),
+    -2.0px 3.5px 0 var(--sticker-edge),
+    -2.8px 2.8px 0 var(--sticker-edge),
+    -3.5px 2.0px 0 var(--sticker-edge),
+    -3.9px 1.0px 0 var(--sticker-edge),
+    -4.0px 0.0px 0 var(--sticker-edge),
+    -3.9px -1.0px 0 var(--sticker-edge),
+    -3.5px -2.0px 0 var(--sticker-edge),
+    -2.8px -2.8px 0 var(--sticker-edge),
+    -2.0px -3.5px 0 var(--sticker-edge),
+    -1.0px -3.9px 0 var(--sticker-edge),
+    -0.0px -4.0px 0 var(--sticker-edge),
+    1.0px -3.9px 0 var(--sticker-edge),
+    2.0px -3.5px 0 var(--sticker-edge),
+    2.8px -2.8px 0 var(--sticker-edge),
+    3.5px -2.0px 0 var(--sticker-edge),
+    3.9px -1.0px 0 var(--sticker-edge),
+    0.5px 2.5px 1.5px rgba(0,0,0,.12);
 }
 
 /* ---------- Background grid lines ---------- */
