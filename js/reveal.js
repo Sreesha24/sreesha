@@ -37,3 +37,18 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
   targets.forEach((t) => io.observe(t));
 })();
+
+/* "last visitor: city" — counts each browser session once, shows the visit before yours */
+(function () {
+  const el = document.getElementById('lastVisitor');
+  if (!el || location.protocol === 'file:') return;
+  let seen = false;
+  try { seen = sessionStorage.getItem('lv-sent') === '1'; } catch (e) {}
+  fetch('/api/last-visitor', { method: seen ? 'GET' : 'POST' })
+    .then((r) => r.json())
+    .then(({ last }) => {
+      try { sessionStorage.setItem('lv-sent', '1'); } catch (e) {}
+      if (last) { el.querySelector('span').textContent = last; el.classList.remove('is-empty'); }
+    })
+    .catch(() => {});
+})();
