@@ -271,7 +271,7 @@ main, .footer { position: relative; z-index: 1; }
 .card:hover .card__ui { transform: translate(-50%, -2%); box-shadow: 0 18px 40px rgba(0,0,0,.18); }
 .card:hover .card__ui--rgm { transform: translate(-50%, 0) scale(1.02); transform-origin: 50% 100%; }
 .card__body { display: flex; flex-direction: column; gap: 0; padding-top: 8px; min-width: 0; }
-.card--wide .card__body { padding: 0 0 0 clamp(16px, 2.5vw, 40px); }
+.card--wide .card__body { padding: 0 0 0 8px; }   /* 24px gap + 8px = 32px to the image */
 .card__meta {
   display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 28px;
   font-size: 12.5px; line-height: 1.4; letter-spacing: -0.2px; color: var(--text-meta);
