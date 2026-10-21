@@ -199,7 +199,7 @@ main, .footer { position: relative; z-index: 1; }
 .lk:hover .lk__b:last-child, .lk:focus-visible .lk__b:last-child { transform: translateX(4px); }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: 221px; display: flex; flex-direction: column; gap: 16px; }
+.hero { padding-top: 221px; display: flex; flex-direction: column; gap: 28px; }
 .hero__name { display: flex; flex-direction: column; gap: 8px; }
 .hero__hi { font-weight: 500; font-size: 15.5px; line-height: 24px; color: var(--black); margin-top: 0; }
 .hero__name .hero__hi { margin-bottom: -4px; }
