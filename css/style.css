@@ -332,8 +332,8 @@ main, .footer { position: relative; z-index: 1; }
   display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(40px, 7vh, 72px); overflow-x: clip;
 }
 .otc__stage { position: relative; height: var(--strip-h, 608px); display: flex; align-items: flex-end; flex: none; }
-.otc__track { position: relative; width: calc((4865px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
-.otc__canvas { position: absolute; left: 0; top: 0; width: calc(4865px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
+.otc__track { position: relative; width: calc((4200px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
+.otc__canvas { position: absolute; left: 0; top: 0; width: calc(4200px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
 .otc__inner { position: absolute; inset: 0; transform: translateX(var(--pad, 0px)); }   /* real content, shifted right by the lead-in */
 .otc__fill-grass { position: absolute; right: 100%; margin-right: -2px; top: 387px; width: 1400px; height: 221px; z-index: 2; pointer-events: none;
   background: url(../assets/img/otc-grass.webp) left top / auto 100% no-repeat; transform: scaleX(-1); }   /* mirrored so it joins seamlessly */

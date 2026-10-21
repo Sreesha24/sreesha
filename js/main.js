@@ -139,7 +139,7 @@
   /* ---------- 4. Off the clock: vertical scroll → horizontal travel ---------- */
   const otc = document.querySelector('.otc');
   const track = document.getElementById('otcTrack');
-  const CANVAS_W = 4865, CANVAS_H = 608;
+  const CANVAS_W = 4200, CANVAS_H = 608;
   let distance = 0, scale = 1;
   const prog = document.getElementById('otcProgress');
   const TICKS = 31;
