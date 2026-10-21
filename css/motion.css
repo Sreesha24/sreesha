@@ -20,7 +20,7 @@ html.js.intro .ruler__indicator { animation: fade-in .4s ease .75s both; }
 html.js.intro .toplinks > * { animation: in-down .5s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(.35s + var(--i, 0) * .06s); }
 
 /* hero: photo pops, hi fades up, tagline types (JS), then the copy settles in */
-html.js.intro .avatar { animation: pop .7s cubic-bezier(.3,1.4,.5,1) .35s both; }
+html.js.intro .hero-photo, html.js.intro .avatar { animation: pop .7s cubic-bezier(.3,1.4,.5,1) .35s both; }
 html.js.intro .hero__hi { animation: in-up .5s cubic-bezier(.2,.8,.2,1) .55s both; }
 html.js.intro .hero__copy > p { animation: in-up .6s cubic-bezier(.2,.8,.2,1) both; }
 html.js.intro .hero__copy > p:nth-child(1) { animation-delay: 1.15s; }

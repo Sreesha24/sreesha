@@ -51,6 +51,7 @@
   /* ---------- 2. 3D swivel avatar ---------- */
   const avatar = document.getElementById('avatar');
   const card = avatar.querySelector('.avatar__card');
+  if (card) {
   // coin flip: one full spin around the vertical axis each time the pointer enters (or on tap)
   let spins = 0, spinning = false;
   function flip() {
@@ -61,6 +62,8 @@
   }
   avatar.addEventListener('pointerenter', flip);
   avatar.addEventListener('click', flip);
+
+  }
 
   /* ---------- 3. Ruler nav ("clicker") ---------- */
   const ruler = document.querySelector('.ruler');
