@@ -241,7 +241,7 @@ main, .footer { position: relative; z-index: 1; }
 
 .hero__copy { display: flex; flex-direction: column; gap: 4px; font-size: 18px; line-height: 24px; }
 .hero__copy strong { font-weight: 600; }
-.brand { display: inline-flex; align-items: baseline; gap: 2px; letter-spacing: -0.18px; white-space: nowrap; }
+.brand { display: inline-flex; align-items: baseline; gap: 4px; letter-spacing: -0.18px; white-space: nowrap; }
 .brand__target { width: 12px; height: 12px; align-self: center; }
 .brand img { width: 13px; height: 15px; object-fit: contain; filter: brightness(0); align-self: center; }
 .brand u, .hero__community u { text-underline-offset: 4px; }
