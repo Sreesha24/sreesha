@@ -218,7 +218,10 @@ main, .footer { position: relative; z-index: 1; }
   transition: opacity .25s ease, transform .4s cubic-bezier(.3,1.5,.5,1);
 }
 .tw-pop.is-on { opacity: 1; transform: translateY(-72%) rotate(3deg) scale(1); }
-@media (max-width: 560px) { .tw-pop { width: 120px; } }
+@media (max-width: 860px) {   /* no room beside the line on narrow screens: pop up above it, on the right */
+  .tw-pop { left: auto !important; right: 0; top: 0; width: 130px; transform: translateY(-96%) rotate(-4deg) scale(.85); transform-origin: bottom right; }
+  .tw-pop.is-on { transform: translateY(-104%) rotate(3deg) scale(1); }
+}
 .caret {
   display: inline-block; width: 2px; height: .9em; margin-left: 3px; vertical-align: -0.1em;
   background: var(--ink); animation: blink 1s steps(1) infinite;

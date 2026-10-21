@@ -5,11 +5,11 @@
   /* ---------- 1. Typing animation ---------- */
   const typed = document.getElementById('typed');
   const caret = document.querySelector('.caret');
-  const phrase = 'product designer. builder. artist.';
+  const phrase = 'systems-oriented AI product designer.';
   // once typed, split into words so each one can be hovered
-  const WORD_GIFS = { 'product designer.': 'assets/img/hover-product-designer.gif' };
+  const WORD_GIFS = { 'systems-oriented AI product designer.': 'assets/img/hover-product-designer.gif' };
   function splitWords() {
-    typed.innerHTML = ['product designer.', 'builder.', 'artist.']
+    typed.innerHTML = ['systems-oriented AI product designer.']
       .map((w) => `<span class="tw${WORD_GIFS[w] ? ' tw--gif' : ''}" data-w="${w}">${w}</span>`).join(' ');
     const tagline = typed.closest('.hero__tagline');
     const pop = document.createElement('span');
