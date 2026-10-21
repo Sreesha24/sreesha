@@ -204,7 +204,7 @@ main, .footer { position: relative; z-index: 1; }
 .hero__hi { font-weight: 500; font-size: 16px; line-height: 24px; color: var(--black); margin-top: 0; }
 .hero__name .hero__hi { margin-bottom: -4px; }
 .hero__tagline {
-  font-family: var(--serif); font-style: italic; font-size: 34px; line-height: 1.05;
+  font-family: var(--serif); font-style: italic; font-size: 36px; line-height: 1.05;
   min-height: 32px; white-space: nowrap;
 }
 .hero__tagline { position: relative; }
