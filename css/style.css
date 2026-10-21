@@ -326,7 +326,7 @@ main, .footer { position: relative; z-index: 1; }
   position: relative; margin-top: 20px; z-index: 2;
   height: 200vh;                /* real value set in JS */
 }
-.otc__sticky {
+.otc__sticky { touch-action: pan-y;
   /* logos + strip share one pinned screen: logos at the top, grass on the bottom edge */
   position: sticky; top: 0; height: 100vh; height: 100svh;
   display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(40px, 7vh, 72px); overflow-x: clip;
@@ -349,10 +349,6 @@ main, .footer { position: relative; z-index: 1; }
 .otc__item { object-fit: cover; max-width: none; transform: rotate(var(--r, 0deg)); transition: transform .45s cubic-bezier(.3,1.5,.5,1); }
 .otc__item:hover { transform: rotate(var(--r, 0deg)) translateY(-6px) scale(1.03); z-index: 4; }
 .otc__item--border { border: 1px solid #7f7f7f; }
-.otc__in-grass { z-index: 3; box-shadow: 0 6px 14px rgba(0,0,0,.18); }   /* propped up in the grass */
-.otc__in-grass:hover { z-index: 4; }
-.otc__ph { display: grid; place-items: center; background: #f4f3ef; border: 1.5px dashed #9a9a92;
-  font-family: var(--serif); font-style: italic; font-size: 18px; color: #77776f; }
 .otc__item--border-dark { border: 1px solid #494949; }
 .otc__stack { display: flex; flex-direction: column; gap: 4px; }
 .otc__stack img { width: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.3,1.5,.5,1); }

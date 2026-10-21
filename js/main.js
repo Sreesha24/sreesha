@@ -205,6 +205,39 @@
   window.addEventListener('load', layoutOtc);
   layoutOtc();
 
+  // phones: a sideways swipe on the strip also drives it (maps to the same scroll position)
+  const sticky = otc.querySelector('.otc__sticky');
+  let tx = 0, ty = 0, axis = null, lastX = 0, lastT = 0, vel = 0, glide = 0;
+  const pinned = () => window.scrollY >= otc.offsetTop - 4 && window.scrollY <= otc.offsetTop + distance + 4;
+  const nudge = (dx) => {
+    const y = Math.min(otc.offsetTop + distance, Math.max(otc.offsetTop, window.scrollY + dx));
+    window.scrollTo(0, y);
+  };
+  sticky.addEventListener('touchstart', (e) => {
+    cancelAnimationFrame(glide);
+    const t = e.touches[0]; tx = lastX = t.clientX; ty = t.clientY; lastT = performance.now(); axis = null; vel = 0;
+  }, { passive: true });
+  sticky.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (!axis) {
+      const dx = Math.abs(t.clientX - tx), dy = Math.abs(t.clientY - ty);
+      if (dx < 6 && dy < 6) return;
+      axis = dx > dy && pinned() ? 'x' : 'y';
+    }
+    if (axis !== 'x') return;
+    e.preventDefault();
+    const now = performance.now(), d = lastX - t.clientX;
+    vel = d / Math.max(1, now - lastT);
+    lastX = t.clientX; lastT = now;
+    nudge(d);
+  }, { passive: false });
+  sticky.addEventListener('touchend', () => {
+    if (axis !== 'x' || reduceMotion) return;
+    let v = vel * 16;   // px per frame
+    const step = () => { if (Math.abs(v) < 0.4) return; nudge(v); v *= 0.94; glide = requestAnimationFrame(step); };
+    glide = requestAnimationFrame(step);
+  }, { passive: true });
+
   // only play the stop-motion clip while it's visible
   const vid = document.querySelector('.otc video');
   if (vid && 'IntersectionObserver' in window) {
