@@ -184,7 +184,7 @@
     document.body.classList.toggle('nav-down', r.bottom < vh - 2);
   }
 
-  // sparkle next to "Shipped Projects" turns as you scroll
+  // sparkle next to "Shipped projects" turns as you scroll
   const spinners = document.querySelectorAll('.spin-on-scroll');
   function spin() { if (!reduceMotion) spinners.forEach((el) => el.style.setProperty('--spin', `${(window.scrollY * 0.35) % 360}deg`)); }
   window.addEventListener('scroll', () => requestAnimationFrame(spin), { passive: true });
