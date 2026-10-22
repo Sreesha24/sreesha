@@ -1,8 +1,11 @@
-/* Apple Garamond, self-hosted so it loads on every device; Instrument Serif is the fallback */
+/* Apple Garamond, self-hosted so it loads on every device; Instrument Serif is the fallback.
+   Normal text uses the Light cut (the Regular is heavy on screen); Regular sits at 500, Bold at 700. */
 @font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light.woff") format("woff"); font-weight: 300; font-style: normal; font-display: swap; }
 @font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light-italic.woff") format("woff"); font-weight: 300; font-style: italic; font-display: swap; }
-@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-regular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-italic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light-italic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-regular.woff") format("woff"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-italic.woff") format("woff"); font-weight: 500; font-style: italic; font-display: swap; }
 @font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-bold-italic.woff") format("woff"); font-weight: 700; font-style: italic; font-display: swap; }
 
