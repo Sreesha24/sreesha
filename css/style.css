@@ -1,3 +1,11 @@
+/* Apple Garamond, self-hosted so it loads on every device; Instrument Serif is the fallback */
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light.woff") format("woff"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-light-italic.woff") format("woff"); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-regular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-italic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Apple Garamond"; src: url("../assets/fonts/apple-garamond-bold-italic.woff") format("woff"); font-weight: 700; font-style: italic; font-display: swap; }
+
 /* ==========================================================================
    Sreesha Suresh — portfolio
    Design reference: Figma "Final_homepage_version" (1444px wide)
@@ -16,7 +24,7 @@
   --green-dark: #1b6a2c;   /* readable link-hover green (~6.6:1 on white) */
   --bg: #fff;
 
-  --serif: "Instrument Serif", Georgia, serif;
+  --serif: "Apple Garamond", "Instrument Serif", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, sans-serif;
 
   --page: 1444px;          /* design frame width */
