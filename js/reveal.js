@@ -29,6 +29,7 @@
     });
   });
   if (reduce || !('IntersectionObserver' in window)) { targets.forEach((t) => t.classList.add('is-in')); return; }
+  void document.body.offsetHeight;   // commit the hidden state first, so things already on screen still animate in
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => { if (en.isIntersecting || en.boundingClientRect.top < 0) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
   }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });

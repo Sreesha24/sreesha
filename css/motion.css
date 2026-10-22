@@ -32,6 +32,7 @@ html.js.intro .hero__more { animation: in-up .6s cubic-bezier(.2,.8,.2,1) 1.4s b
 /* scroll reveals: things rise into place the first time they come on screen */
 html.js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.8,.2,1) var(--rd, 0s), transform .8s cubic-bezier(.2,.8,.2,1) var(--rd, 0s); }
 html.js .reveal.is-in { opacity: 1; transform: none; }
+html.js .reveal:not(.is-in) { transition: none; }   /* hide instantly; only the way in is animated */
 html.js .reveal--title { transform: translateY(10px); }
 html.js .reveal--logo { transform: translateY(10px) scale(.92); }
 

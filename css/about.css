@@ -91,6 +91,11 @@ html.js.intro .ab-intro__copy > p:nth-child(2) { animation-delay: .65s; }
 html.js.intro .ab-intro__copy > p:nth-child(3) { animation-delay: .75s; }
 html.js.intro .ab-intro__ask, html.js.intro .ab-intro__links { animation: in-up .6s cubic-bezier(.2,.8,.2,1) .9s both; }
 html.js.intro .ab-intro__photo { animation: pop .8s cubic-bezier(.3,1.4,.5,1) .5s both; }
+/* on first load, Experience then Awards settle in after the intro has landed (title first, then each row) */
+html.js.intro .ab-records .reveal { transition-delay: calc(var(--wait, 1.1s) + var(--rd, 0s)); }
+html.js.intro .ab-records .ab-rows .reveal { --wait: 1.25s; }
+html.js.intro .ab-block--awards .ab-block__title { --wait: 1.35s; }
+html.js.intro .ab-block--awards .ab-rows .reveal { --wait: 1.5s; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
