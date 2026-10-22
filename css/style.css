@@ -295,7 +295,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* ---------- Section titles ---------- */
 .section-title {
-  font-family: var(--serif); font-size: 32px; line-height: 1; letter-spacing: -1px; color: var(--ink);
+  font-family: var(--serif); font-weight: 500; font-size: 32px; line-height: 1; letter-spacing: -1px; color: var(--ink);
   display: flex; align-items: center; gap: 4px;
 }
 .section-title em { font-style: italic; }

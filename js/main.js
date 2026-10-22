@@ -270,7 +270,8 @@
       const e = t * t * (3 - 2 * t);   // smoothstep
       el.style.setProperty('--fz', (1 - maxShrink * e).toFixed(4));
       el.style.setProperty('--fo', (1 - 0.35 * e).toFixed(3));
-      el.style.transformOrigin = r.top > center ? '50% 0%' : r.bottom < center ? '50% 100%' : '50% 50%';
+      const x = el.classList.contains('otc__sticky') ? '50%' : '0%';   // hero + work shrink toward the shared left edge
+      el.style.transformOrigin = `${x} ${r.top > center ? '0%' : r.bottom < center ? '100%' : '50%'}`;
     });
   }
   window.addEventListener('scroll', () => requestAnimationFrame(updateFocus), { passive: true });
