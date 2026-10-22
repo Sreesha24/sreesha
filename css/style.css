@@ -203,8 +203,8 @@ main, .footer { position: relative; z-index: 1; }
 /* email: copies instead of opening mail — copy icon on hover, tick + "copied" once clicked */
 button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 .lk--copy .lk__a {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-2h-9v9h2' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-2h-9v9h2' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
   height: 0.7em;
 }
 .lk--copy:hover .lk__a, .lk--copy:focus-visible .lk__a, .lk--copy.is-copied .lk__a { width: 0.7em; margin-left: 0.22em; opacity: 1; transform: none; }
@@ -215,7 +215,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .lk--copy.is-copied .lk__t { color: var(--green-dark); }
 .lk__toast {
   position: absolute; left: 50%; bottom: calc(100% + 8px); white-space: nowrap; pointer-events: none;
-  font-family: var(--sans, inherit); font-size: 13px; line-height: 1; padding: 6px 9px; border-radius: 999px;
+  font-family: var(--sans, inherit); font-size: 13px; line-height: 1; padding: 6px 9px; border-radius: 0;
   background: var(--green-dark); color: #fff;
   opacity: 0; transform: translate(-50%, 6px) scale(.9); transition: opacity .2s, transform .35s cubic-bezier(.3,1.5,.5,1);
 }
