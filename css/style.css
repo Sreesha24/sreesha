@@ -16,8 +16,7 @@
   --green-dark: #1b6a2c;   /* readable link-hover green (~6.6:1 on white) */
   --bg: #fff;
 
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --serif-track: -0.03em;   /* Cormorant sets a little loose; pull the letters together */
+  --serif: "Instrument Serif", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, sans-serif;
 
   --page: 1444px;          /* design frame width */
@@ -182,7 +181,7 @@ main, .footer { position: relative; z-index: 1; }
   position: absolute; z-index: 5; top: 72px;
   right: max(71px, calc((100vw - var(--page)) / 2 + 71px));
   display: flex; gap: 28px;
-  font-family: var(--serif); letter-spacing: var(--serif-track); font-size: 18px; color: var(--text-light);
+  font-family: var(--serif); font-size: 18px; color: var(--text-light);
 }
 .lk { position: relative; display: inline-flex; align-items: baseline; transition: color .2s; outline: none; }
 .lk__b, .lk__t { position: relative; display: inline-block; transition: color .2s, transform .3s cubic-bezier(.3,1.5,.5,1); }
@@ -229,7 +228,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .hero__hi { font-weight: 500; font-size: 16px; line-height: 24px; color: var(--black); margin-top: 0; }
 .hero__name .hero__hi { margin-bottom: -4px; }
 .hero__tagline {
-  font-family: var(--serif); letter-spacing: var(--serif-track); font-style: italic; font-size: 36px; line-height: 1.05;
+  font-family: var(--serif); font-style: italic; font-size: 36px; line-height: 1.05;
   min-height: 32px; white-space: nowrap;
 }
 .hero__tagline { position: relative; }
@@ -285,13 +284,13 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* ---------- Section titles ---------- */
 .section-title {
-  font-family: var(--serif); letter-spacing: var(--serif-track); font-size: 32px; line-height: 1; color: var(--ink);
+  font-family: var(--serif); font-size: 32px; line-height: 1; letter-spacing: -1px; color: var(--ink);
   display: flex; align-items: center; gap: 4px;
 }
 .section-title em { font-style: italic; }
 .section-title img { width: 20px; height: 20px; }
 .spin-on-scroll { transform: rotate(var(--spin, 0deg)); will-change: transform; }
-.section-title--center { justify-content: center; }
+.section-title--center { justify-content: center; letter-spacing: -.5px; }
 
 /* ---------- Shipped projects ---------- */
 .work { margin-top: 176px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
@@ -388,7 +387,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 @keyframes reel { from { transform: translateY(calc(-50% - 2px)); } to { transform: translateY(0); } }   /* drifts down, re-enters from above */
 @media (prefers-reduced-motion: reduce) { .otc__reel-track { animation: none; } }
 .otc__label {
-  font-family: var(--serif); letter-spacing: var(--serif-track); font-style: italic; line-height: 1; color: var(--black);
+  font-family: var(--serif); font-style: italic; line-height: 1; color: var(--black);
   white-space: nowrap; transform: rotate(var(--r, 0deg)); transform-origin: left center; z-index: 5;
 }
 
@@ -407,7 +406,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 /* ---------- CTA ---------- */
 .cta { margin-top: 143px; display: flex; justify-content: center; }
 .cta__inner { position: relative; }
-.cta__title { font-family: var(--serif); letter-spacing: var(--serif-track); font-size: 184px; line-height: 1.3; white-space: nowrap; color: var(--black); }
+.cta__title { font-family: var(--serif); font-size: 184px; line-height: 1.3; letter-spacing: -1px; white-space: nowrap; color: var(--black); }
 .cta__title em { font-style: italic; }
 .cta__title a { display: inline-block; }
 .cta__badge {
@@ -446,7 +445,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 }
 .footer__meta.is-empty { visibility: hidden; }   /* keeps the footer balanced until a city loads */
 .footer__meta { font-size: 14px; line-height: 24px; color: var(--text-meta); }
-.footer__links { display: flex; gap: 64px; font-family: var(--serif); letter-spacing: var(--serif-track); font-size: 20px; color: var(--black); }
+.footer__links { display: flex; gap: 64px; font-family: var(--serif); font-size: 20px; color: var(--black); }
 
 /* ---------- Focus zoom (values set in JS) ---------- */
 .focusable { transform: scale(var(--fz, 1)); opacity: var(--fo, 1); transition: transform .25s ease-out, opacity .25s ease-out; will-change: transform; }
