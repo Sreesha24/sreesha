@@ -16,7 +16,7 @@
   --green-dark: #1b6a2c;   /* readable link-hover green (~6.6:1 on white) */
   --bg: #fff;
 
-  --serif: "Instrument Serif", Georgia, serif;
+  --serif: "Playfair Display", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, sans-serif;
 
   --page: 1444px;          /* design frame width */
