@@ -72,8 +72,15 @@
   function updateNavDrop() {
     if (!lastSection) return;
     const vh = window.innerHeight;
-    const navBox = ruler.getBoundingClientRect();
-    ruler.style.setProperty('--navdrop', `${Math.max(0, vh - 120 - 87 - navBox.height)}px`);
+    // rest just above where the footer will sit once you reach the bottom (measured, so it never overlaps)
+    const foot = document.getElementById('contact-footer');
+    const maxY = document.documentElement.scrollHeight - vh;
+    const footTop = foot ? foot.getBoundingClientRect().top + (maxY - window.scrollY) : vh - 120;
+    const room = footTop - 40 - (ruler.offsetTop + ruler.offsetHeight);
+    ruler.style.setProperty('--navdrop', `${Math.max(0, room)}px`);
+    // too short a window to fit it above the footer: tuck the nav away as the footer arrives
+    const footNow = foot ? foot.getBoundingClientRect().top : vh;
+    document.body.classList.toggle('nav-tuck', room < 0 && footNow < ruler.offsetTop + ruler.offsetHeight + 24);
     document.body.classList.toggle('nav-down', lastSection.getBoundingClientRect().bottom < vh - 2);
   }
   let ticking = false;

@@ -172,6 +172,8 @@ main, .footer { position: relative; z-index: 1; }
   /* once the off-the-clock strip scrolls up, the nav glides down to rest above the footer */
   .ruler { transition: transform .9s cubic-bezier(.65,0,.25,1); }
   body.nav-down .ruler { transform: translateY(var(--navdrop, 0px)); }
+  .ruler { transition: transform .9s cubic-bezier(.65,0,.25,1), opacity .3s, visibility .3s; }
+  body.nav-tuck .ruler { opacity: 0; visibility: hidden; }
 }
 
 /* ---------- Top links ---------- */
@@ -197,6 +199,28 @@ main, .footer { position: relative; z-index: 1; }
 .lk:hover .lk__t, .lk:focus-visible .lk__t { color: var(--green-dark); text-decoration-color: currentColor; }
 .lk:hover .lk__b:first-child, .lk:focus-visible .lk__b:first-child { transform: translateX(-4px); }
 .lk:hover .lk__b:last-child, .lk:focus-visible .lk__b:last-child { transform: translateX(4px); }
+
+/* email: copies instead of opening mail — copy icon on hover, tick + "copied" once clicked */
+button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
+.lk--copy .lk__a {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' rx='1.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
+  height: 0.7em;
+}
+.lk--copy:hover .lk__a, .lk--copy:focus-visible .lk__a, .lk--copy.is-copied .lk__a { width: 0.7em; margin-left: 0.22em; opacity: 1; transform: none; }
+.lk--copy.is-copied .lk__a {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.lk--copy.is-copied .lk__t { color: var(--green-dark); }
+.lk__toast {
+  position: absolute; left: 50%; bottom: calc(100% + 8px); white-space: nowrap; pointer-events: none;
+  font-family: var(--sans, inherit); font-size: 13px; line-height: 1; padding: 6px 9px; border-radius: 999px;
+  background: var(--green-dark); color: #fff;
+  opacity: 0; transform: translate(-50%, 6px) scale(.9); transition: opacity .2s, transform .35s cubic-bezier(.3,1.5,.5,1);
+}
+.lk--copy.is-copied .lk__toast { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.footer .lk__toast { bottom: calc(100% + 6px); }
 
 /* ---------- Hero ---------- */
 .hero { padding-top: 221px; display: flex; flex-direction: column; gap: 12px; }

@@ -49,3 +49,23 @@
     })
     .catch(() => {});
 })();
+
+// email buttons copy the address and say so
+(() => {
+  const status = document.getElementById('copyStatus');
+  document.querySelectorAll('.lk--copy').forEach((btn) => {
+    let t;
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      try { await navigator.clipboard.writeText(text); }
+      catch (e) {
+        const ta = Object.assign(document.createElement('textarea'), { value: text });
+        ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (_) {} ta.remove();
+      }
+      btn.classList.add('is-copied');
+      if (status) { status.textContent = ''; setTimeout(() => { status.textContent = 'Email address copied'; }, 30); }
+      clearTimeout(t); t = setTimeout(() => btn.classList.remove('is-copied'), 1800);
+    });
+  });
+})();
