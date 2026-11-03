@@ -27,8 +27,8 @@
     if (stars.length >= MAX) stars.shift();
     stars.push({
       x: x + rnd(-6, 6), y: y + rnd(-6, 6),
-      r: big ? rnd(5, 8) : rnd(2.5, 4.5),      // full size
-      life: 0, dur: big ? rnd(520, 700) : rnd(380, 520),
+      r: big ? rnd(8, 12) : rnd(4.5, 7),        // full size
+      life: 0, dur: big ? rnd(600, 800) : rnd(480, 640),
       rot: rnd(0, Math.PI), spin: rnd(-0.6, 0.6),
       vx: rnd(-0.08, 0.08), vy: rnd(-0.14, -0.04),
       born: performance.now(),
