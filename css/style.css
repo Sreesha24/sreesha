@@ -372,10 +372,10 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .otc__sticky { touch-action: pan-y;
   /* logos + strip share one pinned screen: logos at the top, grass on the bottom edge */
   position: sticky; top: 0; height: 100vh; height: 100svh;
-  display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(40px, 7vh, 72px); overflow-x: clip;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(64px, 12vh, 128px); overflow-x: clip;
 }
 .otc__stage { position: relative; height: var(--strip-h, 608px); display: flex; align-items: flex-end; flex: none; }
-.otc__track { position: relative; width: calc((4200px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
+.otc__track { position: relative; width: calc((3687px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
 .otc__canvas { position: absolute; left: 0; top: 0; width: calc(3687px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
 .otc__inner { position: absolute; inset: 0; transform: translateX(var(--pad, 0px)); }   /* real content, shifted right by the lead-in */
 .otc__fill-grass { position: absolute; right: 100%; margin-right: -2px; top: 387px; width: 1400px; height: 221px; z-index: 2; pointer-events: none;

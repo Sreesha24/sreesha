@@ -153,7 +153,8 @@
     const vh = window.innerHeight;
     // strip takes ~60% of the screen, but always leaves room for the logos above it
     const navH = vw <= 1100 ? 72 : 48;   // keep clear of the top bar / top edge
-    const room = vh - clientsEl.offsetHeight - 72 - navH;
+    const gap = parseFloat(getComputedStyle(clientsEl.parentElement).rowGap) || 72;   // space between logos and strip
+    const room = vh - clientsEl.offsetHeight - gap - navH;
     const h = Math.max(200, Math.min(vh * (vw < 760 ? 0.55 : 0.6), vw < 760 ? (vw / 470) * CANVAS_H : 1e9, room, CANVAS_H));
     scale = h / CANVAS_H;
     otc.style.setProperty('--s', scale.toFixed(4));
