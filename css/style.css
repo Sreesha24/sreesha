@@ -281,6 +281,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .hero__copy strong { font-weight: 600; }
 .brand { display: inline-flex; align-items: baseline; gap: 4px; letter-spacing: -0.18px; white-space: nowrap; }
 .brand__target { width: 12px; height: 12px; align-self: center; }
+.brand__lowes { width: 14px; height: 12px; align-self: center; }
 .brand img { width: 13px; height: 15px; object-fit: contain; filter: brightness(0); align-self: center; }
 .brand u, .hero__community u { text-underline-offset: 4px; }
 
