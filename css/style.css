@@ -455,6 +455,11 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .cta__inner.is-grown .garden .bud { transform: scale(1); opacity: 1; transition: transform .6s cubic-bezier(.25,1.5,.5,1) var(--in, 0s), opacity .2s var(--in, 0s); }
 .cta__inner.is-grown .garden .flower { transform: rotate(0deg) scale(1); opacity: 1;
   transition: transform 1.1s cubic-bezier(.2,1.25,.35,1) var(--in, 0s), opacity .35s var(--in, 0s); }
+/* the nudge: only the earliest tendrils, leaves and buds grow, then shrink back */
+.cta__inner.is-peek .garden .stem.early { stroke-dashoffset: 0; transition: stroke-dashoffset var(--dur, 1s) cubic-bezier(.35,.1,.45,1) var(--in, 0s); }
+.cta__inner.is-peek .garden .leaf.early { transform: rotate(var(--rot)) scale(1); opacity: 1; transition: transform .7s cubic-bezier(.25,1.4,.5,1) var(--in, 0s), opacity .2s var(--in, 0s); }
+.cta__inner.is-peek .garden .bud.early { transform: scale(1); opacity: 1; transition: transform .6s cubic-bezier(.25,1.5,.5,1) var(--in, 0s), opacity .2s var(--in, 0s); }
+.cta__inner.is-peek .garden .flower.early { transform: rotate(0deg) scale(1); opacity: 1; transition: transform 1.1s cubic-bezier(.2,1.25,.35,1) var(--in, 0s), opacity .35s var(--in, 0s); }
 @media (prefers-reduced-motion: reduce) { .garden * { transition: none !important; } }
 
 /* ---------- Footer ---------- */

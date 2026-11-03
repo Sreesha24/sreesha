@@ -234,18 +234,36 @@
       }
     }
   }
-  const grow = () => cta.classList.add('is-grown');
+  const grow = () => { stopPeek(); cta.classList.add('is-grown'); };
   const retract = () => cta.classList.remove('is-grown');
+
+  // a little nudge: when the heading comes into view, the first tendrils start to grow, then shrink back twice,
+  // so people notice there is something to hover. Stops as soon as they do.
+  let peekT = [], peeked = false;
+  function markEarly() {
+    cta.querySelectorAll('.garden .stem, .garden .leaf, .garden .bud, .garden .flower').forEach((n) => {
+      const t = parseFloat(n.style.getPropertyValue('--in')) || 0;
+      n.classList.toggle('early', t <= 0.7);
+    });
+  }
+  function stopPeek() { peekT.forEach(clearTimeout); peekT = []; cta.classList.remove('is-peek'); }
+  function peek() {
+    if (peeked || reduceMotion) return;
+    peeked = true;
+    const once = (at) => { peekT.push(setTimeout(() => cta.classList.add('is-peek'), at)); peekT.push(setTimeout(() => cta.classList.remove('is-peek'), at + 1500)); };
+    once(300); once(3200);
+  }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-    buildGarden();
+    buildGarden(); markEarly();
     if (window.matchMedia('(hover: hover)').matches) {
       cta.querySelector('.cta__title').addEventListener('pointerenter', grow);
       cta.addEventListener('pointerleave', retract);
+      if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { if (en.isIntersecting) peek(); }, { threshold: 0.6 }).observe(cta);
     } else if ('IntersectionObserver' in window) {
       new IntersectionObserver(([en]) => (en.isIntersecting ? grow() : retract()), { threshold: 0.6 }).observe(cta);
     }
   });
-  let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(buildGarden, 200); });
+  let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { buildGarden(); markEarly(); }, 200); });
 
   // badge sits just off the top-right of the final "e"
   function placeBadge() {
