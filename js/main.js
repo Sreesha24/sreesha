@@ -15,6 +15,7 @@
     const pop = document.createElement('span');
     pop.className = 'tw-pop'; pop.setAttribute('aria-hidden', 'true');
     tagline.appendChild(pop);
+    document.dispatchEvent(new CustomEvent('tagline:typed'));
     typed.querySelectorAll('.tw--gif').forEach((el) => {
       const src = WORD_GIFS[el.dataset.w];
       new Image().src = src;                                   // preload

@@ -553,3 +553,19 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* sparkle dust behind the cursor (js/sparkles.js) */
 .sparkles { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 60; }
+
+/* dragonfly that lands on the tagline (js/dragonfly.js) */
+.dfly { position: absolute; left: 0; top: 0; width: 104px; aspect-ratio: 360 / 288; pointer-events: none; z-index: 7; opacity: 0; transform-origin: 50% 50%; will-change: transform;
+  filter: drop-shadow(0 6px 5px rgba(0,0,0,.12)); }
+.dfly.is-on { opacity: 1; }
+.dfly.is-perched { filter: drop-shadow(0 2px 2px rgba(0,0,0,.16)); transition: filter .5s; }
+.dfly img { position: absolute; top: 0; height: 100%; width: auto; display: block; }
+.dfly__body { left: 0; width: 100%; }
+.dfly__wing--l { left: 0; transform-origin: 100% 55%; }     /* hinge at the body */
+.dfly__wing--r { right: 0; transform-origin: 0% 55%; }
+.dfly__wing.is-beating { animation: wingbeat .09s linear infinite alternate; }
+.dfly__wing--r.is-beating { animation-delay: .02s; }
+@keyframes wingbeat { from { transform: scaleX(1) rotate(0deg); opacity: .95; } to { transform: scaleX(.28) rotate(-6deg); opacity: .55; } }
+.dfly__wing--r.is-beating { animation-name: wingbeat-r; }
+@keyframes wingbeat-r { from { transform: scaleX(1) rotate(0deg); opacity: .95; } to { transform: scaleX(.28) rotate(6deg); opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .dfly__wing.is-beating { animation: none; } }
