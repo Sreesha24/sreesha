@@ -550,3 +550,6 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* sparkle dust behind the cursor (js/sparkles.js) */
+.sparkles { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 60; }
