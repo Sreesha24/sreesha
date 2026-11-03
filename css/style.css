@@ -310,9 +310,9 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .work { margin-top: 24px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
 .card { display: flex; flex-direction: column; gap: 12px; color: var(--ink);
   padding: 10px; border: 1px solid #e6e6e6; background: #fff;
-  transition: border-color .3s, transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; }   /* thin frame around each project */
+  transition: border-color .3s, transform .4s cubic-bezier(.2,.8,.2,1); }   /* thin frame around each project */
 /* hover: the frame darkens and the card lifts a touch */
-.card:hover, .card:focus-visible { border-color: var(--ink); transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(20,19,18,.35); }
+.card:hover, .card:focus-visible { border-color: var(--ink); transform: translateY(-4px); }
 @media (prefers-reduced-motion: reduce) { .card:hover, .card:focus-visible { transform: none; } }
 .card:not(.card--wide) .card__body { padding: 8px 4px 6px; }
 .card--wide { flex-direction: row; align-items: center; gap: 24px; }
