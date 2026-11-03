@@ -306,8 +306,11 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 /* ---------- Shipped projects ---------- */
 .work { margin-top: 176px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
 .card { display: flex; flex-direction: column; gap: 12px; color: var(--ink);
-  padding: 10px; border: 1px solid #e6e6e6; background: #fff; transition: border-color .3s; }   /* thin frame around each project */
-.card:hover { border-color: #c4c4c4; }
+  padding: 10px; border: 1px solid #e6e6e6; background: #fff;
+  transition: border-color .3s, transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; }   /* thin frame around each project */
+/* hover: the frame darkens and the card lifts a touch */
+.card:hover, .card:focus-visible { border-color: var(--ink); transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(20,19,18,.35); }
+@media (prefers-reduced-motion: reduce) { .card:hover, .card:focus-visible { transform: none; } }
 .card:not(.card--wide) .card__body { padding: 8px 4px 6px; }
 .card--wide { flex-direction: row; align-items: center; gap: 24px; }
 .card--wide .card__media { flex: 0 0 50.75%; }
@@ -340,9 +343,9 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card__body--feature { gap: 0; }
 .card--wide .card__body--feature { padding: 0 clamp(8px, 2vw, 24px) 0 8px; }
 .card__brand { align-self: flex-start; width: auto; height: 28px; }
-.card__headline { margin-top: 28px; font-size: clamp(26px, 2.75vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 14em; }
+.card__headline { margin-top: 28px; font-size: clamp(24px, 2.3vw, 33px); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
 .card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-.card__pills li { padding: 6px 12px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 14px; line-height: 1.4; letter-spacing: -0.2px; color: #3c3c3c; background: #fff; transition: border-color .25s, color .25s; }
+.card__pills li { padding: 6px 12px; border: 1px solid #dcdcdc; border-radius: 0; font-size: 14px; line-height: 1.4; letter-spacing: -0.2px; color: #3c3c3c; background: #fff; transition: border-color .25s, color .25s; }
 .card:hover .card__pills li { border-color: #b9b9b9; }
 .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 23px; }
 
@@ -563,7 +566,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .card__desc { font-size: 14px; }
   .card--wide .card__body { padding: 0; }
   .card--wide .card__body--feature { padding: 14px 0 0; }
-  .card__headline { font-size: 24px; }
+  .card__headline { font-size: 22px; }
   .card__pills li { font-size: 13px; padding: 5px 10px; }
   .clients__logos img { zoom: .62; }
   .footer__links { font-size: 18px; gap: 16px; }
