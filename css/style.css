@@ -234,13 +234,16 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .footer .lk__toast { bottom: calc(100% + 6px); }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: 221px; display: flex; flex-direction: column; gap: 12px; }
-.hero__name { display: flex; flex-direction: column; gap: 8px; }
-.hero__hi { font-weight: 500; font-size: 16px; line-height: 24px; color: var(--black); margin-top: 0; }
+.hero {   /* the intro owns the first screen; projects start just below the fold */
+  min-height: calc(100vh - 96px); min-height: calc(100svh - 96px); padding: 120px 0 48px;   /* "Shipped projects" peeks in at the bottom */
+  display: flex; flex-direction: column; justify-content: center; gap: 20px;
+}
+.hero__name { display: flex; flex-direction: column; gap: 12px; }
+.hero__hi { font-weight: 500; font-size: 18px; line-height: 26px; color: var(--black); margin-top: 0; }
 .hero__name .hero__hi { margin-bottom: -4px; }
 .hero__tagline {
-  font-family: var(--serif); font-style: italic; font-size: 36px; line-height: 1.05;
-  min-height: 32px; white-space: nowrap;
+  font-family: var(--serif); font-style: italic; font-size: clamp(40px, 4.4vw, 64px); line-height: 1.05; letter-spacing: -0.01em;
+  min-height: 1.05em; white-space: nowrap;
 }
 .hero__tagline { position: relative; }
 .tw { transition: filter .35s ease, opacity .35s ease; }
@@ -266,7 +269,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 @keyframes fadeout { to { opacity: 0; } }
 
 /* avatar: spins like a coin on hover */
-.avatar { width: 73px; height: 72px; perspective: 600px; cursor: pointer; }
+.avatar { width: 96px; height: 96px; perspective: 600px; cursor: pointer; }
 .avatar__card {
   position: relative; width: 100%; height: 100%; border-radius: 50%;
   transform-style: preserve-3d;
@@ -277,16 +280,16 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .avatar__card img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .avatar__glare { display: none; }
 
-.hero__copy { display: flex; flex-direction: column; gap: 4px; font-size: 16px; line-height: 24px; }
+.hero__copy { display: flex; flex-direction: column; gap: 6px; font-size: 20px; line-height: 1.5; letter-spacing: -0.2px; }
 .hero__copy strong { font-weight: 600; }
 .brand { display: inline-flex; align-items: baseline; gap: 4px; letter-spacing: -0.18px; white-space: nowrap; }
-.brand__target { width: 12px; height: 12px; align-self: center; }
-.brand__lowes { width: 14px; height: 12px; align-self: center; }
-.brand img { width: 13px; height: 15px; object-fit: contain; filter: brightness(0); align-self: center; }
+.brand__target { width: 15px; height: 15px; align-self: center; }
+.brand__lowes { width: 18px; height: 15px; align-self: center; }
+.brand img { width: 16px; height: 18px; object-fit: contain; filter: brightness(0); align-self: center; }
 .brand u, .hero__community u { text-underline-offset: 4px; }
 
-.hero__community { font-size: 16px; line-height: 24px; letter-spacing: -0.16px; }
-.hero__community img { display: inline-block; height: 16px; width: auto; margin: 0 1px; vertical-align: -3px; }
+.hero__community { font-size: 20px; line-height: 1.5; letter-spacing: -0.2px; }
+.hero__community img { display: inline-block; height: 20px; width: auto; margin: 0 1px; vertical-align: -3px; }
 
 .inline-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s; }
 .inline-link:hover, .inline-link:focus-visible { color: var(--green-dark); }
@@ -304,7 +307,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .section-title--center { justify-content: center; letter-spacing: -.5px; }
 
 /* ---------- Shipped projects ---------- */
-.work { margin-top: 176px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
+.work { margin-top: 24px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
 .card { display: flex; flex-direction: column; gap: 12px; color: var(--ink);
   padding: 10px; border: 1px solid #e6e6e6; background: #fff;
   transition: border-color .3s, transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; }   /* thin frame around each project */
@@ -343,7 +346,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card__body--feature { gap: 0; }
 .card--wide .card__body--feature { padding: 0 clamp(8px, 2vw, 24px) 0 8px; }
 .card__brand { align-self: flex-start; width: auto; height: 28px; }
-.card__headline { margin-top: 28px; font-size: clamp(24px, 2.3vw, 33px); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
+.card__headline { margin-top: 28px; font-size: clamp(22px, 2vw, 28px); line-height: 1.2; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
 .card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .card__pills li { padding: 6px 12px; border: 1px solid #dcdcdc; border-radius: 0; font-size: 14px; line-height: 1.4; letter-spacing: -0.2px; color: #3c3c3c; background: #fff; transition: border-color .25s, color .25s; }
 .card:hover .card__pills li { border-color: #b9b9b9; }
@@ -521,8 +524,8 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .ruler__indicator { top: auto; bottom: 12px; left: 0; width: 1.5px; height: 14px; transform: translateX(var(--x, 0px)); }
 
   .toplinks { top: 18px; right: var(--gutter); z-index: 25; position: absolute; font-size: 16px; gap: 16px; }
-  .hero { padding-top: 88px; }
-  .work { margin-top: 120px; }
+  .hero { min-height: calc(100svh - 56px - 72px); padding: 48px 0 40px; }
+  .work { margin-top: 24px; }
   .cta__title { font-size: clamp(72px, 15vw, 184px); }
 }
 
@@ -533,7 +536,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .otc__sticky { justify-content: space-between; padding-top: 76px; }   /* logos tuck under the top bar, strip stays on the bottom edge */
   .otc__progress { gap: 3px; }
   .otc__hint { display: none; }
-  .hero { padding-top: 56px; }
+  .hero { min-height: 0; padding: 56px 0 24px; }
   .hero__tagline { white-space: normal; }
   .hero__copy p + p { margin-top: 4px; }
   .card--wide { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -560,10 +563,11 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .ruler__minor { gap: 7px; padding: 0 8px; }
   .ruler__item { font-size: 13px; }
   .toplinks { font-size: 15px; gap: 12px; flex-wrap: wrap; }
-  .hero__tagline { font-size: 30px; }
-  .hero__hi, .hero__copy, .hero__community { font-size: 15px; line-height: 22px; }
+  .hero__tagline { font-size: 34px; }
+  .hero__hi, .hero__copy, .hero__community { font-size: 17px; line-height: 1.5; }
+  .avatar { width: 80px; height: 80px; }
   .section-title { font-size: 28px; }
-  .work { margin-top: 88px; gap: 24px; }
+  .work { margin-top: 56px; gap: 24px; }
   .card__meta { flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; flex-wrap: wrap; gap: 6px 12px; }
   .card__meta span { flex-basis: 100%; }
   .card__title { font-size: 22px; }
