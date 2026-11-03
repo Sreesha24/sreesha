@@ -357,7 +357,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* ---------- Off the clock (pinned horizontal scroll) ---------- */
 .otc {
-  --s: 1;                       /* scale of the 4865x608 design canvas */
+  --s: 1;                       /* scale of the 3687x608 design canvas */
   position: relative; margin-top: 20px; z-index: 2;
   height: 200vh;                /* real value set in JS */
 }
@@ -368,7 +368,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 }
 .otc__stage { position: relative; height: var(--strip-h, 608px); display: flex; align-items: flex-end; flex: none; }
 .otc__track { position: relative; width: calc((4200px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
-.otc__canvas { position: absolute; left: 0; top: 0; width: calc(4200px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
+.otc__canvas { position: absolute; left: 0; top: 0; width: calc(3687px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
 .otc__inner { position: absolute; inset: 0; transform: translateX(var(--pad, 0px)); }   /* real content, shifted right by the lead-in */
 .otc__fill-grass { position: absolute; right: 100%; margin-right: -2px; top: 387px; width: 1400px; height: 221px; z-index: 2; pointer-events: none;
   background: url(../assets/img/otc-grass.webp) left top / auto 100% no-repeat; transform: scaleX(-1); }   /* mirrored so it joins seamlessly */
