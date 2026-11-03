@@ -246,12 +246,17 @@
       n.classList.toggle('early', t <= 0.7);
     });
   }
-  function stopPeek() { peekT.forEach(clearTimeout); peekT = []; cta.classList.remove('is-peek'); }
+  function stopPeek() { peekT.forEach(clearTimeout); peekT = []; cta.classList.remove('is-peek', 'is-peek-out'); }
   function peek() {
     if (peeked || reduceMotion) return;
     peeked = true;
-    const once = (at) => { peekT.push(setTimeout(() => cta.classList.add('is-peek'), at)); peekT.push(setTimeout(() => cta.classList.remove('is-peek'), at + 1500)); };
-    once(300); once(3200);
+    // one slow breath: grow in, rest, ease back out; then once more after a pause
+    const once = (at) => {
+      peekT.push(setTimeout(() => cta.classList.add('is-peek'), at));
+      peekT.push(setTimeout(() => { cta.classList.remove('is-peek'); cta.classList.add('is-peek-out'); }, at + 2300));
+      peekT.push(setTimeout(() => cta.classList.remove('is-peek-out'), at + 4300));
+    };
+    once(400); once(5600);
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     buildGarden(); markEarly();
