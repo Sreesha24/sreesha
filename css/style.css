@@ -348,6 +348,16 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card__brand { align-self: flex-start; width: auto; height: 28px; }
 .card__headline { margin-top: 28px; font-size: 28px; line-height: 1.2; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
 .card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+/* the smaller cards use the same pattern one step down: logo, headline, pills under the image */
+.card:not(.card--wide) .card__body--feature { padding: 14px 6px 6px; }
+.card:not(.card--wide) .card__brand { height: 26px; }
+/* optical balance: each logo file has different padding and proportions */
+.card .card__brand--op { height: 34px; margin: -4px 0; }
+.card .card__brand--ab { height: 20px; margin: 3px 0; }
+.card .card__brand--iu { height: 26px; }
+.card:not(.card--wide) .card__headline { margin-top: 14px; font-size: 22px; line-height: 1.25; max-width: 24em; }
+.card:not(.card--wide) .card__pills { margin-top: 16px; gap: 6px; }
+.card:not(.card--wide) .card__pills li { padding: 4px 10px; }
 .card__pills li { padding: 6px 12px; border: 1px solid #dcdcdc; border-radius: 0; font-size: 14px; line-height: 1.4; letter-spacing: -0.2px; color: #3c3c3c; background: #fff; transition: border-color .25s, color .25s; }
 .card:hover .card__pills li { border-color: #b9b9b9; }
 .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 23px; }
