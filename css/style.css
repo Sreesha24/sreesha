@@ -239,10 +239,10 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   display: flex; flex-direction: column; justify-content: center; gap: 20px;
 }
 .hero__name { display: flex; flex-direction: column; gap: 12px; }
-.hero__hi { font-weight: 500; font-size: 18px; line-height: 26px; color: var(--black); margin-top: 0; }
+.hero__hi { font-weight: 500; font-size: 17px; line-height: 26px; color: var(--black); margin-top: 0; }
 .hero__name .hero__hi { margin-bottom: -4px; }
 .hero__tagline {
-  font-family: var(--serif); font-style: italic; font-size: clamp(40px, 4.4vw, 64px); line-height: 1.05; letter-spacing: -0.01em;
+  font-family: var(--serif); font-style: italic; font-size: clamp(36px, 3.3vw, 48px); line-height: 1.05; letter-spacing: -0.01em;
   min-height: 1.05em; white-space: nowrap;
 }
 .hero__tagline { position: relative; }
@@ -269,7 +269,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 @keyframes fadeout { to { opacity: 0; } }
 
 /* avatar: spins like a coin on hover */
-.avatar { width: 96px; height: 96px; perspective: 600px; cursor: pointer; }
+.avatar { width: 84px; height: 84px; perspective: 600px; cursor: pointer; }
 .avatar__card {
   position: relative; width: 100%; height: 100%; border-radius: 50%;
   transform-style: preserve-3d;
@@ -280,16 +280,16 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .avatar__card img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .avatar__glare { display: none; }
 
-.hero__copy { display: flex; flex-direction: column; gap: 6px; font-size: 20px; line-height: 1.5; letter-spacing: -0.2px; }
+.hero__copy { display: flex; flex-direction: column; gap: 4px; font-size: 18px; line-height: 1.5; letter-spacing: -0.2px; }
 .hero__copy strong { font-weight: 600; }
 .brand { display: inline-flex; align-items: baseline; gap: 4px; letter-spacing: -0.18px; white-space: nowrap; }
-.brand__target { width: 15px; height: 15px; align-self: center; }
-.brand__lowes { width: 18px; height: 15px; align-self: center; }
-.brand img { width: 16px; height: 18px; object-fit: contain; filter: brightness(0); align-self: center; }
+.brand__target { width: 13px; height: 13px; align-self: center; }
+.brand__lowes { width: 16px; height: 13px; align-self: center; }
+.brand img { width: 14px; height: 16px; object-fit: contain; filter: brightness(0); align-self: center; }
 .brand u, .hero__community u { text-underline-offset: 4px; }
 
-.hero__community { font-size: 20px; line-height: 1.5; letter-spacing: -0.2px; }
-.hero__community img { display: inline-block; height: 20px; width: auto; margin: 0 1px; vertical-align: -3px; }
+.hero__community { font-size: 18px; line-height: 1.5; letter-spacing: -0.2px; }
+.hero__community img { display: inline-block; height: 18px; width: auto; margin: 0 1px; vertical-align: -3px; }
 
 .inline-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s; }
 .inline-link:hover, .inline-link:focus-visible { color: var(--green-dark); }
@@ -563,11 +563,11 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .ruler__minor { gap: 7px; padding: 0 8px; }
   .ruler__item { font-size: 13px; }
   .toplinks { font-size: 15px; gap: 12px; flex-wrap: wrap; }
-  .hero__tagline { font-size: 34px; }
+  .hero__tagline { font-size: 30px; }
   .hero__hi { font-size: 16px; line-height: 1.5; }
   .hero__copy, .hero__community { font-size: 15px; line-height: 1.55; }
   .brand__target { width: 12px; height: 12px; } .brand__lowes { width: 14px; height: 12px; } .brand img { width: 13px; height: 15px; } .hero__community img { height: 16px; }
-  .avatar { width: 80px; height: 80px; }
+  .avatar { width: 72px; height: 72px; }
   .section-title { font-size: 28px; }
   .work { margin-top: 104px; gap: 24px; }
   .card__meta { flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; flex-wrap: wrap; gap: 6px 12px; }
