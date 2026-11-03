@@ -305,7 +305,10 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* ---------- Shipped projects ---------- */
 .work { margin-top: 176px; display: flex; flex-direction: column; gap: 33px; scroll-margin-top: 60px; }
-.card { display: flex; flex-direction: column; gap: 12px; color: var(--ink); }
+.card { display: flex; flex-direction: column; gap: 12px; color: var(--ink);
+  padding: 10px; border: 1px solid #e6e6e6; background: #fff; transition: border-color .3s; }   /* thin frame around each project */
+.card:hover { border-color: #c4c4c4; }
+.card:not(.card--wide) .card__body { padding: 8px 4px 6px; }
 .card--wide { flex-direction: row; align-items: center; gap: 24px; }
 .card--wide .card__media { flex: 0 0 50.75%; }
 .card--wide .card__body { flex: 1; }
@@ -335,7 +338,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card__desc { font-size: 14px; line-height: 1.5; letter-spacing: -0.2px; margin-top: 6px; color: #4a4a4a; max-width: 46ch; }
 /* featured (wide) card: logo, outcome headline, tag pills */
 .card__body--feature { gap: 0; }
-.card--wide .card__body--feature { padding: 0 0 0 clamp(16px, 3vw, 46px); }
+.card--wide .card__body--feature { padding: 0 clamp(8px, 2vw, 24px) 0 8px; }
 .card__brand { align-self: flex-start; width: auto; height: 28px; }
 .card__headline { margin-top: 28px; font-size: clamp(26px, 2.75vw, 40px); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 14em; }
 .card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
