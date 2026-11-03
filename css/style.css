@@ -564,10 +564,12 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   .ruler__item { font-size: 13px; }
   .toplinks { font-size: 15px; gap: 12px; flex-wrap: wrap; }
   .hero__tagline { font-size: 34px; }
-  .hero__hi, .hero__copy, .hero__community { font-size: 17px; line-height: 1.5; }
+  .hero__hi { font-size: 16px; line-height: 1.5; }
+  .hero__copy, .hero__community { font-size: 15px; line-height: 1.55; }
+  .brand__target { width: 12px; height: 12px; } .brand__lowes { width: 14px; height: 12px; } .brand img { width: 13px; height: 15px; } .hero__community img { height: 16px; }
   .avatar { width: 80px; height: 80px; }
   .section-title { font-size: 28px; }
-  .work { margin-top: 56px; gap: 24px; }
+  .work { margin-top: 104px; gap: 24px; }
   .card__meta { flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; flex-wrap: wrap; gap: 6px 12px; }
   .card__meta span { flex-basis: 100%; }
   .card__title { font-size: 22px; }
