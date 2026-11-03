@@ -126,14 +126,12 @@
   if (document.fonts) document.fonts.ready.then(realign);
   realign();
 
-  // Scroll spy: "work" while the shipped-projects section is on screen, otherwise "home"
+  // Scroll spy: "home" at the top, then "work" from the projects all the way down (no flip back, no auto "contact")
   let spyLock = 0;
   const workSec = document.getElementById('work');
   function spyIndex() {
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) return items.findIndex((i) => i.dataset.nav === 'contact');
     const r = workSec.getBoundingClientRect();
-    const mid = window.innerHeight * 0.45;
-    return (r.top < mid && r.bottom > mid) ? items.findIndex((i) => i.dataset.nav === 'work') : 0;
+    return r.top < window.innerHeight * 0.45 ? items.findIndex((i) => i.dataset.nav === 'work') : 0;
   }
 
   /* ---------- 4. Off the clock: vertical scroll → horizontal travel ---------- */
