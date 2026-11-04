@@ -157,3 +157,9 @@
 .page-case .cs-hmw { font-family: var(--sans); font-style: normal; font-weight: 500; font-size: clamp(1.25rem, 1.8vw, 1.5rem); line-height: 1.35; letter-spacing: -0.02em; }
 .page-case .cs-section { margin-top: 112px; }
 @media (max-width: 860px) { .cs-brief { margin-top: 56px; gap: 40px; } .page-case .cs-section { margin-top: 80px; } }
+
+/* ---------- v4 hero: logo on top, homepage headline with one accent phrase, "How I…" subheading ---------- */
+.cs-hero__brand--top { height: 32px; width: auto; }
+.cs-hero__title--big { font-family: var(--sans); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.04; font-weight: 600; letter-spacing: -0.045em; color: var(--ink); max-width: 15em; text-wrap: balance; }
+.cs-accent { color: var(--green-dark); }
+.cs-hero__lede--how { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.5; color: var(--text-light); max-width: 36em; }
