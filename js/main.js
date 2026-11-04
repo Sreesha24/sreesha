@@ -152,6 +152,7 @@
   let lastTick = -1;
 
   const clientsEl = otc.querySelector('.clients');
+  let szStart = 0.94;
   function layoutOtc() {
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
@@ -160,9 +161,13 @@
     const gap = parseFloat(getComputedStyle(clientsEl.parentElement).rowGap) || 72;   // space between logos and strip
     const room = vh - clientsEl.offsetHeight - gap - navH;
     const h = Math.max(200, Math.min(vh * (vw < 760 ? 0.55 : 0.46), vw < 760 ? (vw / 470) * CANVAS_H : 1e9, room, CANVAS_H));
-    scale = h / CANVAS_H;
+    // once the strip takes over it grows up into the gap under the logos (desktop / tablet only)
+    const hFull = vw < 760 ? h : Math.max(h, Math.min(vh * 0.62, CANVAS_H, room + gap - 28));
+    szStart = Math.min(0.94, h / hFull);
+    scale = hFull / CANVAS_H;
     otc.style.setProperty('--s', scale.toFixed(4));
     otc.style.setProperty('--strip-h', `${h}px`);
+    otc.style.setProperty('--strip-grow', `${(hFull - h).toFixed(1)}px`);
     // lead-in on the left so "4x Global Design Awards" (≈ x 290 in the design) starts centred on screen
     const pad = Math.max(0, Math.min(1150, (vw * 0.22) / scale - 276));   // awards sit left of centre
     otc.style.setProperty('--pad', `${pad.toFixed(1)}px`);
@@ -180,7 +185,7 @@
     const k = Math.min(1, Math.max(0, (raw - 0.04) / 0.26));
     const ek = k * k * (3 - 2 * k);
     otc.style.setProperty('--cz', (1 - 0.08 * ek).toFixed(4)); otc.style.setProperty('--co', (1 - 0.55 * ek).toFixed(3));
-    otc.style.setProperty('--sz', (0.94 + 0.06 * ek).toFixed(4)); otc.style.setProperty('--so', (0.6 + 0.4 * ek).toFixed(3));
+    otc.style.setProperty('--sz', (szStart + (1 - szStart) * ek).toFixed(4)); otc.style.setProperty('--so', (0.6 + 0.4 * ek).toFixed(3));
     const at = Math.round(p * (TICKS - 1));
     if (at !== lastTick) {
       ticks.forEach((t, k) => { t.classList.toggle('on', k < at); t.classList.toggle('now', k === at); });

@@ -446,7 +446,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 
 /* pinned-section header: title + tick progress (echoes the nav ruler) */
 .otc__hud {
-  position: absolute; z-index: 6; right: max(var(--gutter), calc((100vw - var(--page)) / 2 + 71px)); top: 4px;
+  position: absolute; z-index: 6; right: max(var(--gutter), calc((100vw - var(--page)) / 2 + 71px)); top: calc(4px - var(--strip-grow, 0px));
   display: flex; align-items: flex-end; justify-content: flex-end; gap: 24px; pointer-events: none;
 }
 .otc__progress { display: flex; align-items: flex-end; gap: 5px; height: 14px; }
