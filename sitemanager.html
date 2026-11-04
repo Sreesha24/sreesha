@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SiteManager Analytics — Sreesha Suresh</title>
   <meta name="description" content="Case study: designing a 0→1 analytics command center for HydroPoint SiteManager, helping enterprise teams spot critical issues across 300+ sites.">
-  <link rel="preload" href="assets/fonts/apple-garamond-light.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="assets/fonts/apple-garamond-light-italic.woff" as="font" type="font/woff" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -41,13 +39,15 @@
   <main>
     <p class="cs-back wrap"><a class="lk" href="index.html#work"><span class="lk__b">[</span><span class="lk__t">← all work</span><span class="lk__b">]</span></a></p>
 
-    <!-- ============ 1–3. TITLE, BRIEF, TAGS (EDIT) ============ -->
+    <!-- ============ TITLE + SHORT SUBHEADING (EDIT) ============ -->
     <header class="cs-hero wrap">
       <div class="cs-hero__head">
-        <h1 class="cs-hero__title">Designed a 0→1 analytics command center to identify critical issues across 300+ enterprise sites</h1>
+        <div class="cs-hero__text">
+          <h1 class="cs-hero__title">A 0→1 analytics command center</h1>
+          <p class="cs-hero__lede">I designed how enterprise teams spot and prioritize critical issues across 300+ sites.</p>
+        </div>
         <img class="cs-hero__brand" src="assets/img/logo-hydropoint.webp" alt="HydroPoint" width="202" height="56">
       </div>
-      <p class="cs-hero__lede">SiteManager Analytics helps irrigation and facilities teams at Lowe’s, Target and AT&amp;T spot issues across 300+ sites, and prioritize fixing critical sites.</p>
       <ul class="card__pills" aria-label="Project type">
         <li>B2B SaaS</li><li>0–1 analytics</li><li>Enterprise UX</li><li>Data visualization</li>
       </ul>
@@ -61,53 +61,51 @@
       </div>
     </figure>
 
-    <!-- ============ 4. META (EDIT) ============ -->
+    <!-- ============ MORE INFO (EDIT) ============ -->
     <dl class="cs-meta cs-meta--3 wrap">
       <div><dt>Team</dt><dd>1 Product Manager, 2 Engineers, Head of Design</dd></div>
       <div><dt>My role</dt><dd>Solo Product Designer</dd><dd>0–1, end-to-end</dd></div>
       <div><dt>Timeline</dt><dd>3 weeks for the MVP</dd><dd>2026</dd></div>
     </dl>
 
-    <!-- ============ 5. OVERVIEW (EDIT) ============ -->
-    <section class="cs-section cs-section--tight wrap" aria-labelledby="overview-title">
-      <div class="cs-section__label">
-        <h2 class="section-title" id="overview-title"><span>Ov<em>e</em>rview</span></h2>
-      </div>
-      <div class="cs-section__body">
-        <p>I led the <strong>0–1 design of SiteManager Analytics</strong>, owning the end-to-end experience: analyzing existing research, brainstorming features with PMs, and designing the information architecture, user journey and final UI.</p>
-        <p>The new analytics platform helps facility managers <strong>monitor site health, compare performance and identify recurring issues</strong>.</p>
-      </div>
-    </section>
-
-    <!-- ============ 6. IMPACT (EDIT) — 3 or 4 bullets ============ -->
-    <section class="cs-section cs-section--tight wrap" aria-labelledby="impact-title">
-      <div class="cs-section__label">
-        <h2 class="section-title" id="impact-title"><span>Imp<em>a</em>ct</span></h2>
-      </div>
-      <div class="cs-section__body">
+    <!-- ============ OVERVIEW + IMPACT, stacked (EDIT) ============ -->
+    <div class="cs-brief wrap">
+      <section aria-labelledby="overview-title">
+        <h2 class="cs-label" id="overview-title">Overview</h2>
+        <p>SiteManager Analytics helps <strong>irrigation and facilities teams at Lowe’s, Target and AT&amp;T</strong> manage water use and landscape health across hundreds of sites in the US.</p>
+        <p>I led the <strong>0→1 design end to end</strong>: analyzing existing research, brainstorming features with PMs, and designing the information architecture, user journey and final UI. The platform helps facility managers <strong>monitor site health, compare performance and identify recurring issues</strong>.</p>
+      </section>
+      <section aria-labelledby="impact-title">
+        <h2 class="cs-label" id="impact-title">Impact</h2>
         <ul class="cs-list">
           <li>Designed the <strong>first analytics experience</strong> in SiteManager, from 0→1</li>
           <li>Shipped the <strong>MVP in 3 weeks</strong>, from research to final UI</li>
           <li>Brought <strong>300+ enterprise sites into one view</strong>, ranked by what needs attention first</li>
         </ul>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <!-- ============ 7. PROBLEM (EDIT) — keep it to 2 sentences + the "how might we" ============ -->
+    <!-- ============ PROBLEM (EDIT) — label left, insight as the heading ============ -->
     <section class="cs-section wrap" aria-labelledby="problem-title">
       <div class="cs-section__label">
-        <h2 class="section-title" id="problem-title"><span>Pro<em>b</em>lem</span></h2>
+        <span class="cs-label" aria-hidden="true">Problem</span>
       </div>
       <div class="cs-section__body">
+        <h2 class="cs-insight" id="problem-title"><span class="sr-only">Problem: </span>Hundreds of sites. No way to see which ones needed attention.</h2>
         <p>SiteManager had <strong>no analytics at all</strong>. Teams managing hundreds of sites had to open them one by one to find leaks, offline controllers and overdue surveys, so critical issues were found late, or not at all.</p>
+        <ul class="cs-points">
+          <li><b>Scattered data</b>Site health lived across separate screens and reports.</li>
+          <li><b>No priority</b>Everything looked equally urgent, so nothing was.</li>
+          <li><b>Doesn’t scale</b>Site-by-site checks break down past a few dozen sites.</li>
+        </ul>
         <p class="cs-hmw">How might we help a portfolio manager know what needs attention in under a minute?</p>
       </div>
     </section>
 
     <!-- ============ SOLUTION (EDIT) — 2 or 3 snippets; delete a .cs-snippet block to use fewer ============ -->
-    <section class="cs-section wrap" aria-labelledby="solution-title">
+    <section class="cs-section wrap" aria-label="Solution">
       <div class="cs-section__label">
-        <h2 class="section-title" id="solution-title"><span>Sol<em>u</em>tion</span></h2>
+        <span class="cs-label" aria-hidden="true">Solution</span>
       </div>
       <div class="cs-section__body">
         <article class="cs-snippet">
@@ -169,7 +167,7 @@
     <!-- WORK WITH ME (same as the homepage) -->
     <section class="cta wrap" id="contact">
       <div class="cta__inner">
-        <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Wor<em>k</em> w<em>i</em>th me</a></h2>
+        <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Work with me</a></h2>
         <span class="cta__badge" aria-label="Open to full-time roles"><span class="cta__badge-text" aria-hidden="true">Open to full-time roles</span><span class="cta__caret" aria-hidden="true"></span></span>
         <svg class="garden garden--back" id="gardenBack" aria-hidden="true"></svg>
         <svg class="garden garden--front" id="gardenFront" aria-hidden="true"></svg>
