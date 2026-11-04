@@ -159,7 +159,7 @@
     const navH = vw <= 1100 ? 72 : 48;   // keep clear of the top bar / top edge
     const gap = parseFloat(getComputedStyle(clientsEl.parentElement).rowGap) || 72;   // space between logos and strip
     const room = vh - clientsEl.offsetHeight - gap - navH;
-    const h = Math.max(200, Math.min(vh * (vw < 760 ? 0.55 : 0.6), vw < 760 ? (vw / 470) * CANVAS_H : 1e9, room, CANVAS_H));
+    const h = Math.max(200, Math.min(vh * (vw < 760 ? 0.55 : 0.46), vw < 760 ? (vw / 470) * CANVAS_H : 1e9, room, CANVAS_H));
     scale = h / CANVAS_H;
     otc.style.setProperty('--s', scale.toFixed(4));
     otc.style.setProperty('--strip-h', `${h}px`);
@@ -176,6 +176,11 @@
     // gentle start: the first stretch of scrolling moves the strip slowly so the awards get a proper look
     const p = raw < 0.12 ? (raw / 0.12) ** 2 * 0.04 : 0.04 + (raw - 0.12) / 0.88 * 0.96;
     track.style.transform = `translate3d(${-p * distance}px,0,0)`;
+    // focus hand-off: logos full size on arrival, easing back as the strip starts to move; strip does the reverse
+    const k = Math.min(1, Math.max(0, (raw - 0.04) / 0.26));
+    const ek = k * k * (3 - 2 * k);
+    otc.style.setProperty('--cz', (1 - 0.08 * ek).toFixed(4)); otc.style.setProperty('--co', (1 - 0.55 * ek).toFixed(3));
+    otc.style.setProperty('--sz', (0.94 + 0.06 * ek).toFixed(4)); otc.style.setProperty('--so', (0.6 + 0.4 * ek).toFixed(3));
     const at = Math.round(p * (TICKS - 1));
     if (at !== lastTick) {
       ticks.forEach((t, k) => { t.classList.toggle('on', k < at); t.classList.toggle('now', k === at); });

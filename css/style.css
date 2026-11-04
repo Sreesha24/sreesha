@@ -395,8 +395,19 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .otc__sticky { touch-action: pan-y;
   /* logos + strip share one pinned screen: logos at the top, grass on the bottom edge */
   position: sticky; top: 0; height: 100vh; height: 100svh;
-  display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(64px, 12vh, 128px); overflow-x: clip;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: clamp(96px, 17vh, 190px); overflow-x: clip;
 }
+/* hand-off as you scroll: the logos are the focus on arrival, the strip takes over once it starts moving */
+.clients { transform: scale(var(--cz, 1)); opacity: var(--co, 1); transform-origin: 50% 100%; }
+.otc__stage { transform: scale(var(--sz, 1)); opacity: var(--so, 1); transform-origin: 50% 100%; }
+@media (min-width: 1101px) {
+  .clients { gap: 36px; }
+  .clients .section-title { font-size: 44px; }
+  .clients__logos { gap: 28px 36px; }
+  .clients__logos img { zoom: 1.08; }
+}
+@media (min-width: 1101px) and (max-width: 1400px) { .clients__logos { gap: 24px 26px; } .clients__logos img { zoom: .9; } }
+@media (min-width: 1101px) and (max-width: 1220px) { .clients__logos { gap: 20px 20px; } .clients__logos img { zoom: .78; } }   /* keeps the row to one line */
 .otc__stage { position: relative; height: var(--strip-h, 608px); display: flex; align-items: flex-end; flex: none; }
 .otc__track { position: relative; width: calc((3687px + var(--pad, 0px)) * var(--s)); height: calc(608px * var(--s)); will-change: transform; flex: none; }
 .otc__canvas { position: absolute; left: 0; top: 0; width: calc(3687px + var(--pad, 0px)); height: 608px; transform: scale(var(--s)); transform-origin: 0 0; }
