@@ -85,46 +85,48 @@
       </div>
     </section>
 
-    <!-- ============ 02 SOLUTION (EDIT) — 2 or 3 snippets; delete a .cs-snippet block to use fewer ============ -->
-    <section class="cs-section wrap" aria-labelledby="solution-title">
-      <div class="cs-section__label">
+    <!-- ============ 02 SOLUTION (EDIT) — one .cs-feature per feature area; add .cs-feature--flip to put the image on the left ============ -->
+    <section class="cs-solution" aria-labelledby="solution-title">
+      <div class="cs-solution__head wrap">
         <span class="cs-section__num">02</span>
         <h2 class="section-title" id="solution-title"><span>Sol<em>u</em>tion</span></h2>
       </div>
-      <div class="cs-section__body">
-        <article class="cs-snippet">
-          <!-- To use a real image, replace the whole <figure> with:
-               <figure class="cs-shot"><img src="assets/img/sitemanager/snippet-1.webp" alt="Describe the screen"><figcaption>Optional caption</figcaption></figure> -->
-          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: information architecture map (before vs. after)</div></figure>
-          <div class="cs-snippet__text">
-            <h3 class="cs-snippet__title"><span>Information architecture</span>Organised the whole product around issues, not sites</h3>
-            <div class="cs-snippet__desc">
-              <p>Instead of a list of sites to click through, the dashboard starts with what’s wrong across the portfolio, then lets you drill into the site and the device behind it.</p>
-              <p>This one structural decision shaped every screen that followed.</p>
-            </div>
-          </div>
-        </article>
 
-        <article class="cs-snippet">
-          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: portfolio overview with critical issues ranked</div></figure>
-          <div class="cs-snippet__text">
-            <h3 class="cs-snippet__title"><span>Prioritisation</span>Critical issues surface first, everything else waits</h3>
-            <div class="cs-snippet__desc">
-              <p>Issues are ranked by severity and impact, so the top of the screen is always the next thing to fix. Status uses both colour and text labels, so it reads at a glance for everyone.</p>
-            </div>
-          </div>
-        </article>
+      <article class="cs-feature wrap">
+        <div class="cs-feature__text">
+          <span class="cs-feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          </span>
+          <h3 class="cs-feature__title">Portfolio overview</h3>
+          <p class="cs-feature__sub">One command center that shows what’s wrong across every site, and what to fix first</p>
+          <dl class="cs-feature__points">
+            <div><dt>Issue-first information architecture</dt><dd>Organised around problems, not sites, so nobody has to click through 300 sites to find one leak.</dd></div>
+            <div><dt>Prioritised by severity</dt><dd>Critical issues rise to the top, so the first thing you see is the next thing to fix.</dd></div>
+            <div><dt>Readable at a glance</dt><dd>Status uses colour and text labels together, so it works for every user and every screen.</dd></div>
+          </dl>
+        </div>
+        <figure class="cs-feature__media">
+          <img src="assets/img/proj-sitemanager-ui.webp" alt="SiteManager portfolio overview with site counts, survey tracker and most reported findings" width="926" height="678" loading="lazy">
+        </figure>
+      </article>
 
-        <article class="cs-snippet">
-          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: site drill-down with trends and survey report</div></figure>
-          <div class="cs-snippet__text">
-            <h3 class="cs-snippet__title"><span>Drill-down</span>From 300 sites to one fix in three clicks</h3>
-            <div class="cs-snippet__desc">
-              <p>Portfolio → site → issue. Each level keeps its context, with charts that explain the trend and survey reports reorganised so field findings are easy to act on.</p>
-            </div>
-          </div>
-        </article>
-      </div>
+      <article class="cs-feature cs-feature--flip wrap">
+        <div class="cs-feature__text">
+          <span class="cs-feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/><path d="M8 11h6M11 8v6"/></svg>
+          </span>
+          <h3 class="cs-feature__title">Site drill-down</h3>
+          <p class="cs-feature__sub">From the whole portfolio to a single fix, without losing context</p>
+          <dl class="cs-feature__points">
+            <div><dt>Portfolio → site → issue</dt><dd>A clear three-level path, so any problem is a few clicks away.</dd></div>
+            <div><dt>Context that carries</dt><dd>Filters and selections follow you down, so you always know where you are.</dd></div>
+            <div><dt>Reports built for action</dt><dd>Survey reports reorganised so field findings are easy to scan and act on.</dd></div>
+          </dl>
+        </div>
+        <!-- To use a real image, replace this <figure> with:
+             <figure class="cs-feature__media"><img src="assets/img/sitemanager/drilldown.webp" alt="Describe the screen" loading="lazy"></figure> -->
+        <figure class="cs-feature__media cs-feature__media--empty"><div class="cs-shot__ph">Image: site drill-down with trends and survey report</div></figure>
+      </article>
     </section>
 
     <!-- ============ 03 IMPACT (EDIT) ============ -->
