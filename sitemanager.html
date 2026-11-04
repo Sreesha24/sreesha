@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteManager Analytics — Sreesha Suresh</title>
+  <meta name="description" content="Case study: designing a 0→1 analytics command center for HydroPoint SiteManager, helping enterprise teams spot critical issues across 300+ sites.">
+  <link rel="preload" href="assets/fonts/apple-garamond-light.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="assets/fonts/apple-garamond-light-italic.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/case.css">
+  <script>document.documentElement.classList.add('js', 'intro');</script>
+</head>
+<!--
+  CASE STUDY TEMPLATE
+  To make a new project page: copy this file (e.g. optionsplay.html), then edit only the parts marked EDIT.
+  Images for each project go in assets/img/<project>/ (hero.webp, snippet-1.webp, snippet-2.webp, snippet-3.webp).
+-->
+<body class="page-case">
+  <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+  <nav class="ruler" aria-label="Primary">
+    <span class="ruler__indicator" aria-hidden="true"></span>
+    <ol class="ruler__list">
+      <li><a class="ruler__item" href="index.html" data-nav="home"><span class="ruler__tick"></span><span class="ruler__label">home</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item is-active" href="index.html#work" data-nav="work" aria-current="page"><span class="ruler__tick"></span><span class="ruler__label">work</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="about.html" data-nav="about"><span class="ruler__tick"></span><span class="ruler__label">about</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="playground.html" data-nav="playground" data-soon><span class="ruler__tick"></span><span class="ruler__label">playground</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="#contact-footer" data-nav="contact"><span class="ruler__tick"></span><span class="ruler__label">contact</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <p class="cs-back wrap"><a class="lk" href="index.html#work"><span class="lk__b">[</span><span class="lk__t">← all work</span><span class="lk__b">]</span></a></p>
+
+    <!-- ============ HERO (EDIT) ============ -->
+    <header class="cs-hero wrap">
+      <img class="cs-hero__brand" src="assets/img/logo-hydropoint.webp" alt="HydroPoint" width="202" height="56">
+      <h1 class="cs-hero__title">A 0→1 analytics comm<em>a</em>nd center for <em>300+</em> enterprise sites</h1>
+      <p class="cs-hero__lede">SiteManager Analytics gives irrigation and facilities teams one place to see what’s going wrong across their whole portfolio, and what to fix first.</p>
+      <ul class="card__pills" aria-label="Project type">
+        <li>B2B SaaS</li><li>0–1 analytics</li><li>Enterprise UX</li><li>Data visualization</li>
+      </ul>
+    </header>
+
+    <!-- Hero image: swap these two files for any project (background + UI screenshot) -->
+    <figure class="cs-cover wrap">
+      <div class="cs-cover__media">
+        <img class="cs-cover__bg" src="assets/img/proj-sitemanager-bg.webp" alt="">
+        <img class="cs-cover__ui" src="assets/img/proj-sitemanager-ui.webp" alt="SiteManager Analytics dashboard showing site health across a portfolio" width="926" height="678">
+      </div>
+    </figure>
+
+    <!-- ============ META (EDIT) ============ -->
+    <dl class="cs-meta wrap">
+      <div><dt>Role</dt><dd>Lead product designer</dd><dd>IA, UX, UI, prototyping</dd></div>
+      <div><dt>Team</dt><dd>Product manager</dd><dd>Front-end developer</dd><dd>Design manager</dd></div>
+      <div><dt>Timeline</dt><dd>Aug – Oct 2026</dd><dd>Shipped</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Claude Code</dd><dd>HydroPoint design system</dd></div>
+    </dl>
+
+    <!-- ============ 01 PROBLEM (EDIT) ============ -->
+    <section class="cs-section wrap" aria-labelledby="problem-title">
+      <div class="cs-section__label">
+        <span class="cs-section__num">01</span>
+        <h2 class="section-title" id="problem-title"><span>Pro<em>b</em>lem</span></h2>
+      </div>
+      <div class="cs-section__body">
+        <p>SiteManager had <strong>no analytics at all</strong>. Enterprise customers managing hundreds of sites had to open them one by one to find leaks, offline controllers and overdue surveys, so critical issues were found late, or not at all.</p>
+        <p>Our PM had built an AI prototype that proved the demand and set the direction. My job was to turn that idea into a product people could trust every day: decide what matters most, how it’s organised, and how it scales to 300+ sites.</p>
+        <ul class="cs-points">
+          <li><b>Scattered data</b>Site health lived across separate screens and reports.</li>
+          <li><b>No priority</b>Everything looked equally urgent, so nothing was.</li>
+          <li><b>Doesn’t scale</b>Site-by-site checks break down past a few dozen sites.</li>
+        </ul>
+        <p class="cs-hmw">How might we help a portfolio manager know what needs attention in under a minute?</p>
+      </div>
+    </section>
+
+    <!-- ============ 02 SOLUTION (EDIT) — 2 or 3 snippets; delete a .cs-snippet block to use fewer ============ -->
+    <section class="cs-section wrap" aria-labelledby="solution-title">
+      <div class="cs-section__label">
+        <span class="cs-section__num">02</span>
+        <h2 class="section-title" id="solution-title"><span>Sol<em>u</em>tion</span></h2>
+      </div>
+      <div class="cs-section__body">
+        <article class="cs-snippet">
+          <!-- To use a real image, replace the whole <figure> with:
+               <figure class="cs-shot"><img src="assets/img/sitemanager/snippet-1.webp" alt="Describe the screen"><figcaption>Optional caption</figcaption></figure> -->
+          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: information architecture map (before vs. after)</div></figure>
+          <div class="cs-snippet__text">
+            <h3 class="cs-snippet__title"><span>Information architecture</span>Organised the whole product around issues, not sites</h3>
+            <div class="cs-snippet__desc">
+              <p>Instead of a list of sites to click through, the dashboard starts with what’s wrong across the portfolio, then lets you drill into the site and the device behind it.</p>
+              <p>This one structural decision shaped every screen that followed.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="cs-snippet">
+          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: portfolio overview with critical issues ranked</div></figure>
+          <div class="cs-snippet__text">
+            <h3 class="cs-snippet__title"><span>Prioritisation</span>Critical issues surface first, everything else waits</h3>
+            <div class="cs-snippet__desc">
+              <p>Issues are ranked by severity and impact, so the top of the screen is always the next thing to fix. Status uses both colour and text labels, so it reads at a glance for everyone.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="cs-snippet">
+          <figure class="cs-shot cs-shot--empty"><div class="cs-shot__ph">Image: site drill-down with trends and survey report</div></figure>
+          <div class="cs-snippet__text">
+            <h3 class="cs-snippet__title"><span>Drill-down</span>From 300 sites to one fix in three clicks</h3>
+            <div class="cs-snippet__desc">
+              <p>Portfolio → site → issue. Each level keeps its context, with charts that explain the trend and survey reports reorganised so field findings are easy to act on.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 03 IMPACT (EDIT) ============ -->
+    <section class="cs-section wrap" aria-labelledby="impact-title">
+      <div class="cs-section__label">
+        <span class="cs-section__num">03</span>
+        <h2 class="section-title" id="impact-title"><span>Imp<em>a</em>ct</span></h2>
+      </div>
+      <div class="cs-section__body">
+        <ul class="cs-stats">
+          <li class="cs-stat"><span class="cs-stat__num">0→1</span><span class="cs-stat__label">First analytics experience in SiteManager</span></li>
+          <li class="cs-stat"><span class="cs-stat__num">300+</span><span class="cs-stat__label">Enterprise sites visible in one view</span></li>
+          <li class="cs-stat"><span class="cs-stat__num">Shipped</span><span class="cs-stat__label">Built by engineering from my designs</span></li>
+        </ul>
+        <p class="cs-note"><b>What I learned:</b> an AI prototype is a great way to prove a need, but turning it into a product is about structure. Getting the information architecture right first made every later screen faster to design and build.</p>
+      </div>
+    </section>
+
+    <!-- ============ NEXT PROJECT (EDIT link + content) ============ -->
+    <section class="cs-next wrap" aria-labelledby="next-title">
+      <h2 class="cs-next__label" id="next-title">Next project</h2>
+      <a class="card card--wide" href="#" data-soon>
+        <div class="card__media">
+          <img class="card__bg" src="assets/img/proj-rgm-bg.webp" alt="" loading="lazy">
+          <img class="card__ui card__ui--rgm" src="assets/img/proj-rgm-ui.webp" alt="" loading="lazy" width="1026" height="732">
+        </div>
+        <div class="card__body card__body--feature">
+          <img class="card__brand" src="assets/img/logo-hydropoint.webp" alt="HydroPoint" width="202" height="56">
+          <h3 class="card__headline"><span class="sr-only">WaterCompass self-installation app: </span>Enabling customers to self-install IoT devices with minimal support</h3>
+          <ul class="card__pills" aria-label="Project type"><li>B2C</li><li>IoT onboarding</li><li>Mobile</li></ul>
+        </div>
+      </a>
+    </section>
+
+    <!-- WORK WITH ME (same as the homepage) -->
+    <section class="cta wrap" id="contact">
+      <div class="cta__inner">
+        <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Wor<em>k</em> w<em>i</em>th me</a></h2>
+        <span class="cta__badge" aria-label="Open to full-time roles"><span class="cta__badge-text" aria-hidden="true">Open to full-time roles</span><span class="cta__caret" aria-hidden="true"></span></span>
+        <svg class="garden garden--back" id="gardenBack" aria-hidden="true"></svg>
+        <svg class="garden garden--front" id="gardenFront" aria-hidden="true"></svg>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap-wide" id="contact-footer">
+    <p class="footer__meta">© 2026 Sreesha Suresh</p>
+    <nav class="footer__links" aria-label="Footer contact links">
+      <a class="lk" href="https://drive.google.com/file/d/1b1VnWoGGykMFzYRLNkzvDyww56HtdHeI/view?usp=sharing" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">resume</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+      <a class="lk" href="https://www.linkedin.com/in/sreesha-suresh/" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">linkedin</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+      <button type="button" class="lk lk--copy" data-copy="sreesha24@gmail.com" aria-label="Copy email address sreesha24@gmail.com"><span class="lk__b">[</span><span class="lk__t">sreesha24@gmail.com</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span><span class="lk__toast" aria-hidden="true">copied</span></button>
+      <a class="lk" href="https://x.com/sreesha24" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">X</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+    </nav>
+    <p class="footer__meta is-empty" id="lastVisitor">last visitor: <span></span></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/reveal.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/garden.js"></script>
+  <script src="js/sparkles.js"></script>
+  <p class="sr-only" role="status" id="copyStatus"></p>
+</body>
+</html>

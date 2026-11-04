@@ -1,0 +1,111 @@
+/* Case study pages — builds on style.css (same tokens, ruler nav, [link]s, grid lines, CTA + footer).
+   One template for every project: hero → meta → problem → solution snippets → impact → next project.
+   To make a new project page: copy sitemanager.html, swap the text and images. No CSS changes needed. */
+
+.page-case { --row-line: #e3e3e3; --soft: #f4f7f2; }
+
+/* ---------- Back link ---------- */
+.cs-back { padding-top: 120px; font-family: var(--serif); font-size: 18px; color: var(--text-light); }
+.cs-back .lk__b:first-child { margin-right: 2px; }
+
+/* ---------- Hero ---------- */
+.cs-hero { padding-top: 40px; display: flex; flex-direction: column; gap: 28px; }
+.cs-hero__brand { height: 30px; width: auto; align-self: flex-start; }
+.cs-hero__title {
+  font-family: var(--serif); font-size: clamp(2.25rem, 4.2vw, 3.75rem); line-height: 1.08; letter-spacing: -0.02em;
+  color: var(--ink); max-width: 18em; text-wrap: balance;
+}
+.cs-hero__title em { font-style: italic; }
+.cs-hero__lede { font-size: 1.125rem; line-height: 1.55; letter-spacing: -0.2px; color: var(--text-light); max-width: 40em; }
+.cs-hero .card__pills { margin-top: 0; }
+
+.cs-cover { margin-top: 48px; padding: 10px; border: 1px solid #e6e6e6; background: #fff; }
+.cs-cover__media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #e9efe6; }
+.cs-cover__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cs-cover__ui {
+  position: absolute; left: 50%; top: 9%; width: 68%; height: auto; transform: translateX(-50%);
+  border: 1px solid #e4e4e4; box-shadow: 0 24px 60px rgba(0,0,0,.14);
+}
+
+/* ---------- Meta row: role · team · timeline · tools ---------- */
+.cs-meta {
+  margin-top: 40px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px;
+  padding-top: 24px; border-top: 1px solid var(--row-line);
+}
+.cs-meta dt { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.2px; color: var(--text-meta); margin-bottom: 8px; }
+.cs-meta dd { margin: 0; font-size: 1rem; line-height: 1.5; letter-spacing: -0.2px; color: var(--ink); }
+.cs-meta dd + dd { margin-top: 2px; }
+
+/* ---------- Story sections: label on the left, content on the right ---------- */
+.cs-section {
+  margin-top: 128px; display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); column-gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.cs-section__label { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 6px; }
+.cs-section__num { font-size: 0.875rem; color: var(--text-meta); letter-spacing: -0.2px; font-variant-numeric: tabular-nums; }
+.cs-section__label .section-title { font-size: 2rem; }
+.cs-section__body { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.cs-section__body > p { font-size: 1.0625rem; line-height: 1.65; letter-spacing: -0.2px; color: #2b2b2b; max-width: 40em; }
+.cs-section__body strong { font-weight: 600; color: var(--ink); }
+
+/* "How might we" pull line */
+.cs-hmw {
+  margin: 12px 0 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--green);
+  font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1.25; color: var(--ink); max-width: 20em;
+}
+
+/* pain points list */
+.cs-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+.cs-points li { padding: 20px; border: 1px solid var(--row-line); background: #fff; font-size: 1rem; line-height: 1.5; color: #2b2b2b; }
+.cs-points b { display: block; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+
+/* ---------- Solution snippets ---------- */
+.cs-snippet { display: flex; flex-direction: column; gap: 24px; }
+.cs-snippet + .cs-snippet { margin-top: 72px; }
+.cs-shot { margin: 0; padding: 10px; border: 1px solid #e6e6e6; background: #fff; }
+.cs-shot img { width: 100%; height: auto; }
+.cs-shot figcaption { padding: 10px 4px 2px; font-size: 0.875rem; line-height: 1.45; color: var(--text-meta); }
+/* empty frame shown until the real screenshot is dropped in */
+.cs-shot--empty .cs-shot__ph {
+  aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 24px; text-align: center;
+  background: var(--soft); border: 1px dashed #b5c2b0; color: #4f5b4c; font-size: 0.875rem; line-height: 1.5;
+}
+.cs-snippet__text { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(20px, 4vw, 48px); }
+.cs-snippet__title { font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.25; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); text-wrap: balance; }
+.cs-snippet__title span { display: block; font-size: 0.875rem; font-weight: 500; letter-spacing: -0.2px; color: var(--green-dark); margin-bottom: 8px; }
+.cs-snippet__desc { display: flex; flex-direction: column; gap: 12px; font-size: 1.0625rem; line-height: 1.65; letter-spacing: -0.2px; color: #2b2b2b; }
+
+/* ---------- Impact ---------- */
+.cs-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 4px; }
+.cs-stat { padding: 24px; border: 1px solid var(--row-line); background: #fff; display: flex; flex-direction: column; gap: 8px; }
+.cs-stat__num { font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+.cs-stat__label { font-size: 1rem; line-height: 1.45; color: var(--text-light); }
+
+/* reflection quote */
+.cs-note { padding: 24px; background: var(--soft); font-size: 1.0625rem; line-height: 1.65; color: #2b2b2b; }
+.cs-note b { font-weight: 600; color: var(--ink); }
+
+/* ---------- Next project ---------- */
+.cs-next { margin-top: 128px; }
+.cs-next__label { font-size: 0.875rem; color: var(--text-meta); margin-bottom: 16px; }
+.cs-next .card--wide { cursor: pointer; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .cs-back { padding-top: 32px; }
+}
+@media (max-width: 860px) {
+  .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .cs-section { grid-template-columns: 1fr; row-gap: 24px; margin-top: 88px; }
+  .cs-section__label { position: static; }
+  .cs-points, .cs-stats { grid-template-columns: 1fr; }
+  .cs-snippet__text { grid-template-columns: 1fr; gap: 12px; }
+  .cs-cover__media { aspect-ratio: 4 / 3; }
+  .cs-cover__ui { width: 84%; top: 12%; }
+  .cs-next { margin-top: 88px; }
+}
+@media (max-width: 560px) {
+  .cs-back { font-size: 16px; }
+  .cs-hero__lede { font-size: 1rem; }
+  .cs-section__label .section-title { font-size: 1.75rem; }
+}

@@ -16,6 +16,9 @@
     ['.ab-block__title', 'reveal--title', 0],
     ['.ab-rows li', '', 0.04],
     ['.ab-life__intro > *', '', 0.12],
+    ['.cs-snippet', '', 0],
+    ['.cs-points li', '', 0.06],
+    ['.cs-stat', '', 0.08],
   ];
   const targets = [];
   groups.forEach(([sel, extra, step]) => {
