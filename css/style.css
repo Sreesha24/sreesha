@@ -278,6 +278,10 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   will-change: transform;
 }
 .avatar__card img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+/* at rest it keeps turning very slightly, like a coin catching the light */
+.avatar__idle { width: 100%; height: 100%; border-radius: 50%; transform-style: preserve-3d; animation: coin-idle 5.5s ease-in-out infinite alternate; }
+@keyframes coin-idle { from { transform: rotateY(-16deg) rotateX(2deg); } to { transform: rotateY(16deg) rotateX(-2deg); } }
+@media (prefers-reduced-motion: reduce) { .avatar__idle { animation: none; } }
 .avatar__glare { display: none; }
 
 .hero__copy { display: flex; flex-direction: column; gap: 4px; font-size: 18px; line-height: 1.5; letter-spacing: -0.2px; }

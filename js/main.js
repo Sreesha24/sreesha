@@ -61,6 +61,7 @@
   }
   avatar.addEventListener('pointerenter', flip);
   avatar.addEventListener('click', flip);
+  if (!reduceMotion) setTimeout(flip, 1000);   // one full coin spin as the page comes in, right after the photo pops
 
   /* ---------- 3. Ruler nav ("clicker") ---------- */
   const ruler = document.querySelector('.ruler');
