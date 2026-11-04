@@ -350,7 +350,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card__body--feature { gap: 0; }
 .card--wide .card__body--feature { padding: 0 clamp(8px, 2vw, 24px) 0 8px; }
 .card__brand { align-self: flex-start; width: auto; height: 28px; }
-.card__headline { margin-top: 28px; font-size: 28px; line-height: 1.2; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
+.card__headline { margin-top: 18px; font-size: 28px; line-height: 1.2; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty; max-width: 16em; }
 .card__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 /* the smaller cards use the same pattern one step down: logo, headline, pills under the image */
 .card:not(.card--wide) .card__body--feature { padding: 18px 0 8px; }   /* text lines up with the image edge */
