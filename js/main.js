@@ -61,7 +61,12 @@
   }
   avatar.addEventListener('pointerenter', flip);
   avatar.addEventListener('click', flip);
-  if (!reduceMotion) setTimeout(flip, 1000);   // one full coin spin as the page comes in, right after the photo pops
+  // as the page comes in: one full spin forward, then one full spin back the other way
+  if (!reduceMotion) {
+    setTimeout(() => { spinning = true; card.style.setProperty('--ry', '360deg'); }, 1000);
+    setTimeout(() => { card.style.setProperty('--ry', '0deg'); }, 3000);
+    setTimeout(() => { spinning = false; spins = 0; }, 5000);
+  }
 
   /* ---------- 3. Ruler nav ("clicker") ---------- */
   const ruler = document.querySelector('.ruler');
