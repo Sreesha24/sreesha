@@ -6,7 +6,7 @@
 <title>OptionsPlay — Sreesha Suresh</title>
 <meta name="description" content="How I transformed a 12 year old legacy trading dashboard into a customizable workspace, driving higher adoption and premium user conversions.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /*
 VOICE: calm, confident portfolio case study; product shots and evidence carry it.
@@ -15,10 +15,7 @@ PICTURE: the redesigned dashboard on a tablet, then real widgets throughout.
 COLOUR and TYPE: white, warm grey #F4F4F2 plates, ink #141312, portfolio green #1B6A2C; Inter.
 LAYOUT: 1166px column, left section nav on wide screens, generous section spacing.
 */
-@font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-light.woff") format("woff");font-weight:300 400;font-style:normal;font-display:swap}
-@font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-regular.woff") format("woff");font-weight:500 600;font-style:normal;font-display:swap}
-@font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-light-italic.woff") format("woff");font-weight:300 400;font-style:italic;font-display:swap}
-:root{color-scheme:light;--serif:"Apple Garamond","Instrument Serif",Georgia,serif;--bg:#fff;--ink:#141312;--muted:#55534F;--line:#E4E4E0;--plate:#F4F4F2;--brand:#1B6A2C;--brand-ink:#fff;--brand-tint:#ECF4ED;--stage:#F4F4F2;--focus:#1B6A2C}
+:root{color-scheme:light;--bg:#fff;--ink:#141312;--muted:#55534F;--line:#E4E4E0;--plate:#F4F4F2;--brand:#1B6A2C;--brand-ink:#fff;--brand-tint:#ECF4ED;--stage:#F4F4F2;--focus:#1B6A2C}
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth;scroll-padding-top:88px}
 @media (min-width:1280px){html{scroll-padding-top:40px}}
@@ -30,7 +27,7 @@ a{color:var(--brand)}
 .wrap{max-width:1166px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:content-box}
 .cs-sec{margin-top:clamp(112px,12vw,200px)}
 .cs-eyebrow{margin:0 0 14px;font-size:clamp(13px,.25vw + 11px,15px);font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.01em}
-h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin:24px 0 28px;letter-spacing:-.02em}
+h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin:24px 0 28px;letter-spacing:-.035em}
 .cs-h2{font-size:clamp(26px,1.5vw + 13px,38px);line-height:1.25;font-weight:500;margin:0 0 28px;letter-spacing:-.01em}
 .cs-h3{font-size:clamp(21px,.8vw + 13px,28px);line-height:1.35;font-weight:500;margin:0 0 20px}
 .cs-p{margin:0 0 22px;max-width:68ch;color:#2A2926}
@@ -52,7 +49,9 @@ h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin
 .snav ol ol a.t::before{width:6px}
 .snav ol ol a.t[aria-current]::before{width:22px;border-top-width:2px}
 .snav .bar{position:absolute;left:-1px;top:0;width:2px;background:var(--brand);transform-origin:top;transition:transform .15s linear;height:100%;transform:scaleY(0);opacity:.25}
-.tbar{position:sticky;top:0;z-index:6;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);margin-top:clamp(40px,4vw,64px)}
+.tbar{position:fixed;top:0;left:0;right:0;z-index:6;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transform:translateY(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.tbar.on{transform:none;visibility:visible;transition:transform .25s ease}
+@media (prefers-reduced-motion:reduce){.tbar,.tbar.on{transition:none}}
 .tbar ol{list-style:none;display:flex;gap:4px;margin:0 auto;padding:8px clamp(20px,4vw,40px);max-width:1166px;overflow-x:auto;scrollbar-width:none}
 .tbar ol::-webkit-scrollbar{display:none}
 .tbar a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:0;color:var(--muted);text-decoration:none;font-size:15px;white-space:nowrap}
@@ -444,7 +443,7 @@ h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* ---------- site match: serif headings, square corners ---------- */
-.cs-eyebrow,.kd-k{font-family:var(--serif);font-weight:500;font-size:clamp(16px,.3vw + 13.5px,19px);letter-spacing:.04em!important}
+
 .ptabs [role=tablist],.ptabs button,.cs-btn,.take,.dq span,.hero-img,.tags li,.chips li,
 .ah .tablist,.ah .tab,.ah .more,.ah .stage,.ah .pane,.ah .bpill,.ah .shot,.ah .zoom,.ah .ux,.ah .key li i,.ah .lp,.ah .cap,
 .ah .tradeoff,.ah .empty,.ah .arrow-c span,.mark,.ol,.brk,.kd .mk{border-radius:0!important}
@@ -944,7 +943,8 @@ tlist.innerHTML=secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>
 const targets=[...secs,...document.querySelectorAll('[data-sub]')];
 const links=id=>document.querySelectorAll(`a[href="#${id}"]`);
 let raf=0;
-const upd=()=>{raf=0;const y=innerHeight*.35;let cur=null,sub=null;
+const tb=document.querySelector('.tbar'),tl=document.getElementById('tldr');
+const upd=()=>{raf=0;if(tb&&tl)tb.classList.toggle('on',tl.getBoundingClientRect().bottom<64);const y=innerHeight*.35;let cur=null,sub=null;
  for(const sc of secs){const r=sc.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=sc}
  if(cur)for(const x of cur.querySelectorAll('[data-sub]')){const r=x.getBoundingClientRect();if(r.top<=y&&r.bottom>y)sub=x}
  document.querySelectorAll('.snav a.t,.tbar a').forEach(a=>a.removeAttribute('aria-current'));
