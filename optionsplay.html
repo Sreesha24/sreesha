@@ -27,15 +27,17 @@ a{color:var(--brand)}
 .wrap{max-width:1166px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:content-box}
 .cs-sec{margin-top:clamp(112px,12vw,200px)}
 .cs-eyebrow{margin:0 0 14px;font-size:clamp(13px,.25vw + 11px,15px);font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.01em}
-h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;margin:20px 0 14px;letter-spacing:-.03em;max-width:28ch}
+h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;margin:20px 0 14px;letter-spacing:-.03em;max-width:none;text-wrap:balance}
 .cs-h2{font-size:clamp(26px,1.5vw + 13px,38px);line-height:1.25;font-weight:500;margin:0 0 28px;letter-spacing:-.01em}
 .cs-h3{font-size:clamp(21px,.8vw + 13px,28px);line-height:1.35;font-weight:500;margin:0 0 20px}
 .cs-p{margin:0 0 22px;max-width:68ch;color:#2A2926}
 .cs-p b{font-weight:600;color:var(--ink)}
 /* section nav */
 /* site nav: same ruler as the homepage, collapses to a menu icon once you scroll */
-.site{position:fixed;left:clamp(16px,2.2vw,40px);top:96px;z-index:8;font:14px/1 Inter,sans-serif}
+.site{position:fixed;left:clamp(16px,2.2vw,40px);top:8px;z-index:8;font:14px/1 Inter,sans-serif}
 .site ol{list-style:none;margin:0;padding:0}
+.site .menu{position:absolute;top:88px;left:0;min-width:170px;padding:0;transition:background .25s,padding .25s}
+.site .menu>li{transform-origin:22px -60px;transition:transform .38s cubic-bezier(.2,.8,.2,1),opacity .28s,visibility 0s;transition-delay:calc(var(--i)*30ms)}
 .site .ri{display:flex;align-items:center;gap:10px;min-height:28px;color:#414141;text-decoration:none;transition:color .2s}
 .site .ri i{display:block;width:6px;height:1px;background:#414141;transition:width .25s cubic-bezier(.3,1.6,.5,1),background .2s}
 .site .ri span{display:inline-block;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
@@ -43,24 +45,28 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 .site .ri[aria-current]{color:var(--ink);font-weight:600;font-size:16px}.site .ri[aria-current] i{width:22px;height:1.5px;background:var(--ink)}
 .site .mn{display:flex;flex-direction:column;gap:13px;padding:6.5px 0}.site .mn b{display:block;width:4px;height:1px;background:#414141}
 .site .ri em{font-style:normal;font-size:12px;color:#555557;border:1px solid #CFCFC8;padding:2px 6px}
-.mbtn{display:none;appearance:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;place-items:center;cursor:pointer;color:var(--ink)}
+.mbtn{position:absolute;top:0;left:0;appearance:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;color:var(--ink);opacity:0;visibility:hidden;transform:scale(.5) rotate(-90deg);transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .2s,visibility 0s .35s,border-color .2s}
 .mbtn:hover{border-color:#BDBDB6}
-.site.col{top:8px}
-.site.col .mbtn{display:grid}
-.site.col .menu{position:absolute;top:52px;left:0;background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.08);padding:14px 22px 14px 18px;min-width:170px;display:none}
-.site.col.open .menu{display:block}
-.site.col .mn{display:none}
+.mbtn .bars{position:relative;width:20px;height:14px}
+.mbtn .bars b{position:absolute;left:0;width:20px;height:1.8px;background:currentColor;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.mbtn .bars b:nth-child(1){top:0}.mbtn .bars b:nth-child(2){top:6px}.mbtn .bars b:nth-child(3){top:12px}
+.site.open .mbtn .bars b:nth-child(1){transform:translateY(6px) rotate(45deg)}.site.open .mbtn .bars b:nth-child(2){opacity:0;transform:scaleX(.2)}.site.open .mbtn .bars b:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* collapsed: links fold up into the menu button */
+.site.col .mbtn{opacity:1;visibility:visible;transform:none;transition-delay:.12s,.12s,0s,0s}
+.site.col .menu>li{opacity:0;visibility:hidden;transform:translateY(calc(-40px - var(--i)*22px)) scale(.3);transition-delay:calc((8 - var(--i))*22ms),calc((8 - var(--i))*22ms),.45s}
+/* reopened: links unfold back to where they were */
+.site.col.open .menu{background:#fff;padding:10px 20px 10px 0;box-shadow:-40px 0 0 #fff}
+@media (max-width:1279px){.site.col.open .menu{box-shadow:-40px 0 0 #fff,1px 0 0 var(--line),-40px 1px 0 var(--line),0 1px 0 var(--line)}}
+.site.col.open .menu>li{opacity:1;visibility:visible;transform:none;transition-delay:calc(var(--i)*35ms),calc(var(--i)*35ms),0s}
 @media (prefers-reduced-motion:reduce){.site *{transition:none!important}}
 .tbar{position:fixed;top:0;left:0;right:0;z-index:6;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transform:translateY(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
 .tbar.on{transform:none;visibility:visible;transition:transform .25s ease}
 @media (prefers-reduced-motion:reduce){.tbar,.tbar.on{transition:none}}
 .tbar ol{list-style:none;display:flex;align-items:center;gap:4px;margin:0 auto;padding:8px clamp(20px,4vw,40px) 8px calc(clamp(20px,4vw,40px) + 56px);max-width:1246px;overflow-x:auto;scrollbar-width:none}
-.tbar .bk{color:var(--ink);font-weight:500;gap:6px;margin-right:12px;padding:0 14px 0 4px;border-right:1px solid var(--line)}
-.tbar .bk:hover{color:var(--brand)}
 .tbar ol::-webkit-scrollbar{display:none}
 .tbar a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:0;color:var(--muted);text-decoration:none;font-size:15px;white-space:nowrap}
 .tbar a[aria-current]{background:var(--brand);color:#fff}
-@media (min-width:1280px){.tbar ol{max-width:none;margin-left:max(220px,calc((100vw - 1246px)/2));padding-left:clamp(20px,4vw,40px)}main,.cs-foot{margin-left:max(220px,calc((100vw - 1246px)/2))!important;margin-right:auto!important}.wrap{max-width:min(1166px,calc(100vw - 300px))}}
+@media (min-width:1280px){.tbar ol{max-width:min(1166px,calc(100vw - 440px));padding-left:0;padding-right:0;box-sizing:content-box}main,.cs-foot{margin-left:auto!important;margin-right:auto!important}.wrap{max-width:min(1166px,calc(100vw - 440px))}}
 /* hero */
 .cs-hero{padding-top:clamp(64px,8vw,150px)}
 .cs-hero .lead{font-size:clamp(17px,.5vw + 13px,21px);line-height:1.6;max-width:60ch;color:#2A2926;margin:0 0 36px}
@@ -476,7 +482,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" data-soon aria-disabled="true"><i></i><span>playground</span><em>soon</em></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
+<nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span class="bars" aria-hidden="true"><b></b><b></b><b></b></span></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" data-soon aria-disabled="true"><i></i><span>playground</span><em>soon</em></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
 
 <main id="main">
  <header class="cs-hero wrap">
@@ -969,8 +975,9 @@ tabs.forEach((t,i)=>{t.addEventListener('click',()=>select(t));
 // section nav: built from [data-nav] sections and their [data-sub] blocks
 const secs=[...document.querySelectorAll('[data-nav]')];
 const tlist=document.getElementById('tbar-list');
-tlist.innerHTML='<li><a class="bk" href="index.html#work"><span aria-hidden="true">←</span>Back</a></li>'+secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
+tlist.innerHTML=secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
 const site=document.getElementById('site'),mb=site.querySelector('.mbtn');
+site.querySelectorAll('.menu>li').forEach((li,i)=>li.style.setProperty('--i',i));
 const closeM=()=>{site.classList.remove('open');mb.setAttribute('aria-expanded','false')};
 site.querySelectorAll('[data-soon]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
 mb.addEventListener('click',()=>{const o=!site.classList.contains('open');site.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
