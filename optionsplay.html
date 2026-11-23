@@ -28,6 +28,15 @@ a{color:var(--brand)}
 .cs-sec{margin-top:clamp(112px,12vw,200px)}
 .cs-eyebrow{margin:0 0 14px;font-size:clamp(13px,.25vw + 11px,15px);font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.01em}
 h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;margin:20px 0 14px;letter-spacing:-.03em;max-width:none;text-wrap:balance}
+@font-face{font-family:"AG";src:url(assets/fonts/apple-garamond-light.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"AG";src:url(assets/fonts/apple-garamond-light-italic.woff) format("woff");font-weight:400;font-style:italic;font-display:swap}
+/* chapter titles carry the homepage voice: serif with italic accent letters + sparkle */
+.cs-h2.vo{font-family:"AG",Georgia,serif;font-weight:400;font-size:clamp(34px,2.2vw + 16px,52px);line-height:1.08;letter-spacing:-.02em;display:flex;align-items:flex-start;gap:12px;max-width:24ch}
+.cs-h2.vo em{font-style:italic}
+.spark{width:22px;height:22px;flex:none;margin-top:.15em;transform:rotate(var(--spin,0deg))}
+/* green kept rare: labels go quiet grey; green stays for highlights, tabs and new-experience visuals */
+.cs-eyebrow,.dn,.kd-k,.tradeoff-box h4,.tradeoff-box b{color:#5F5E5A!important}
+.cs-eyebrow,.dn{letter-spacing:.08em}
 .cs-h2{font-size:clamp(26px,1.5vw + 13px,38px);line-height:1.25;font-weight:500;margin:0 0 28px;letter-spacing:-.01em}
 .cs-h3{font-size:clamp(21px,.8vw + 13px,28px);line-height:1.35;font-weight:500;margin:0 0 20px}
 .cs-p{margin:0 0 22px;max-width:68ch;color:#2A2926}
@@ -536,7 +545,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
  <section class="cs-sec wrap" id="tldr" data-nav="TL;DR" aria-labelledby="s1">
  <div class="tl-box">
   <p class="cs-eyebrow">01 / TL;DR</p>
-  <h2 class="cs-h2" id="s1">About OptionsPlay</h2>
+  <h2 class="cs-h2 vo" id="s1"><span>About Option<em>s</em>Pla<em>y</em></span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
   <p class="cs-p">OptionsPlay is an <b>options trading platform</b> that helps discover trading opportunities, and make informed investment decisions.</p>
   <div class="cs-stats"><div class="cs-stat "><strong>10K+</strong><span>Daily active users</span></div><div class="cs-stat "><strong>12+</strong><span>Years in the market</span></div><div class="cs-stat "><strong>8+</strong><span>financial companies whitelabel the platform</span></div></div>
   <div class="trusted"><p>Trusted by leading financial institutions</p><img src="assets/img/optionsplay/logos.png" alt="Charles Schwab, Fidelity Investments, tastytrade, BMO" width="517" height="56" loading="lazy"></div>
@@ -576,7 +585,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 
  <section class="cs-sec wrap" id="research" data-nav="Research" aria-labelledby="s2">
   <p class="cs-eyebrow">02 / Research and problem discovery</p>
-  <h2 class="cs-h2" id="s2">I started by investigating why traders were dropping off during their first session</h2>
+  <h2 class="cs-h2 vo" id="s2"><span>I started by investigating why trader<em>s</em> were dropping off during their fir<em>s</em>t session</span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
   <div class="cs-stats"><div class="cs-stat "><strong>7</strong><span>trader interviews across experience levels</span></div><div class="cs-stat "><strong>9</strong><span>competitive analysis of trading platforms</span></div><div class="cs-stat "><strong>2</strong><span>analytics tools: Hotjar and Mixpanel</span></div></div>
 
   <div class="sub">
@@ -613,7 +622,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 
  <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
   <p class="cs-eyebrow">03 / Design decisions</p>
-  <h2 class="cs-h2" id="s4">Key Design Decisions</h2>
+  <h2 class="cs-h2 vo" id="s4"><span>Key De<em>s</em>ign Deci<em>s</em>ions</span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
   </div>
 
   <div class="sub" id="d31" data-sub="3.1 Trader control">
@@ -1067,5 +1076,6 @@ document.querySelectorAll('.ba').forEach(f=>{const r=f.querySelector('.ba-r');
  const io=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;io.disconnect();f.classList.add('anim');
   setTimeout(()=>set(35),300);setTimeout(()=>set(62),1100);setTimeout(()=>{set(50);setTimeout(()=>f.classList.remove('anim'),800)},1900)},{threshold:.6});io.observe(f)});
 </script>
+<script>(()=>{const sp=[...document.querySelectorAll('.spark')];if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;addEventListener('scroll',()=>sp.forEach(x=>x.style.setProperty('--spin',(scrollY*.25)+'deg')),{passive:true})})();</script>
 </body>
 </html>
