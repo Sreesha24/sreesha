@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OptionsPlay — Sreesha Suresh</title>
+<meta name="description" content="How I transformed a 12 year old legacy trading dashboard into a customizable workspace, driving higher adoption and premium user conversions.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: calm, confident portfolio case study; product shots and evidence carry it.
+IDEA: the printed case-study spread: big numbers, captioned figures, quiet grey plates.
+PICTURE: the redesigned dashboard on a tablet, then real widgets throughout.
+COLOUR and TYPE: white, warm grey #F4F4F2 plates, ink #141312, portfolio green #1B6A2C; Inter.
+LAYOUT: 1166px column, left section nav on wide screens, generous section spacing.
+*/
+:root{color-scheme:light;--bg:#fff;--ink:#141312;--muted:#55534F;--line:#E4E4E0;--plate:#F4F4F2;--brand:#1B6A2C;--brand-ink:#fff;--brand-tint:#ECF4ED;--stage:#F4F4F2;--focus:#1B6A2C}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+@media (min-width:1280px){html{scroll-padding-top:40px}}
+body{margin:0;background:var(--bg);color:var(--ink);font:clamp(16px,.3vw + 13.5px,19px)/1.7 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+a{color:var(--brand)}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;z-index:20}.skip:focus{left:8px}
+.wrap{max-width:1166px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:content-box}
+.cs-sec{margin-top:clamp(112px,12vw,200px)}
+.cs-eyebrow{margin:0 0 14px;font-size:clamp(13px,.25vw + 11px,15px);font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.01em}
+h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin:24px 0 28px;letter-spacing:-.035em}
+.cs-h2{font-size:clamp(26px,1.5vw + 13px,38px);line-height:1.25;font-weight:500;margin:0 0 28px;letter-spacing:-.01em}
+.cs-h3{font-size:clamp(21px,.8vw + 13px,28px);line-height:1.35;font-weight:500;margin:0 0 20px}
+.cs-p{margin:0 0 22px;max-width:68ch;color:#2A2926}
+.cs-p b{font-weight:600;color:var(--ink)}
+/* section nav */
+.snav{position:fixed;left:clamp(16px,2.2vw,40px);top:96px;z-index:6;display:none;width:180px;font-size:14px;line-height:1.3}
+.snav .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;margin-bottom:22px;min-height:24px}
+.snav .back:hover{color:var(--ink)}
+.snav ol{list-style:none;margin:0;padding:0;border-left:1px solid #DDDDD8}
+.snav li{margin:0}
+.snav a.t{position:relative;display:flex;align-items:center;min-height:32px;padding:4px 0 4px 18px;color:var(--muted);text-decoration:none;transition:color .2s}
+.snav a.t::before{content:"";position:absolute;left:-1px;top:50%;width:10px;border-top:1px solid #BDBDB8;transition:width .2s,border-color .2s}
+.snav a.t:hover{color:var(--ink)}
+.snav a.t[aria-current]{color:var(--ink);font-weight:600}
+.snav a.t[aria-current]::before{width:14px;border-top:2px solid var(--brand)}
+.snav ol ol{border:0;margin:0 0 6px;display:none}
+.snav li.open>ol{display:block}
+.snav ol ol a.t{padding-left:30px;min-height:28px;font-size:13px}
+.snav ol ol a.t::before{width:6px}
+.snav ol ol a.t[aria-current]::before{width:22px;border-top-width:2px}
+.snav .bar{position:absolute;left:-1px;top:0;width:2px;background:var(--brand);transform-origin:top;transition:transform .15s linear;height:100%;transform:scaleY(0);opacity:.25}
+.tbar{position:fixed;top:0;left:0;right:0;z-index:6;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transform:translateY(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.tbar.on{transform:none;visibility:visible;transition:transform .25s ease}
+@media (prefers-reduced-motion:reduce){.tbar,.tbar.on{transition:none}}
+.tbar ol{list-style:none;display:flex;gap:4px;margin:0 auto;padding:8px clamp(20px,4vw,40px);max-width:1166px;overflow-x:auto;scrollbar-width:none}
+.tbar ol::-webkit-scrollbar{display:none}
+.tbar a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:0;color:var(--muted);text-decoration:none;font-size:15px;white-space:nowrap}
+.tbar a[aria-current]{background:var(--brand);color:#fff}
+@media (min-width:1280px){.snav{display:block}.tbar{display:none}main,.cs-foot{margin-left:max(220px,calc((100vw - 1246px)/2))!important;margin-right:auto!important}.wrap{max-width:min(1166px,calc(100vw - 300px))}}
+/* hero */
+.cs-hero{padding-top:clamp(64px,8vw,150px)}
+.cs-hero .lead{font-size:clamp(17px,.5vw + 13px,21px);line-height:1.6;max-width:60ch;color:#2A2926;margin:0 0 36px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tags li{font-size:14px;border:1px solid var(--line);padding:6px 12px;border-radius:4px;color:#2A2926}
+.hero-img{margin-top:clamp(48px,5vw,80px);background:var(--plate);border-radius:6px;overflow:hidden}
+.details{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:clamp(48px,5vw,72px);padding-top:0}
+.details dt{font-size:14px;font-weight:600;margin-bottom:6px}
+.details dd{margin:0;font-size:clamp(15px,.25vw + 13px,17px);line-height:1.5;color:#2A2926}
+/* stats */
+.cs-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:clamp(36px,4vw,56px) 0}
+.cs-stat{background:var(--plate);border:1px solid var(--line);padding:clamp(24px,2.4vw,36px);display:flex;flex-direction:column;gap:10px}
+.cs-stat strong{font-size:clamp(40px,2.6vw + 16px,60px);line-height:1;font-weight:500;letter-spacing:-.02em}
+.cs-stat span{font-size:16px;color:var(--muted)}
+.cs-stat.dark{background:#141312;border-color:#141312;color:#fff}.cs-stat.dark span{color:#D6D6D2}
+.cs-stat.green{background:var(--brand);border-color:var(--brand);color:#fff}.cs-stat.green span{color:#E3F0E5}
+.chips{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:28px 0 clamp(48px,5vw,72px);padding:0}
+.chips li{font-size:16px;background:var(--plate);border:1px solid var(--line);padding:6px 12px;color:#2A2926}
+.fig{margin:0}
+.fig figcaption{font-size:15px;color:var(--muted);margin-top:10px;font-style:italic;text-align:center}
+.before-plate{position:relative;background:var(--plate);padding:clamp(16px,3vw,40px);border:1px solid var(--line)}
+.before-plate .lbl{position:absolute;top:14px;left:14px;background:var(--brand);color:#fff;font-size:16px;padding:4px 10px}
+.before-plate img{border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+/* TL;DR */
+.tl-box{position:relative;border:1px solid #CFCFC8;padding:clamp(24px,3.5vw,48px);margin-top:34px}
+.tl-box::before{content:"TL;DR";position:absolute;top:0;left:-1px;transform:translateY(-100%);background:var(--brand);color:#fff;font:700 13px/1 Inter,sans-serif;letter-spacing:.06em;padding:9px 14px}
+.trusted{display:flex;flex-wrap:wrap;align-items:center;gap:16px 40px;margin:clamp(28px,3vw,44px) 0 0;padding:20px 0}
+.trusted p{margin:0;font-size:16px;color:var(--muted)}
+.trusted img{width:min(517px,100%)}
+.tl-block{margin-top:clamp(48px,5vw,72px)}
+.sol{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,36px)}
+.sol-h{display:flex;align-items:center;gap:10px;color:var(--brand);margin-bottom:14px}
+.sol-h::after{content:"";order:1;flex:1;border-top:1px solid var(--brand)}
+.sol-h i{order:2;font-style:normal;font-weight:600;font-size:15px}
+.sol p{margin:0;font-size:clamp(16px,.3vw + 13.5px,18px);line-height:1.55}
+.sol b{font-weight:600}
+.icard{border:1px solid var(--line);background:#fff}
+.icard img{border:0!important;padding:16px!important;aspect-ratio:auto!important}
+.icard figcaption{margin:0;font-style:normal;text-align:left;padding:14px 18px 18px;font-size:16px;color:var(--muted);line-height:1.45}
+.icard figcaption b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.kd{margin:clamp(112px,12vw,200px) 0 clamp(16px,2vw,40px);text-align:center;padding:0 clamp(0px,2vw,24px)}
+.kd-k{display:inline-flex;align-items:center;gap:8px;margin:0 0 clamp(18px,2vw,28px);color:var(--brand);font-size:clamp(12px,.25vw + 10.5px,15px);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.kd-q{margin:0 auto;max-width:none;font-size:clamp(26px,2.6vw + 11px,52px);line-height:1.15;font-weight:700;letter-spacing:-.03em;text-wrap:balance}
+@media (max-width:760px){.kd-br{display:none}}
+.kd .mk{padding:0 .14em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.kd .mk.o{background:#FBE9E7;color:#B3261E}.kd .mk.e{background:#E7F2E9;color:var(--brand)}
+.kd-f{margin:clamp(8px,1vw,14px) auto 0;max-width:62ch;color:var(--muted);font-size:clamp(16px,.4vw + 13px,19px)}
+.cs-h4{font-size:clamp(18px,.45vw + 14px,22px);line-height:1.4;font-weight:500;margin:0 0 8px;max-width:60ch}
+/* 3.3 */
+.g33{margin-top:clamp(48px,5vw,72px)}
+.finds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.find{background:var(--plate);border:1px solid var(--line);padding:clamp(20px,2vw,28px)}
+.find b{color:var(--brand);font-size:16px}
+.find h5{margin:8px 0 6px;font-size:clamp(17px,.3vw + 14px,20px);line-height:1.3;font-weight:600}
+.find p{margin:0;font-size:15px;color:var(--muted);line-height:1.5}
+.gp .gp-h{margin:0 0 6px;font-size:clamp(20px,.6vw + 14px,24px);font-weight:500}
+.ph{display:grid;place-items:center;min-height:220px;background:#E4E4DF;border:1px dashed #C9C9C2;color:#6B6A66;font-size:15px;text-align:center;padding:20px}
+.ph.big{min-height:clamp(260px,30vw,400px);margin-top:20px}
+.gp-pts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.gp-pts p{margin:0;font-weight:600;font-size:16px}.gp-pts i{font-style:normal;color:var(--brand);font-size:13px;margin-right:8px;vertical-align:.15em}
+.ut{display:flex;align-items:center;gap:8px;font-weight:600;margin:24px 0 14px;font-size:16px}.ut svg{color:var(--brand)}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* research */
+.int{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,36px);margin-top:36px}
+.int img{width:100%;aspect-ratio:347/265;object-fit:cover;border:1px solid var(--line);background:#fff;padding:12px}
+.int p{font-size:16px;font-style:italic;color:#2A2926;margin:12px 0 0;line-height:1.5}
+.int p b{font-weight:700}
+.morelink{display:block;text-align:right;font-weight:600;margin-top:28px;font-size:16px}
+.insight{display:grid;grid-template-columns:196px minmax(0,1fr);gap:32px;align-items:center;background:var(--plate);border-left:4px solid var(--brand);padding:clamp(28px,3vw,44px) clamp(28px,3.5vw,52px);margin-top:clamp(96px,10vw,160px)}
+.insight .cs-eyebrow{display:flex;align-items:center;gap:6px}
+.insight q{display:block;font-size:clamp(20px,2.4vw,24px);line-height:1.4;font-weight:500;quotes:none}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,5vw,72px);margin-top:clamp(96px,10vw,160px)}
+.two img{margin-top:28px}
+.todo{font-size:13px;color:#8A4B00;background:#FFF4E5;border:1px dashed #E0A458;padding:6px 10px;margin-top:10px;display:inline-block}
+.callout{background:var(--plate);border-left:4px solid var(--brand);padding:clamp(28px,3vw,44px) clamp(28px,3.5vw,52px);margin-top:clamp(56px,6vw,96px)}
+.callout p:last-child{margin:0;font-size:clamp(18px,.6vw + 13px,23px);font-weight:500;line-height:1.45}
+/* decisions */
+.sub{margin-top:clamp(88px,9vw,150px)}
+.tradeoff-box{border:1px solid var(--line);background:#FAFAF8;padding:28px 32px;margin:clamp(48px,5vw,72px) auto 0;max-width:900px}
+.tradeoff-box h4{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px;color:var(--brand)}
+.tradeoff-box .g{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tradeoff-box .g p{margin:0;font-size:16px;font-weight:500}.tradeoff-box .g p b{display:block;font-size:14px;font-weight:700;color:var(--brand);margin-bottom:4px}
+.ptabs{display:flex;justify-content:center;margin:clamp(64px,7vw,104px) 0 0}
+.ptabs [role=tablist]{display:inline-flex;gap:4px;background:var(--brand);padding:4px;border-radius:10px}
+.ptabs button{appearance:none;border:0;background:transparent;color:#fff;font:500 16px Inter,sans-serif;padding:0 18px;min-height:44px;border-radius:7px;cursor:pointer}
+.ptabs button[aria-selected=true]{background:#fff;color:var(--brand)}
+.ptabs button:focus-visible{outline-color:#fff}
+.ppanel{background:var(--plate);padding:clamp(24px,4vw,56px);margin-top:24px}
+.ppanel>h4{text-align:center;font-size:clamp(18px,2.2vw,20px);font-weight:600;margin:0 0 24px}
+.cts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:900px;margin:0 auto}
+.ct{background:#fff;border:1px solid var(--line);padding:18px;font-size:15px;line-height:1.5}
+.ct.sel{border:2px solid var(--brand)}
+.ct p{margin:0}
+.ct-k{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.ct-badge{display:inline-flex;align-items:center;gap:4px;color:var(--brand);text-transform:none}
+.ct-thumb{display:grid;gap:4px;margin:12px 0 14px}
+.ct-row{display:flex;gap:4px;height:30px}.ct-row i{background:#E3E3DE}.ct-row i.on{background:#BFDCC5}
+.ct h4{margin:0 0 10px;font-size:17px}
+.ct-l{font-size:12px!important;font-weight:600;color:var(--brand);text-transform:uppercase;margin-top:10px!important}
+.why{max-width:900px;margin:24px auto 0;border-left:3px solid var(--brand);padding:4px 0 4px 18px}
+.why p{margin:0 0 6px}.why .k{font-size:13px;font-weight:600;color:var(--brand);text-transform:uppercase}
+.why b{font-size:18px}
+/* info hierarchy table */
+.iht{background:var(--plate);padding:clamp(24px,4vw,56px);margin-top:clamp(48px,5vw,72px)}
+.iht table{width:100%;border-collapse:collapse;margin-top:28px}
+.iht th{text-align:left;font-size:14px;font-weight:500;color:var(--muted);text-transform:uppercase;padding:8px 12px 8px 0;border-bottom:1px solid #D6D6D0}
+.iht td{padding:20px 16px 20px 0;border-bottom:1px solid #E1E1DB;vertical-align:top;font-size:16px}
+.iht td:first-child{font-weight:600;font-size:17px;width:30%}
+.iht td:nth-child(2){font-weight:500;width:22%}.iht tr:first-child td:nth-child(2){color:var(--brand);font-weight:600}
+.iht td:last-child{color:#3A3935}
+.ah{margin-top:clamp(96px,10vw,160px)}.ah-h{font-size:clamp(21px,2.6vw,24px);font-weight:500;margin:0 0 6px}.stage-top h5{margin:0 0 4px}
+.placeholder{border:1.5px dashed #CFCFC8;background:#FAFAF8;padding:56px 24px;text-align:center;color:var(--muted);margin-top:48px;font-size:16px}
+/* design system steps */
+.ds{margin-top:clamp(48px,5vw,72px);background:var(--plate);padding:clamp(20px,3vw,40px)}
+.ds-steps{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ds-steps button{appearance:none;border:0;background:none;font:500 17px Inter,sans-serif;color:var(--ink);display:flex;align-items:center;gap:10px;cursor:pointer;min-height:44px;padding:0 4px}
+.ds-steps .dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--brand);display:grid;place-items:center;color:var(--brand);font-weight:600;font-size:15px}
+.ds-steps button[aria-selected=true]{font-weight:600}.ds-steps button[aria-selected=true] .dot{background:var(--brand);color:#fff}
+.ds-line{flex:1;min-width:24px;border-top:1px solid #C9C9C3}
+.ds-panel{background:#fff;margin-top:28px;padding:clamp(18px,2.5vw,32px)}
+.ds-panel h4{margin:0 0 24px;color:var(--brand);font-size:clamp(20px,.8vw + 12px,26px);font-weight:600}
+.ds-nav{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.cs-btn{appearance:none;font:600 15px Inter,sans-serif;padding:0 16px;min-height:44px;border-radius:8px;border:1px solid #C9C9C3;background:#fff;color:var(--ink);cursor:pointer}
+.cs-btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.cs-btn:disabled{opacity:.45;cursor:default}
+/* section D */
+.dq{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:40px}
+.dq span{background:var(--brand);color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:99px}
+.dq p{margin:0;font-weight:500}
+.decs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.dec{border:1px solid var(--line);padding:clamp(22px,2.2vw,32px);background:#fff}
+.dec b{display:block;font-size:24px;color:var(--brand);font-weight:600}
+.dec h4{margin:4px 0 6px;font-size:17px;line-height:1.35}
+.dec p{margin:0;font-size:15px;color:var(--muted);line-height:1.5}
+.dvis{margin-top:clamp(48px,5vw,72px)}.dvis img{width:100%}
+.take{display:flex;gap:16px;align-items:center;background:var(--brand-tint);border:1px solid #CDE3D1;padding:24px 28px;margin-top:clamp(40px,4vw,56px);border-radius:10px}
+.take span{flex:none;width:40px;height:40px;border-radius:50%;background:var(--brand);display:grid;place-items:center}
+.take p{margin:0;font-size:17px}
+/* footer */
+.cs-foot{margin-top:clamp(140px,14vw,220px);padding:40px 0 56px;display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;font-size:16px}
+.cs-foot nav{display:flex;gap:20px;flex-wrap:wrap}
+.cs-foot a{color:var(--ink);text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+@media (max-width:860px){
+ .sol,.finds,.ab,.gp-pts{grid-template-columns:minmax(0,1fr)}
+ .details{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .int,.cts,.decs{grid-template-columns:minmax(0,1fr)}
+ .two{grid-template-columns:minmax(0,1fr);gap:56px}
+ .insight{grid-template-columns:minmax(0,1fr)}.insight img{max-width:160px}
+ .tradeoff-box .g{grid-template-columns:minmax(0,1fr)}
+ .ds-line{display:none}
+}
+@media (max-width:600px){
+ .cs-sec{margin-top:96px}
+ .cs-stats{grid-template-columns:minmax(0,1fr)}
+ .iht thead{display:none}.iht tr{display:grid;padding:12px 0;border-bottom:1px solid #E1E1DB}.iht td{border:0;padding:2px 0;width:auto!important}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+/* ---------- Applying the hierarchy (shared with the standalone section) ---------- */
+
+
+
+
+
+
+
+
+.ah h2{font-size:24px;line-height:1.3;margin:0 0 6px;font-weight:500}
+.ah .lede{color:var(--muted);margin:0 0 24px;max-width:64ch}
+.tabs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:20px}
+.tabs .lbl{font-size:14px;color:var(--muted);font-weight:500;margin-right:4px}
+.tablist{display:flex;flex-wrap:wrap;gap:4px;background:var(--brand);padding:4px;border-radius:12px}
+.tab{appearance:none;border:0;background:transparent;color:var(--brand-ink);font:600 15px/1 Inter,sans-serif;padding:0 16px;min-height:44px;border-radius:8px;cursor:pointer}
+.tab:hover{background:color-mix(in srgb,var(--brand-ink) 14%,transparent)}
+.tab[aria-selected=true]{background:var(--bg);color:var(--brand)}
+.tab:focus-visible{outline-color:var(--bg)}
+.more{font-size:14px;font-weight:600;color:var(--brand);background:var(--brand-tint);padding:6px 12px;border-radius:99px}
+
+.stage{background:var(--stage);border-radius:20px;padding:clamp(20px,3.5vw,40px);transition:background .25s}
+.stage.dark{--stage:#161616;--ink:#E8E8E8;background:#161616;color:#E8E8E8;--muted:#B0B0B0;--line:#3a3a3a;--brand:#7CC48A}
+.stage-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px 32px;margin-bottom:28px}
+.stage-top h5{font-size:22px;margin:0 0 4px;line-height:1.25}
+.stage-top p{margin:0;color:var(--muted);max-width:58ch}
+.switch{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--muted)}
+.switch button{appearance:none;border:0;width:56px;height:32px;border-radius:99px;background:#BDBDB8;position:relative;cursor:pointer;padding:0}
+.switch button::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch button[aria-checked=true]{background:#7CC48A}
+.switch button[aria-checked=true]::after{transform:translateX(24px);background:#0f2414}
+.switch .on{color:var(--ink)}
+
+.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px) minmax(0,1fr);gap:44px;align-items:start}
+.notes{position:relative;list-style:none;margin:0;padding:0}
+.note{position:absolute;left:0;right:0;display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.45;font-weight:500}
+.notes.l .note{flex-direction:row-reverse;text-align:right}
+.note .pin{flex:none}
+.note::after{content:"";position:absolute;top:11px;width:44px;border-top:1.5px dashed var(--brand)}
+.notes.l .note::after{right:-44px}.notes.r .note::after{left:-44px}
+.note b{display:block;font-weight:600}
+.note em{font-style:normal}.note div>span:not(.sr){display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px}
+.pin{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font:700 12px/1 Inter,sans-serif}
+.stage.dark .pin{color:#0f2414}
+.note.hl b{text-decoration:underline;text-decoration-color:var(--brand);text-underline-offset:4px}
+
+/* ---------- Product widget: OptionsPlay Technical Analysis (Open Sans) ---------- */
+.w{--w-bg:#F9FAFB;--w-card:#fff;--w-ink:#001436;--w-muted:#4B5563;--w-line:#E5E7EB;--w-edge:#D1D5DB;
+ --g:#3F7A1F;--g-box:#CDE9B5;--g-box-ink:#2B4417;--g-bar:#629A36;--chg:#047857;--r-box:#FECACA;--r-ink:#991B1B;
+ --b:#0068B3;--b-track:#CCE5F1;--o:#E58A20;--o-track:#FBE3C7;--foot:#E5E7EB;--tick:#E6F4DA;--tick-ink:#314D1B;
+ font:14px/1.4 "Open Sans",system-ui,sans-serif;color:var(--w-ink);background:var(--w-bg);border:1px solid var(--w-edge);border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.08);width:100%;max-width:420px;margin:0 auto}
+.w.dark{--w-bg:#121212;--w-card:#1E1E1E;--w-ink:#E8E8E8;--w-muted:#B0B0B0;--w-line:#333;--w-edge:#3a3a3a;
+ --g:#9BD27A;--g-box:#24331B;--g-box-ink:#B7E39A;--g-bar:#7FB85A;--chg:#5FD3A5;--r-box:#3A1F1F;--r-ink:#F49A9A;
+ --b:#5AB0EA;--b-track:#1B2A36;--o:#F0A041;--o-track:#3A2A16;--foot:#2A2A2A;--tick:#24331B;--tick-ink:#B7E39A;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.w svg{display:block;flex:none}
+.w-head{display:flex;align-items:center;gap:8px;padding:10px 10px 10px 16px;background:var(--w-card);border-bottom:1px solid var(--w-line);border-radius:8px 8px 0 0}
+.w-head h4{margin:0;font-size:17px;font-weight:700}
+.w-head .sp{flex:1}
+.ib{appearance:none;border:0;background:transparent;color:var(--w-ink);width:36px;height:36px;border-radius:8px;display:grid;place-items:center;cursor:pointer}
+.ib:hover{background:var(--w-bg)}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:14px 16px 16px;background:var(--w-card)}
+.tag{display:inline-flex;align-items:center;gap:6px;background:#0068B3;color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px}
+.tag i{width:8px;height:8px;border-radius:50%;background:#7AC043;box-shadow:0 0 0 2px rgba(122,192,67,.35)}
+.ticker{appearance:none;margin-top:10px;display:flex;align-items:center;gap:6px;border:0;background:var(--tick);color:var(--tick-ink);border-radius:4px;padding:8px 10px;font:700 15px "Open Sans",sans-serif;cursor:pointer;min-height:40px;text-transform:uppercase}
+.ticker small{font-size:12px;font-weight:600}
+.price{text-align:right}
+.price strong{display:block;font-size:24px;line-height:1.15;font-weight:700}
+.chg{display:inline-flex;align-items:center;gap:4px;color:var(--chg);font-weight:600;font-size:13px;white-space:nowrap}
+.w-body{display:grid;gap:12px;padding:14px 14px 16px;border-top:1px solid var(--w-line)}
+.card{position:relative;background:var(--w-card);border:1px solid var(--w-edge);border-radius:6px;padding:12px 14px 14px;transition:box-shadow .2s}
+.card h5,.lv-title{margin:0 0 8px;text-align:center;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;text-transform:uppercase;padding:2px 0}
+.row .sp{flex:1}
+.bull{display:inline-flex;align-items:center;gap:4px;color:var(--g);font-weight:600;text-transform:none}
+.row b{min-width:28px;text-align:right}
+.rk{display:grid;grid-template-columns:92px minmax(0,1fr) 44px;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:2px 0}
+.rk>span:first-child{text-transform:uppercase}
+.rk .v{text-align:right;font-weight:600}
+.rk .liq{grid-column:2/4;display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.liq i{display:inline-block;width:4px;height:16px;border-radius:2px;background:var(--g-bar);margin-left:4px}
+.bar{height:8px;border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;border-radius:4px}
+.metrics{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));row-gap:18px;padding:12px 0 8px;border-radius:6px;transition:box-shadow .2s}
+.metrics div{display:grid;justify-items:center;gap:4px;text-align:center}
+.metrics svg{color:var(--w-muted)}
+.metrics div>span{font-size:12px;font-weight:600;color:var(--w-muted);text-transform:uppercase;letter-spacing:.02em}
+.metrics strong{font-size:14px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lv h6{margin:0 0 8px;font-size:13px;font-weight:600}
+.box{display:flex;justify-content:space-between;align-items:center;border-radius:4px;padding:9px 12px;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.box strong{font-size:17px}.box span{font-size:13px;font-weight:700}
+.box.s{background:var(--g-box);color:var(--g-box-ink)}.box.r{background:var(--r-box);color:var(--r-ink)}
+.foot{display:flex;justify-content:center;align-items:center;gap:8px;background:var(--foot);border-radius:4px;padding:12px;font-size:13px;font-weight:600;text-align:center}
+.hl{box-shadow:0 0 0 3px #7CC48A!important}
+.card>.pin,.metrics>.pin{position:absolute;top:10px}
+.card>.pin.l,.metrics>.pin.l{left:-12px}.card>.pin.r,.metrics>.pin.r{right:-12px}
+.ux{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-tint);padding:2px 9px;border-radius:99px}
+.stage.dark .ux{background:#1d2b20}
+
+
+/* ---------- Reports Explorer (Option A) ---------- */
+/* ---------- Reports Explorer widget ---------- */
+.rx{width:100%;background:#fff;border:1px solid #E3E1EA;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px rgba(20,20,40,.08);font:13px/1.35 Inter,system-ui,sans-serif;color:#1F2430}
+.rx-h{display:flex;align-items:center;gap:8px;background:#EFEBFA;padding:9px 12px;border-bottom:1px solid #E3E1EA}
+.rx-h strong{font-size:14px}.rx-h .sp{flex:1}.rx-h svg{color:#555}
+.rx-tabs{display:flex;gap:20px;padding:0 14px;border-bottom:1px solid #EDEDF0;overflow-x:auto}
+.rx-tabs button{appearance:none;border:0;background:none;font:500 13px Inter,sans-serif;color:#4A4F5C;padding:0;min-height:40px;display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.rx-tabs button[aria-selected=true]{color:#1F2430;font-weight:600;box-shadow:inset 0 -2px #1E6FD9}
+.rx-in{padding:12px 12px 6px}
+.rx-c{display:flex;align-items:center;gap:8px;padding:4px}
+.rx-c .sp{flex:1}
+.rx-search{border:1px solid #D5D7DD;border-radius:6px;padding:6px 10px;color:#6B7280;width:96px;white-space:nowrap}
+.seg2{display:flex;border:1px solid #D5D7DD;border-radius:6px;overflow:hidden}
+.seg2 button{appearance:none;border:0;background:#fff;font:500 13px Inter,sans-serif;color:#1F2430;padding:6px 10px;cursor:pointer;min-height:32px;white-space:nowrap}
+.seg2 button+button{border-left:1px solid #D5D7DD}
+.seg2 button[aria-pressed=true]{background:#1E6FD9;color:#fff}
+.rx-btn{display:grid;place-items:center;width:32px;height:32px;background:#F1F2F4;border-radius:6px}
+.rx-scroll{overflow-x:auto;margin-top:8px;padding:0 4px 4px}
+.rx table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rx th{font-weight:600;text-align:right;padding:8px 6px;border-bottom:1px solid #E5E7EB;white-space:nowrap}
+.rx td{padding:7px 6px;border-bottom:1px solid #F0F1F3;text-align:right;white-space:nowrap}
+.rx th.l,.rx td.l{text-align:left}
+.rx td.sym{font-weight:700;color:#1D5FD0}
+.rx td.sym svg{display:inline-block;vertical-align:-2px;margin-left:4px}
+.pl{display:inline-block;font-size:12px;font-weight:600;padding:2px 7px;border-radius:4px}
+.pl.bp{background:#E7F5E1;color:#2E6B12}.pl.bc{background:#FDE2E2;color:#B42318}
+.pl.rs{background:#C2381F;color:#fff}.pl.sb{background:#2F7A14;color:#fff}.pl.im{background:#BFE3A4;color:#1F3D0C}
+.rx-part{transition:opacity .25s,box-shadow .25s}
+
+.legacy{background-image:url(assets/img/optionsplay/re-legacy.jpg);background-repeat:no-repeat;background-size:100% auto}
+.shot{position:relative;aspect-ratio:1400/854;border-radius:8px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.a2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.a2 figure{margin:0}
+.cap{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.cap b{font-size:16px}.cap small{font-size:12px;font-weight:600;color:var(--muted)}
+.pinw{position:relative}
+.lp{position:absolute;z-index:3;width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font:700 12px/1 Inter,sans-serif;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);pointer-events:none}
+.lp.r{background:#B3261E}.lp.g{background:#1B6A2C}
+.mark{position:absolute;border:1.5px solid #B3261E;border-radius:4px}
+.mark .lp{left:-11px;top:-11px}
+
+
+.outl .rx .p-table{margin-top:10px}
+.key{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+.key li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14px;line-height:1.45;align-items:start}
+.key li i{font-style:normal;width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font:700 12px/1 Inter,sans-serif;color:#fff;background:#B3261E}
+.key.g li i{background:#1B6A2C}
+.key b{font-weight:600}.key span{color:var(--muted)}
+.sample{font-size:12px;color:var(--muted);margin:14px 0 0}
+@media (max-width:900px){.a2{grid-template-columns:minmax(0,1fr)}}
+/* ---------- Quote Board ---------- */
+.grip{display:grid;place-items:center;cursor:grab;margin-right:-2px}
+.qbw-act{display:flex;gap:12px;align-items:center}
+.colcap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0 14px;margin-top:8px}
+.colcap span{font-size:12px;font-weight:600;color:#1B6A2C;padding-top:6px;border-top:1.5px solid #1B6A2C;margin-right:12px}
+.colcap span+span{margin-left:12px;margin-right:12px}
+.colcap span:last-child{margin-right:0}
+.blab{position:absolute;width:250px;font-size:13px;line-height:1.4;pointer-events:none}
+.blab b{display:block;font-size:14px}
+.blab.r b{color:#B3261E}.blab.g b{color:#1B6A2C}
+.blab span{color:var(--muted)}
+.qb-row{grid-template-columns:minmax(0,620px) minmax(290px,1fr)!important;gap:0!important}
+.qb-mob{display:none;list-style:none;margin:12px 0 0;padding:0;font-size:14px;line-height:1.45}
+.qb-mob li{padding-left:14px;border-left:2px solid;margin-top:8px}.qb-mob li.r{border-color:#B3261E}.qb-mob li.g{border-color:#1B6A2C}
+.qb-mob b{font-weight:600}.qb-mob span{color:var(--muted)}
+@media (max-width:900px){.qb-mob{display:block}}@media (max-width:600px){.colcap{display:none}}
+.brk{position:absolute;width:10px;border:1.5px solid;border-left:0;border-radius:0 3px 3px 0;pointer-events:none}
+.brk.r{border-color:#B3261E}.brk.g{border-color:#1B6A2C}
+
+
+.qb-rows{display:grid;gap:30px}
+.qb-row{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);gap:72px;align-items:center}
+.qb-fig{position:relative;margin:0}
+.ol{position:absolute;border-radius:5px;pointer-events:none}
+.ol.r{border:1.5px solid #B3261E}.ol.g{border:1.5px solid #1B6A2C}
+.ol .lp{left:-11px;top:-11px}
+.qb-row .key{margin:0}
+.qb-row .cap{margin-bottom:10px}
+.tradeoff{margin-top:26px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;border-top:1px solid #DDDDD8;padding-top:16px}
+.tradeoff b{font-size:15px}.tradeoff span{color:var(--muted);font-size:15px}
+/* legacy stock summary */
+.lg{font:13px/1.35 Roboto,Arial,sans-serif;color:#1d1d1d;background:#fff;border:1px solid #D6D6D6;border-left:5px solid #D32F2F;border-radius:4px;padding:8px 12px 10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.lg-top{display:flex;align-items:center;gap:10px}
+.lg-search{display:flex;align-items:center;gap:8px;border:1px solid #9EC5F0;border-radius:4px;padding:5px 10px;font-size:15px;white-space:nowrap}
+.lg-search b{font-weight:700}
+.lg-usd{background:#1E6FD9;color:#fff;font-weight:600;font-size:12px;padding:2px 8px;border-radius:4px}
+.lg-flag{width:22px;height:15px;border-radius:2px;background:repeating-linear-gradient(#C62828 0 2px,#fff 2px 4px);position:relative;overflow:hidden}
+.lg-flag::before{content:"";position:absolute;left:0;top:0;width:10px;height:8px;background:#1E3A8A}
+.lg-top .sp{flex:1}
+.lg-price{font-size:16px;white-space:nowrap}.lg-price em{font-style:normal;color:#C62828;margin-left:6px}
+.lg-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;margin-top:6px}
+.lg-grid>div{padding:0 10px;display:grid;gap:5px;align-content:start}
+.lg-grid>div:first-child{padding-left:0}
+.lg-grid>div+div{border-left:1px solid #CFCFCF}
+.lg-grid p{margin:0;display:flex;justify-content:space-between;gap:8px;white-space:nowrap}
+.lg-grid p b{font-weight:700}.lg-grid .bear{color:#C62828;font-weight:600}
+/* new quote board */
+.qbw{font:13px/1.35 Inter,sans-serif;color:#1F2430;background:#fff;border:1px solid #E3E1EA;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px rgba(20,20,40,.08)}
+.qbw-h{display:flex;align-items:center;gap:8px;background:#EFEBFA;padding:9px 12px;border-bottom:1px solid #E3E1EA;border-radius:10px 10px 0 0}
+.qbw-h strong{font-size:14px}
+.qbw-in{padding:14px 14px 16px}
+.qbw-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tk{display:flex;align-items:center;gap:10px;border:1px solid #D5D7DD;border-radius:6px;padding:6px 10px;font-weight:600;white-space:nowrap}
+.tk span{color:#6B7280;font-weight:500}
+.qbw-name{color:#4B5563;font-size:15px;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qbw-price{font-size:24px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.qbw-chg{color:#147A3D;font-weight:600;font-size:15px;white-space:nowrap}
+.qbw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px;font-variant-numeric:tabular-nums}
+.qbw-grid>div{padding:0 12px;display:grid;gap:6px;align-content:start}
+.qbw-grid>div:first-child{padding-left:0}
+.qbw-grid>div+div{border-left:1px solid #E5E7EB}
+.qbw-grid p{margin:0;display:flex;justify-content:space-between;gap:8px;white-space:nowrap}
+.qbw-grid p>span:first-child:not(:has(.lb)),.qbw-grid .lb{color:#6B7280;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.02em}
+.qbw-grid b{font-weight:700}.qbw-grid .bull{color:#147A3D;font-weight:700}
+@media (max-width:900px){.qb-row{grid-template-columns:minmax(0,1fr)!important}.qb-fig .pinw{margin-right:46px}.blab{display:none}}
+@media (max-width:600px){.lg-grid,.qbw-grid{grid-template-columns:minmax(0,1fr);gap:8px}.lg-grid>div,.qbw-grid>div{padding:0;border:0!important}.lg-top,.qbw-top{flex-wrap:wrap}}
+.empty{max-width:520px;margin:24px auto;text-align:center;padding:48px 24px;border:1.5px dashed var(--line);border-radius:16px;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media (max-width:900px){
+ .board{grid-template-columns:minmax(0,1fr);gap:24px}
+ .notes{display:contents}
+ .note,.notes.l .note{position:static;flex-direction:row;text-align:left}
+ .note::after{display:none}
+ .w{order:0;margin-bottom:8px}.board{gap:14px}
+}
+@media (max-width:480px){.rk{grid-template-columns:84px minmax(0,1fr) 44px}.ticker small{display:none}.lv{grid-template-columns:1fr}.metrics{row-gap:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- site match: serif headings, square corners ---------- */
+
+.ptabs [role=tablist],.ptabs button,.cs-btn,.take,.dq span,.hero-img,.tags li,.chips li,
+.ah .tablist,.ah .tab,.ah .more,.ah .stage,.ah .pane,.ah .bpill,.ah .shot,.ah .zoom,.ah .ux,.ah .key li i,.ah .lp,.ah .cap,
+.ah .tradeoff,.ah .empty,.ah .arrow-c span,.mark,.ol,.brk,.kd .mk{border-radius:0!important}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="snav" id="snav" aria-label="On this page"><a class="back" href="/#work">← All work</a><ol id="snav-list"></ol></nav>
+
+<main id="main">
+ <header class="cs-hero wrap">
+  <img src="assets/img/optionsplay/logo.png" alt="OptionsPlay" width="86" height="48">
+  <h1>Driving adoption with customizable options trading dashboards for 10K+ users</h1>
+  <p class="lead">How I transformed a 12 year old legacy trading dashboard into customizable workspace, driving higher adoption and premium user conversions</p>
+  <ul class="tags" aria-label="Tags"><li>Fintech</li><li>Trading Platform</li><li>End-to-end redesign</li><li>Design Systems</li></ul>
+  <div class="hero-img"><img src="assets/img/optionsplay/hero.webp" alt="The redesigned OptionsPlay dashboard on a tablet, with Technical Analysis, Credit Spreads, Markets and Earnings Calendar widgets" width="1166" height="815" fetchpriority="high"></div>
+  <dl class="details">
+   <div><dt>Team</dt><dd>1 Product Manager, 1 CTO, 2 Engineers, 1 UX Researcher</dd></div>
+   <div><dt>My role</dt><dd>Product Designer<br>Redesign, end-to-end</dd></div>
+   <div><dt>Timeline</dt><dd>16 weeks<br>Oct 2025 - Feb 2026</dd></div>
+   <div><dt>Deliverables</dt><dd>Web trading dashboard<br>Design system</dd></div>
+  </dl>
+ </header>
+ <nav class="tbar" aria-label="Sections"><ol id="tbar-list"></ol></nav>
+
+ <section class="cs-sec wrap" id="tldr" data-nav="TL;DR" aria-labelledby="s1">
+ <div class="tl-box">
+  <p class="cs-eyebrow">01 / TL;DR</p>
+  <h2 class="cs-h2" id="s1">About OptionsPlay</h2>
+  <p class="cs-p">OptionsPlay is an <b>options trading platform</b> that helps discover trading opportunities, and make informed investment decisions.</p>
+  <div class="cs-stats"><div class="cs-stat "><strong>10K+</strong><span>Daily active users</span></div><div class="cs-stat "><strong>12+</strong><span>Years in the market</span></div><div class="cs-stat "><strong>8+</strong><span>financial companies whitelabel the platform</span></div></div>
+  <div class="trusted"><p>Trusted by leading financial institutions</p><img src="assets/img/optionsplay/logos.png" alt="Charles Schwab, Fidelity Investments, tastytrade, BMO" width="517" height="56" loading="lazy"></div>
+
+  <div class="tl-block">
+   <p class="cs-eyebrow">The challenge</p>
+   <p class="cs-p"><b>As the company grew, one dashboard couldn't serve every type of trader.</b> Beginners needed clearer starting points, while experienced traders needed detailed analysis and flexible workflows.</p>
+   <p class="cs-p">As the <b>sole product designer</b>, I led the end-to-end redesign collaborating with 2 engineers and 1 product manager to deliver the redesigned platform in 16 weeks. I also built their <b>design system</b> from scratch.</p>
+   <ul class="chips" aria-label="Skills"><li>UX Research</li><li>Workflow Redesign</li><li>Information Architecture</li><li>Interaction Design</li><li>Design System</li><li>Usability Testing</li></ul>
+   <figure class="fig before-plate"><span class="lbl">Before</span><img src="assets/img/optionsplay/legacy-dashboard.webp" alt="The legacy OptionsPlay dashboard: an ideas list, a chart and strategy cards for one stock" width="915" height="519" loading="lazy"></figure>
+  </div>
+
+  <div class="tl-block">
+   <p class="cs-eyebrow">Solution</p>
+   <ol class="sol">
+    <li><span class="sol-h"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.6 2.4 7.4 10 10-7.6 2.6-9.4 5.4-10 10-.6-4.6-2.4-7.4-10-10 7.6-2.6 9.4-5.4 10-10z"/></svg><i>01</i></span><p>Replaced the fixed dashboard with <b>customizable dashboard</b> to meet every trader needs</p></li>
+    <li><span class="sol-h"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.6 2.4 7.4 10 10-7.6 2.6-9.4 5.4-10 10-.6-4.6-2.4-7.4-10-10 7.6-2.6 9.4-5.4 10-10z"/></svg><i>02</i></span><p><b>Redesigned trading widgets</b> to prioritize key metrics and simplify analysis</p></li>
+    <li><span class="sol-h"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.6 2.4 7.4 10 10-7.6 2.6-9.4 5.4-10 10-.6-4.6-2.4-7.4-10-10 7.6-2.6 9.4-5.4 10-10z"/></svg><i>03</i></span><p>Introduced <b>contextual learning and guided discovery</b> to build confidence in beginner traders</p></li>
+    <li><span class="sol-h"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.6 2.4 7.4 10 10-7.6 2.6-9.4 5.4-10 10-.6-4.6-2.4-7.4-10-10 7.6-2.6 9.4-5.4 10-10z"/></svg><i>04</i></span><p>Built the <b>first design system</b> to speed up development</p></li>
+   </ol>
+  </div>
+
+  <div class="tl-block">
+   <p class="cs-eyebrow">Impact</p>
+   <div class="cs-stats"><div class="cs-stat dark"><strong>+28%</strong><span>Premium upgrades in 12 weeks</span></div><div class="cs-stat green"><strong>-25%</strong><span>First-session drop off w/ new dashboard</span></div><div class="cs-stat "><strong>-45%</strong><span>Feature roll-out time w/ new design system</span></div></div>
+  </div>
+ </div>
+ </section>
+
+ <section class="cs-sec wrap" id="research" data-nav="Research" aria-labelledby="s2">
+  <p class="cs-eyebrow">02 / Research and problem discovery</p>
+  <h2 class="cs-h2" id="s2">I started by investigating why traders were dropping off during their first session</h2>
+  <div class="cs-stats"><div class="cs-stat "><strong>7</strong><span>trader interviews across experience levels</span></div><div class="cs-stat "><strong>9</strong><span>competitive analysis of trading platforms</span></div><div class="cs-stat "><strong>2</strong><span>analytics tools: Hotjar and Mixpanel</span></div></div>
+
+  <div class="sub">
+   <p class="cs-eyebrow">Research 01 / Examining the existing experience</p>
+   <h3 class="cs-h3">The existing dashboard made it difficult to know where to start and what to focus on</h3>
+   <figure class="fig" style="margin-top:clamp(32px,3vw,48px)"><img src="assets/img/optionsplay/problem.webp" alt="Legacy dashboard annotated with three problems: no clear starting point for first-time traders, high cognitive load made it harder to identify competing key metrics, lack of contextual guidance for trading concepts" width="1166" height="625" loading="lazy"></figure>
+  </div>
+
+  <div class="sub">
+   <p class="cs-eyebrow">Research 02 / Trader interviews</p>
+   <h3 class="cs-h3">I spoke to traders across experience levels to understand what they actually needed</h3>
+   <div class="int">
+    <figure class="fig icard"><img src="assets/img/optionsplay/int-beginner.webp" alt="Illustration: a confused beginner facing a Build Strategy form with call, put and spread options" width="347" height="266" loading="lazy"><figcaption><b>beginner trader</b>Needed clarity on strategies and risk</figcaption></figure>
+    <figure class="fig icard"><img src="assets/img/optionsplay/int-active.webp" alt="Illustration: an active trader cycling between watchlist, chart and strategies" width="347" height="266" loading="lazy"><figcaption><b>active trader</b>Needed faster opportunity evaluation</figcaption></figure>
+    <figure class="fig icard"><img src="assets/img/optionsplay/int-power.webp" alt="Illustration: a power trader arranging widgets in a customizable trading workspace" width="347" height="266" loading="lazy"><figcaption><b>power trader</b>Needed workspace control</figcaption></figure>
+   </div>
+  </div>
+
+  <aside class="kd" aria-label="Key discovery">
+   <p class="kd-k"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 4.6 2.4 7.4 10 10-7.6 2.6-9.4 5.4-10 10-.6-4.6-2.4-7.4-10-10 7.6-2.6 9.4-5.4 10-10z"/></svg>Key discovery</p>
+   <p class="kd-q">The same data <span class="mk o">overwhelmed beginners</span><br class="kd-br"> but <span class="mk e">empowered experienced traders.</span></p>
+   <p class="kd-f">Information overload wasn't universal, so removing data was never the answer.</p>
+  </aside>
+
+  <div class="two">
+   <div><p class="cs-eyebrow">Research 03 / Competitive analysis</p><h4 class="cs-h4">Analyzed 9 trading platforms to understand how they balance customization and complexity</h4>
+    <img src="assets/img/optionsplay/competitive.webp" alt="Competitive analysis cards" width="470" height="269" loading="lazy" data-todo="image"></div>
+   <div><p class="cs-eyebrow">Research 04 / Behavioral analytics</p><h4 class="cs-h4">Used Hotjar and Mixpanel to identify where traders dropped off</h4>
+    <img src="assets/img/optionsplay/competitive.webp" alt="Behavioral analytics cards" width="470" height="269" loading="lazy" data-todo="image"></div>
+  </div>
+
+  <div class="callout"><p class="cs-eyebrow">Business and design opportunity from research</p><p>Make options trading easier for beginners while preserving advanced functionality, reducing first-session drop-offs and increasing premium upgrades.</p></div>
+ </section>
+
+ <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
+  <p class="cs-eyebrow">03 / Design decisions</p>
+  <h2 class="cs-h2" id="s4">Key Design Decisions</h2>
+
+  <div class="sub" id="d31" data-sub="3.1 Trader control" style="margin-top:clamp(48px,5vw,72px)">
+   <h3 class="cs-h3">3.1. How do we give traders more control without overwhelming beginners?</h3>
+   <p class="cs-p">Research showed that traders shared the same broad journey, discover, analyze and evaluate, but needed different tools and levels of detail at each stage.</p>
+   <figure class="fig" style="margin-top:clamp(48px,5vw,72px)"><img src="assets/img/optionsplay/journey.webp" alt="Current five-step one-size-fits-all workflow compared with the new adaptable workflow: start with a trading goal, open a relevant workspace, compare analysis in one place, evaluate with helpful context, make a decision" width="1165" height="523" loading="lazy"></figure>
+   <div class="tradeoff-box"><h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>Trade-off</h4><div class="g"><p><b>What we preserved</b>Familiar trading workflows to minimize the learning curve</p><p><b>What we introduced</b>Greater user control at the cost of interaction and technical complexity</p></div></div>
+   <div data-tabs>
+    <div class="ptabs"><div role="tablist" aria-label="3.1 stages"><button type="button" role="tab" id="j-t0" aria-controls="j-p0" aria-selected="true" data-tab>Current</button><button type="button" role="tab" id="j-t1" aria-controls="j-p1" aria-selected="false" tabindex="-1" data-tab>Iterations</button></div></div>
+    <div class="ppanel" role="tabpanel" id="j-p0" aria-labelledby="j-t0" data-panel>
+     <img src="assets/img/optionsplay/current.webp" alt="Why the current journey made task completion harder: preset starting point, relevant tools spread across sections, high cognitive load, little control over workspace. Result: traders spent more time navigating the interface, piecing together information, and working around a fixed layout." width="1166" height="842" loading="lazy">
+    </div>
+    <div class="ppanel" role="tabpanel" id="j-p1" aria-labelledby="j-t1" data-panel hidden>
+     <h4>How much flexibility should traders have without making the dashboard harder to use?</h4>
+     <div class="cts"><article class="ct">
+  <p class="ct-k">Concept A</p>
+  <div class="ct-thumb" aria-hidden="true"><div class="ct-row"><i style="flex:2" class=""></i><i style="flex:3" class=""></i></div><div class="ct-row"><i style="flex:1" class=""></i><i style="flex:2" class=""></i><i style="flex:2" class=""></i></div></div>
+  <h4>Refined fixed layout</h4>
+  <p class="ct-l">What worked</p><p>Preserves a familiar interface</p>
+  <p class="ct-l">Decision</p><p><b>Not selected</b><br>Still forces traders into the same arrangement of tools.</p>
+</article><article class="ct">
+  <p class="ct-k">Concept B</p>
+  <div class="ct-thumb" aria-hidden="true"><div class="ct-row"><i style="flex:1" class="on"></i><i style="flex:1" class=""></i></div><div class="ct-row"><i style="flex:2" class="on"></i><i style="flex:1" class=""></i></div></div>
+  <h4>Preset templates</h4>
+  <p class="ct-l">What worked</p><p>Reduces initial setup effort</p>
+  <p class="ct-l">Decision</p><p><b>Not selected as core model</b><br>Traders remain limited to predefined configurations.</p>
+</article><article class="ct sel">
+  <p class="ct-k">Concept C <span class="ct-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Selected</span></p>
+  <div class="ct-thumb" aria-hidden="true"><div class="ct-row"><i style="flex:3" class="on"></i><i style="flex:2" class="on"></i></div><div class="ct-row"><i style="flex:2" class="on"></i><i style="flex:3" class="on"></i></div></div>
+  <h4>Modular workspace</h4>
+  <p class="ct-l">What worked</p><p>Supports different trading styles</p>
+  <p class="ct-l">Decision</p><p><b>Selected</b><br>Allows tools to be organized around individual strategies, at the cost of added setup complexity.</p>
+</article></div>
+     <div class="why"><p class="k">Why concept C?</p><p><b>Modular workspaces gave traders control without locking them into predefined layouts.</b></p><p>The trade-off was increased setup complexity. The design therefore needed customization to remain understandable and approachable, especially for first-time traders.</p></div>
+    </div>
+   </div>
+  </div>
+
+  <div class="sub" id="d32" data-sub="3.2 Data hierarchy">
+   <h3 class="cs-h3">3.2. Making complex trading data easier to scan and strategies easier to evaluate</h3>
+   <p class="cs-p">Research revealed a tension: beginners struggled with dense trading widgets, while experienced traders relied on that depth of information.</p>
+   <p class="cs-p">Rather than removing advanced data, I focused on what traders needed to see first, what they needed to compare, and what could remain accessible on demand.</p>
+   <div class="iht">
+    <p class="cs-eyebrow">Rethinking information hierarchy</p>
+    <h4 class="cs-h3" style="margin:0">Not all trading information needed equal attention</h4>
+    <table><thead><tr><th scope="col">Information</th><th scope="col">Decision</th><th scope="col">Why</th></tr></thead><tbody>
+     <tr><td>Key strategy metrics</td><td>Prioritize</td><td>Support faster risk/return evaluation</td></tr>
+     <tr><td>Supporting market data</td><td>Group</td><td>Make related indicators easier to compare without competing for attention</td></tr>
+     <tr><td>Advanced metrics</td><td>Keep accessible</td><td>Retain analytical depth for experts</td></tr>
+     <tr><td>Unfamiliar terminology</td><td>Explain in context</td><td>Guide beginners without interrupting experts</td></tr>
+    </tbody></table>
+   </div>
+   <section class="ah" aria-labelledby="t">
+ <h4 id="t" class="ah-h">Applying the hierarchy across trading tools</h4>
+ <p class="lede">Every widget follows the same reading order: market direction first, supporting signals next, actionable levels last.</p>
+
+ <div class="tabs">
+  <span class="lbl" id="exl">Example widgets</span>
+  <div class="tablist" role="tablist" aria-labelledby="exl">
+   <button class="tab" role="tab" id="tab-re" aria-controls="panel" aria-selected="false" tabindex="-1">Reports Explorer</button>
+   <button class="tab" role="tab" id="tab-ta" aria-controls="panel" aria-selected="true">Technical Analysis</button>
+   <button class="tab" role="tab" id="tab-qb" aria-controls="panel" aria-selected="false" tabindex="-1">Quote Board</button>
+  </div>
+  <span class="more">+15 more widgets</span>
+ </div>
+
+ <div class="stage" id="panel" role="tabpanel" aria-labelledby="tab-ta">
+  <div id="ta">
+   <div class="stage-top">
+    <div>
+     <h5>Technical Analysis</h5>
+     <p>Organized trend signals, rankings and market metrics into a single widget, prioritizing key insights while retaining detailed analysis.</p>
+    </div>
+    <div class="switch">
+     <span id="lm" class="on">Light mode</span>
+     <button type="button" role="switch" aria-checked="false" aria-label="Dark mode" id="mode"></button>
+     <span id="dm">Dark mode</span>
+    </div>
+   </div>
+
+   <div class="board" id="board">
+    <ol class="notes l" id="nl" aria-label="Design notes, left"></ol>
+
+    <article class="w" id="w" aria-label="Technical Analysis widget for MBX">
+     <header class="w-head">
+      <h4>Technical Analysis</h4>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="sp"></span>
+      <button class="ib" type="button" aria-label="Widget settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+      <button class="ib" type="button" aria-label="Remove widget"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 13h12l1-13M9 7V4h6v3"/></svg></button>
+     </header>
+     <div class="hero">
+      <div>
+       <span class="tag"><i></i>Trade Ideas</span>
+       <button class="ticker" type="button" aria-label="Change ticker, current MBX, MBX Biosciences Inc.">MBX <small>MBX Biosciences Inc.</small>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      </div>
+      <div class="price"><strong>$26.00</strong>
+       <span class="chg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>$1.21 (4.88%)</span></div>
+     </div>
+
+     <div class="w-body">
+      <section class="card" data-k="trend">
+       <h5>Trend analysis</h5>
+       <div class="row">1-month trend<span class="sp"></span><span class="bull"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Bullish</span><b>4/5</b></div>
+       <div class="row">6-month trend<span class="sp"></span><span class="bull"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Bullish</span><b>4/5</b></div>
+      </section>
+
+      <section class="card" data-k="rank">
+       <h5>Rankings</h5>
+       <div class="rk"><span>Liquidity</span><span class="liq"><span aria-hidden="true"><i></i><i></i><i></i></span>Not Liquid</span></div>
+       <div class="rk"><span>IV rank</span><div class="bar" style="background:var(--b-track)"><i style="width:15%;background:var(--b)"></i></div><span class="v">15%</span></div>
+       <div class="rk"><span>Technical</span><div class="bar" style="background:var(--o-track)"><i style="width:100%;background:var(--o)"></i></div><span class="v">100%</span></div>
+      </section>
+
+      <section class="metrics" data-k="fund" aria-label="Market metrics">
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>Volume</span><strong>294.1K</strong></div>
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Market cap</span><strong>$1.1B</strong></div>
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7l-4-4z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg><span>EPS</span><strong>$-1.85</strong></div>
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4v16h16M8 16v-4M12 16V8M16 16v-6"/></svg><span>52W range</span><strong>$4.81 - $26.47</strong></div>
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg><span>P/E ratio</span><strong>-10.36</strong></div>
+       <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg><span>Div/Yield</span><strong>0.00%/0.00</strong></div>
+      </section>
+
+      <section class="card" data-k="levels">
+       <h5>Key price levels</h5>
+       <div class="lv">
+        <div><h6>Support Levels</h6><div class="box s"><strong>$22.81</strong><span>11/27</span></div><div class="box s"><strong>$16.61</strong><span>07/25</span></div></div>
+        <div><h6>Resistance Levels</h6><div class="box r"><strong>$26.65</strong><span>11/17</span></div></div>
+       </div>
+      </section>
+
+      <footer class="foot">
+       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+       Next Earnings: Mar 16, 2026 Before Market
+      </footer>
+     </div>
+    </article>
+
+    <ol class="notes r" id="nr" aria-label="Design notes, right"></ol>
+   </div>
+  </div>
+
+
+  <div id="re" hidden>
+   <div class="stage-top"><div><h5>Reports Explorer</h5><p>Turned scattered trading opportunities into one filterable table, with a tab for each opportunity strategy.</p></div></div>
+   <div class="a2">
+    <figure>
+     <div class="cap"><b>Before</b><small>Legacy dashboard</small></div>
+     <div class="shot legacy" role="img" aria-label="Legacy dashboard with an ideas list on the left and strategy cards for one stock on the right"><span class="mark" style="left:1.3%;top:14%;width:18.4%;height:83%"><span class="lp r">A</span></span><span class="mark" style="left:58.2%;top:21.6%;width:39.4%;height:37.8%"><span class="lp r">B</span></span></div>
+     <ul class="key"><li><i>A</i><div><b>Ideas in a side list.</b> <span>One stock per row, no metrics to compare.</span></div></li><li><i>B</i><div><b>One stock at a time.</b> <span>Strategy cards only for the selected stock.</span></div></li></ul>
+    </figure>
+    <figure>
+     <div class="cap"><b>After</b><small>Reports Explorer</small></div>
+     <div class="pinw outl" data-pins><div data-rx data-n="5"></div></div>
+     <ul class="key g"><li><i>A</i><div><b>Strategy tabs.</b> <span>Each opportunity strategy gets its own view, so data never competes.</span></div></li><li><i>B</i><div><b>Filter before you scan.</b> <span>Direction counts show what matches up front.</span></div></li><li><i>C</i><div><b>Compare at a glance.</b> <span>Only the columns that strategy needs.</span></div></li></ul>
+    </figure>
+   </div>
+   <p class="sample">Covered Calls and Short Puts rows are sample data for illustration.</p>
+  </div>
+  <div id="qb" hidden>
+   <div class="stage-top"><div><h5>Quote Board</h5><p>Turned a fixed stock-summary strip into a modular widget with a clear entry point.</p></div></div>
+   <div class="qb-rows">
+    <div class="qb-row">
+     <figure class="qb-fig">
+      <div class="cap"><b>Before</b><small>Legacy stock summary</small></div>
+      <div class="pinw" id="qbBefore">
+       <div class="lg" aria-label="Legacy stock summary for Goldman Sachs">
+        <div class="lg-top" data-z="top"><span class="lg-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E6FD9" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><b>GS</b> Goldman Sachs Group…</span><span class="lg-flag" aria-hidden="true"></span><span class="lg-usd">USD</span><span class="sp"></span><span class="lg-price">$821.42<em>-$14.04 (1.68%)</em></span></div>
+        <div class="lg-grid" data-z="grid">
+         <div><p>52W <b>$439.38 - $984.70</b></p><p><span>EPS <b>$51.32</b></span><span>P/E <b>16.29</b></span></p><p>Div / Yield <b>$15.50 / 1.86%</b></p></div>
+         <div><p>Liquidity <b>Very Liquid</b></p><p>IV Rank <b>43/100</b></p><p>Earnings <b>Apr 13, 2026 (36) AM</b></p></div>
+         <div><p><span>1M <span class="bear">Bearish</span></span><span>6M <span class="bear">Mildly Bearish</span></span></p><p>Relative Strength <b>7/10</b></p><p>Volume <b>2.47M</b></p></div>
+        </div>
+       </div>
+                    </div>
+     </figure>
+    </div>
+    <div class="qb-row">
+     <figure class="qb-fig">
+      <div class="cap"><b>After</b><small>Quote Board widget</small></div>
+      <div class="pinw" id="qbAfter">
+       <div class="qbw" aria-label="Quote Board widget for Apple">
+        <div class="qbw-h"><span class="grip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="#6B7280"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><strong>Quote Board</strong><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1" fill="#555" stroke="none"/></svg><span style="flex:1"></span><span class="qbw-act" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 13h12l1-13M9 7V4h6v3"/></svg></span></div>
+        <div class="qbw-in">
+         <div class="qbw-top" data-z="price"><span class="tk">AAPL <span>US ▾</span></span><span class="qbw-name">Apple Inc</span><span class="qbw-price">$345.09</span><span class="qbw-chg">+$0.92 (+0.27%)</span></div>
+         <div class="qbw-grid" data-z="grid">
+          <div><p><span>52W</span><b>$243.42 - $355.38</b></p><p><span><span class="lb">EPS</span> <b>$8.98</b></span><span><span class="lb">P/E</span> <b>38.35</b></span></p><p><span>Div/Yield</span><b>$1.06/0.31%</b></p></div>
+          <div><p><span>Liquidity</span><b>Very Liquid</b></p><p><span>IV rank</span><b>67/100</b></p><p><span>Strength</span><b>9/10</b></p></div>
+          <div><p><span><span class="lb">1M</span> <b class="bull">Bullish</b></span><span><span class="lb">6M</span> <b class="bull">Bullish</b></span></p><p><span>Volume</span><b>9.71M</b></p><p><span>Earnings date</span><b>1/28/2027</b></p></div>
+         </div>
+        </div>
+       </div>
+       <div class="colcap" data-z="cols"><span>Fundamentals</span><span>Market conditions</span><span>Trend and activity</span></div>
+      </div>
+     </figure>
+    </div>
+   </div>
+   <p class="tradeoff"><b>The trade-off:</b><span>preserved the density expert traders rely on, and improved hierarchy and grouping instead of removing data.</span></p>
+  </div>
+  <div id="other" hidden>
+   <div class="empty"><b id="otherName">Reports Explorer</b>This walkthrough uses the same hierarchy. Widget preview coming soon.</div>
+  </div>
+ </div>
+</section>
+
+
+  </div>
+
+  <div class="sub" id="d33" data-sub="3.3 Learning in place">
+   <h3 class="cs-h3">3.3. How do we help beginners make informed trading decisions without slowing down experts?</h3>
+   <div class="g33">
+    <p class="cs-eyebrow">Research insights</p>
+    <h4 class="cs-h4">Why traders needed more support</h4>
+    <p class="cs-p">Hotjar and Mixpanel revealed drop-offs during first trading sessions. Beginner interviews highlighted difficulties discovering relevant tools, understanding trading terminology, and evaluating unfamiliar strategies.</p>
+    <div class="finds">
+     <div class="find"><b>01</b><h5>Difficulty choosing the right tools</h5><p>Beginners couldn't easily tell which widgets were relevant to their trading goals.</p></div>
+     <div class="find"><b>02</b><h5>Learning resources were hard to discover</h5><p>Traders wanted easier access to educational content and ideas to explore.</p></div>
+     <div class="find"><b>03</b><h5>Unfamiliar concepts interrupted evaluation</h5><p>Options terminology, scores, and risk metrics made strategies harder for beginners to understand.</p></div>
+    </div>
+   </div>
+   <div class="g33">
+    <p class="cs-eyebrow">Design decisions</p>
+    <h4 class="cs-h4">Three ways the dashboard supports learning in place</h4>
+    <div data-tabs>
+     <div class="ptabs"><div role="tablist" aria-label="3.3 decisions"><button type="button" role="tab" id="g-t0" aria-controls="g-p0" aria-selected="true" data-tab>Widget discovery</button><button type="button" role="tab" id="g-t1" aria-controls="g-p1" aria-selected="false" tabindex="-1" data-tab>Learning &amp; insights</button><button type="button" role="tab" id="g-t2" aria-controls="g-p2" aria-selected="false" tabindex="-1" data-tab>Contextual guidance</button></div></div>
+     <div class="ppanel gp" role="tabpanel" id="g-p0" aria-labelledby="g-t0" data-panel>
+      <h5 class="gp-h">Explaining widgets before users add them</h5>
+      <p class="cs-p">Added descriptions to the widget picker so traders could understand each tool's purpose before adding it to their dashboard.</p>
+      <div class="ph big" data-todo="image">Widget picker and information panel visual coming soon</div>
+      <div class="gp-pts"><p><i>01</i>Tool purpose explained before selection</p><p><i>02</i>Optional guidance without interrupting selection</p></div>
+      <p class="ut"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>Usability testing / Understanding which widget to add</p>
+      <div class="ab"><div class="ph" data-todo="image">Tested version A</div><div class="ph" data-todo="image">Revised version B</div></div>
+     </div>
+     <div class="ppanel gp" role="tabpanel" id="g-p1" aria-labelledby="g-t1" data-panel hidden><div class="ph big" data-todo="section">Learning &amp; insights is still being designed in Figma.</div></div>
+     <div class="ppanel gp" role="tabpanel" id="g-p2" aria-labelledby="g-t2" data-panel hidden><div class="ph big" data-todo="section">Contextual guidance is still being designed in Figma.</div></div>
+    </div>
+   </div>
+  </div>
+
+  <div class="sub" id="d34" data-sub="3.4 Design system">
+   <h3 class="cs-h3">3.4. How do we scale the Design System without more UX debt?</h3>
+   <p class="cs-p">OptionsPlay had operated for <b>12 years without a shared component library</b>, resulting in inconsistent UI patterns. After redesigning the trading dashboard, I built its <b>first design system to help turn the new UI into reusable components</b> and support future features without repeating the same inconsistencies.</p>
+   <div class="ds" data-tabs><div class="ds-steps" role="tablist" aria-label="Design system steps"><button type="button" role="tab" id="ds-t0" aria-controls="ds-p0" aria-selected="true" tabindex="0" data-tab><span class="dot">A</span>Audit new UI patterns</button><span class="ds-line" aria-hidden="true"></span><button type="button" role="tab" id="ds-t1" aria-controls="ds-p1" aria-selected="false" tabindex="-1" data-tab><span class="dot">B</span>Building Foundations</button><span class="ds-line" aria-hidden="true"></span><button type="button" role="tab" id="ds-t2" aria-controls="ds-p2" aria-selected="false" tabindex="-1" data-tab><span class="dot">C</span>Reusable components</button></div><div class="ds-panel" role="tabpanel" id="ds-p0" aria-labelledby="ds-t0" data-panel >
+  <h4>A/ Auditing the new UI to extract patterns and variables</h4>
+  <img src="assets/img/optionsplay/ds-a.webp" alt="Tablet showing the new dashboard surrounded by extracted patterns: buttons, toggles, input states, color ramps and a type scale. 01 Identified reusable UI patterns, 02 Mapped interaction states and variations, 03 Grouped shared layouts across widget structures" width="1116" height="690" loading="lazy">
+</div><div class="ds-panel" role="tabpanel" id="ds-p1" aria-labelledby="ds-t1" data-panel hidden>
+  <h4>B/ Building Foundations that prevent future inconsistencies</h4>
+  <img src="assets/img/optionsplay/ds-b.webp" alt="Token architecture diagram: elevation, spacing, color and typography tokens feeding a primary button, with WCAG 2.1 AA checks and Figma variables" width="1116" height="620" loading="lazy">
+</div><div class="ds-panel" role="tabpanel" id="ds-p2" aria-labelledby="ds-t2" data-panel hidden>
+  <h4>C/ Reusable components for faster feature creations</h4>
+  <img src="assets/img/optionsplay/ds-c.webp" alt="Component documentation: button variants and states, toggle matrix, and behavior and placement guidelines" width="1116" height="621" loading="lazy">
+</div><div class="ds-nav"><button type="button" class="cs-btn" data-step="-1">Previous</button><button type="button" class="cs-btn primary" data-step="1">Next step</button></div></div>
+  </div>
+
+  <div class="sub" id="d35" data-sub="Widget architecture" aria-labelledby="sd">
+   <h3 class="cs-h3" id="sd">D / Scaling new trading widgets without redesigning their structure</h3>
+   <div class="dq"><span>The question</span><p>How could OptionsPlay introduce more trading widgets without redesigning their structure every time?</p></div>
+   <div class="decs">
+    <div class="dec"><b>01</b><h4>Standardized the shared widget structure</h4><p>Defined consistent headers, control bars, content regions and footers, so each widget didn't need a new layout.</p></div>
+    <div class="dec"><b>02</b><h4>Preserved flexibility for trading-specific content</h4><p>Kept the content region adaptable for charts, tables and strategy data instead of forcing every tool into one layout.</p></div>
+    <div class="dec"><b>03</b><h4>Defined rules for future widget development</h4><p>Documented sizing, states, behavior and layout constraints so new widgets follow the established architecture.</p></div>
+   </div>
+   <figure class="fig dvis"><img src="assets/img/optionsplay/ds-d.webp" alt="Widget architecture: a master widget structure with shared header, reusable controls, flexible content region and footer, applied across Credit Spreads, Quote Board and Trade Ideas" width="1068" height="691" loading="lazy"></figure>
+   <div class="take"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><p><b>New trading widgets could reuse established layouts and interaction rules,</b> reducing duplicate design and development work while keeping trading-specific functionality flexible.</p></div>
+  </div>
+
+ </section>
+</main>
+
+<footer class="wrap cs-foot">
+ <a href="/#work">← Back to all work</a>
+ <nav aria-label="Elsewhere"><a href="https://linkedin.com/in/sreesha-suresh">LinkedIn</a><a href="https://x.com/sreesha24">X</a></nav>
+</footer>
+
+<script>
+
+{
+const NOTES=[
+ {k:'trend',side:'r',t:'Prioritized trend direction',d:'Placed under the price for quick assessment.',ux:'Visual hierarchy'},
+ {k:'rank',side:'l',t:'Grouped related technical indicators',d:'',ux:'Proximity and grouping'},
+ {k:'fund',side:'r',t:'Kept secondary metrics compact',d:'Supports deeper research without slowing the first read.',ux:'Information density'},
+ {k:'levels',side:'l',t:'Built confidence before surfacing action',d:'Shown last as the result of the analysis: where to enter or exit a trade.',ux:'Analysis to action'}
+];
+const board=document.getElementById('board'),w=document.getElementById('w'),nl=document.getElementById('nl'),nr=document.getElementById('nr');
+NOTES.forEach((n,i)=>{
+ const tgt=w.querySelector(`[data-k="${n.k}"]`);
+ const p=document.createElement('span');p.className='pin '+(n.side==='l'?'l':'r');p.textContent=i+1;p.setAttribute('aria-hidden','true');tgt.prepend(p);
+ const li=document.createElement('li');li.className='note';li.dataset.k=n.k;li.style.order=i+1;
+ li.innerHTML=`<span class="pin" aria-hidden="true">${i+1}</span><div><b><span class="sr">${i+1}. </span>${n.t}</b>${n.d?`<span>${n.d}</span>`:''}<em class="ux">${n.ux}</em></div>`;
+ (n.side==='l'?nl:nr).appendChild(li);
+ const on=v=>{tgt.classList.toggle('hl',v);li.classList.toggle('hl',v)};
+ li.addEventListener('mouseenter',()=>on(true));li.addEventListener('mouseleave',()=>on(false));
+ tgt.addEventListener('mouseenter',()=>on(true));tgt.addEventListener('mouseleave',()=>on(false));
+});
+const place=()=>{
+ const wide=window.matchMedia('(min-width:901px)').matches;
+ for(const col of [nl,nr]){
+  let last=-Infinity;const cr=col.getBoundingClientRect();const k=(w.getBoundingClientRect().width/w.offsetWidth)||1;
+  for(const li of col.children){
+   if(!wide){li.style.top='';continue;}
+   const t=w.querySelector(`[data-k="${li.dataset.k}"] > .pin`).getBoundingClientRect();
+   let y=(t.top-cr.top)/k;y=Math.max(y,last+12);li.style.top=y+'px';last=y+li.offsetHeight;
+  }
+  col.style.height=wide?Math.max(last,0)+'px':'';
+ }
+};
+const ro=new ResizeObserver(place);ro.observe(board);ro.observe(w);
+document.fonts&&document.fonts.ready.then(place);place();
+
+const sig='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="7" width="2" height="4" fill="#3F8F1F"/><rect x="5" y="4" width="2" height="7" fill="#3F8F1F"/><rect x="9" y="1" width="2" height="10" fill="#3F8F1F"/></svg>';
+const ic={
+ cs:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h14l-3-3M20 15H6l3 3"/></svg>',
+ cc:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/></svg>',
+ sp:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>'};
+const T=(c,t)=>({tag:c,t});
+const S={
+ cs:{name:'Credit Spreads',filters:[['all','All',41],['bull','Bullish',31],['bear','Bearish',10]],
+  cols:['Symbol','Price','Strategy','D-Edge','Sell strike','Buy strike'],left:[0,2,3],
+  rows:[['BURL','bull','$248.27',T('bp','Bull Put'),T('rs','Rally Sell'),'$240.00','$220.00'],['ANF','bull','$155.65',T('bp','Bull Put'),T('sb','Strong Bull'),'$155.00','$135.00'],['LMT','bull','$568.38',T('bp','Bull Put'),T('sb','Strong Bull'),'$565.00','$535.00'],['BX','bear','$119.50',T('bc','Bear Call'),T('rs','Rally Sell'),'$120.00','$130.00'],['SBUX','bull','$105.29',T('bp','Bull Put'),T('sb','Strong Bull'),'$105.00','$100.00'],['DKS','bull','$139.78',T('bp','Bull Put'),T('im','Improving'),'$135.00','$125.00'],['PM','bull','$199.15',T('bp','Bull Put'),T('sb','Strong Bull'),'$195.00','$190.00']],
+  mini:{cols:['Symbol','Strategy','D-Edge','Sell strike'],idx:[0,2,3,4],hl:2,note:'Spread legs and directional edge'}},
+ cc:{name:'Covered Calls',filters:[['all','All',28],['bull','Bullish',19],['neutral','Neutral',9]],
+  cols:['Symbol','Price','Call strike','Premium','If called','Expiry'],left:[0],
+  rows:[['AAPL','bull','$228.40','$235.00','$3.10','4.2%','12/18/2026'],['MSFT','bull','$512.40','$525.00','$6.85','3.8%','12/18/2026'],['KO','neutral','$68.20','$70.00','$0.85','3.9%','12/18/2026'],['JPM','bull','$246.10','$250.00','$3.40','3.0%','12/18/2026'],['XOM','neutral','$112.75','$115.00','$1.55','3.4%','12/18/2026'],['PG','neutral','$165.30','$170.00','$1.90','4.0%','12/18/2026']],
+  mini:{cols:['Symbol','Call strike','Premium','If called'],idx:[0,2,3,4],hl:3,note:'Income from shares you already hold'}},
+ sp:{name:'Short Puts',filters:[['all','All',35],['bull','Bullish',27],['neutral','Neutral',8]],
+  cols:['Symbol','Price','Put strike','Premium','Break-even','Return'],left:[0],
+  rows:[['NVDA','bull','$186.21','$175.00','$4.20','$170.80','2.4%'],['AMD','bull','$158.30','$150.00','$3.65','$146.35','2.4%'],['COST','neutral','$912.50','$880.00','$12.40','$867.60','1.4%'],['HD','bull','$398.20','$380.00','$5.10','$374.90','1.3%'],['V','neutral','$338.90','$325.00','$4.05','$320.95','1.2%'],['META','bull','$641.20','$600.00','$9.30','$590.70','1.6%']],
+  mini:{cols:['Symbol','Put strike','Premium','Break-even'],idx:[0,2,3,4],hl:3,note:'Paid to wait for an entry price'}}
+};
+const cell=v=>typeof v==='object'?`<span class="pl ${v.tag}">${v.t}</span>`:v;
+const rx=st=>{
+ const d=S[st.s];const rows=d.rows.filter(r=>st.f==='all'||r[1]===st.f).slice(0,st.n);
+ const tabs=Object.keys(S).map(k=>`<button type="button" role="tab" aria-selected="${k===st.s}" data-st="${k}">${ic[k]}${S[k].name}</button>`).join('');
+ const seg=d.filters.map(([k,l,c])=>`<button type="button" aria-pressed="${k===st.f}" data-fl="${k}">${l} (${c})</button>`).join('');
+ const th=d.cols.map((c,i)=>`<th scope="col" class="${d.left.includes(i)?'l':''}">${c}</th>`).join('');
+ const tb=rows.map(r=>{const v=[r[0]].concat(r.slice(2));return '<tr>'+v.map((x,i)=>i===0?`<td class="sym l">${x}${sig}</td>`:`<td class="${d.left.includes(i)?'l':''}">${cell(x)}</td>`).join('')+'</tr>'}).join('');
+ return `<div class="rx" aria-label="Reports Explorer widget">
+  <div class="rx-h"><strong>Reports Explorer</strong><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none"/></svg><span class="sp"></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></div>
+  <div class="rx-tabs rx-part p-tabs" role="tablist" aria-label="Opportunity strategy">${tabs}</div>
+  <div class="rx-in">
+   <div class="rx-c rx-part p-filter"><span class="rx-search">Symbol…</span><div class="seg2" role="group" aria-label="Filter by direction">${seg}</div><span class="sp"></span><span class="rx-btn" role="img" aria-label="Column filters"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg></span></div>
+   <div class="rx-scroll rx-part p-table"><table><thead><tr>${th}</tr></thead><tbody>${tb}</tbody></table></div>
+  </div></div>`;};
+const draw=el=>{el.innerHTML=rx(el._st)};
+document.querySelectorAll('[data-rx]').forEach(el=>{el._st={s:'cs',f:'all',n:+el.dataset.n||0};draw(el)});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-st],[data-fl]');if(!b)return;const el=b.closest('[data-rx]');if(!el)return;
+ if(b.dataset.st){el._st.s=b.dataset.st;el._st.f='all'}else el._st.f=b.dataset.fl;draw(el);
+ const sel=el.querySelector(b.dataset.st?`[data-st="${b.dataset.st}"]`:`[data-fl="${b.dataset.fl}"]`);sel&&sel.focus();});
+document.addEventListener('keydown',e=>{const t=e.target.closest('[role=tab][data-st]');if(!t)return;const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;
+ const k=Object.keys(S),i=k.indexOf(t.dataset.st),n=k[(i+d+k.length)%k.length];const el=t.closest('[data-rx]');el._st.s=n;el._st.f='all';draw(el);el.querySelector(`[data-st="${n}"]`).focus();e.preventDefault();});
+// lettered pins on the after widget
+const pinAll=()=>document.querySelectorAll('[data-pins]').forEach(w=>{
+ w.querySelectorAll(':scope>.ol').forEach(p=>p.remove());
+ const wr=w.getBoundingClientRect();if(!wr.width)return;const k=wr.width/w.offsetWidth||1;
+ ['.p-tabs','.p-filter','.p-table'].forEach((sel,i)=>{const r=w.querySelector(sel).getBoundingClientRect();const pad=i===0?-1:3;
+  const o=document.createElement('span');o.className='ol g';o.setAttribute('aria-hidden','true');
+  o.style.cssText=`left:${(r.left-wr.left)/k-pad}px;top:${(r.top-wr.top)/k-pad}px;width:${r.width/k+pad*2}px;height:${r.height/k+pad*2}px`;
+  o.innerHTML=`<span class="lp g">${'ABC'[i]}</span>`;w.appendChild(o);});});
+const _draw=draw;
+const roPins=new ResizeObserver(pinAll);document.querySelectorAll('[data-pins]').forEach(w=>roPins.observe(w));
+document.addEventListener('click',()=>requestAnimationFrame(pinAll));
+document.fonts&&document.fonts.ready.then(pinAll);pinAll();
+
+const brackets=(w,items)=>{w.querySelectorAll(':scope>.brk,:scope>.blab').forEach(x=>x.remove());const wr=w.getBoundingClientRect();if(!wr.width)return;const k=wr.width/w.offsetWidth||1,W=w.offsetWidth;
+ let last=-1e9;
+ items.forEach(([sel,c,t,d])=>{const r=w.querySelector(sel).getBoundingClientRect();const top=(r.top-wr.top)/k+1,h=r.height/k-2;
+  const b=document.createElement('span');b.className='brk '+c;b.setAttribute('aria-hidden','true');b.style.cssText=`left:${W+10}px;top:${top}px;height:${h}px`;w.appendChild(b);
+  const l=document.createElement('div');l.className='blab '+c;l.innerHTML=`<b>${t}</b><span>${d}</span>`;w.appendChild(l);
+  let y=top+h/2-l.offsetHeight/2;y=Math.max(y,last+8);l.style.left=(W+32)+'px';l.style.top=y+'px';last=y+l.offsetHeight;});
+ const fig=w.closest('.qb-fig');let m=fig.querySelector('.qb-mob');if(!m){m=document.createElement('ul');m.className='qb-mob';m.innerHTML=items.map(([,c,t,d])=>`<li class="${c}"><b>${t}</b> <span>${d}</span></li>`).join('');fig.appendChild(m);}};
+const pinQB=()=>{
+ brackets(document.getElementById('qbBefore'),[['[data-z=top]','r','No visual hierarchy','Price competed with every metric, so there was no clear entry point.'],['[data-z=grid]','r','Grouped by space, not meaning','Related signals were scattered, which added scanning effort.']]);
+ brackets(document.getElementById('qbAfter'),[['.qbw-h','g','Modular by design','Add, move or remove it.'],['[data-z=price]','g','Clear entry point','Price and movement anchor the first glance.'],['[data-z=grid]','g','Chunked for faster lookup','Three data types in three columns, each evaluated on its own.']]);};
+const roQB=new ResizeObserver(pinQB);roQB.observe(document.getElementById('qbAfter'));roQB.observe(document.getElementById('qbBefore'));
+const mode=document.getElementById('mode'),stage=document.querySelector('.stage');
+mode.addEventListener('click',()=>{const d=mode.getAttribute('aria-checked')!=='true';mode.setAttribute('aria-checked',d);w.classList.toggle('dark',d);stage.classList.toggle('dark',d);
+ document.getElementById('lm').classList.toggle('on',!d);document.getElementById('dm').classList.toggle('on',d);place();});
+
+const tabs=[...document.querySelectorAll('.tablist [role=tab]')],panel=document.getElementById('panel');
+const select=t=>{tabs.forEach(x=>{const s=x===t;x.setAttribute('aria-selected',s);x.tabIndex=s?0:-1});panel.setAttribute('aria-labelledby',t.id);
+ const ta=t.id==='tab-ta',rx=t.id==='tab-re',qbt=t.id==='tab-qb';document.getElementById('ta').hidden=!ta;document.getElementById('re').hidden=!rx;document.getElementById('qb').hidden=!qbt;document.getElementById('other').hidden=ta||rx||qbt;
+ stage.classList.toggle('dark',ta&&mode.getAttribute('aria-checked')==='true');
+ if(!ta&&!rx)document.getElementById('otherName').textContent=t.textContent;if(ta)place();if(rx)requestAnimationFrame(pinAll);if(qbt)requestAnimationFrame(pinQB);};
+
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>select(t));
+ t.addEventListener('keydown',e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){const n=tabs[(i+d+tabs.length)%tabs.length];n.focus();select(n);e.preventDefault();}});});
+}
+
+</script>
+<script>
+{
+// section nav: built from [data-nav] sections and their [data-sub] blocks
+const secs=[...document.querySelectorAll('[data-nav]')];
+const list=document.getElementById('snav-list'),tlist=document.getElementById('tbar-list');
+list.innerHTML=secs.map(sc=>{const subs=[...sc.querySelectorAll('[data-sub]')];
+ return `<li data-for="${sc.id}"><a class="t" href="#${sc.id}">${sc.dataset.nav}</a>${subs.length?'<ol>'+subs.map(x=>`<li><a class="t" href="#${x.id}">${x.dataset.sub}</a></li>`).join('')+'</ol>':''}</li>`}).join('');
+tlist.innerHTML=secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
+const targets=[...secs,...document.querySelectorAll('[data-sub]')];
+const links=id=>document.querySelectorAll(`a[href="#${id}"]`);
+let raf=0;
+const tb=document.querySelector('.tbar'),tl=document.getElementById('tldr');
+const upd=()=>{raf=0;if(tb&&tl)tb.classList.toggle('on',tl.getBoundingClientRect().bottom<64);const y=innerHeight*.35;let cur=null,sub=null;
+ for(const sc of secs){const r=sc.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=sc}
+ if(cur)for(const x of cur.querySelectorAll('[data-sub]')){const r=x.getBoundingClientRect();if(r.top<=y&&r.bottom>y)sub=x}
+ document.querySelectorAll('.snav a.t,.tbar a').forEach(a=>a.removeAttribute('aria-current'));
+ list.querySelectorAll(':scope>li').forEach(li=>li.classList.toggle('open',!!cur&&li.dataset.for===cur.id));
+ if(cur){links(cur.id).forEach(a=>{if(!sub||a.closest('.tbar'))a.setAttribute('aria-current','location')});
+  const ta=tlist.querySelector(`a[href="#${cur.id}"]`);if(ta&&tlist.scrollWidth>tlist.clientWidth)tlist.scrollTo({left:ta.offsetLeft-24,behavior:'smooth'})}
+ if(sub)list.querySelectorAll(`a[href="#${sub.id}"]`).forEach(a=>a.setAttribute('aria-current','location'));};
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();
+}
+</script>
+<script>
+{
+// generic tabs: [data-tabs] > [data-tab] buttons + [data-panel] panels (same order)
+document.querySelectorAll('[data-tabs]').forEach(box=>{
+ const tabs=[...box.querySelectorAll('[data-tab]')],panels=[...box.querySelectorAll('[data-panel]')];
+ const prev=box.querySelector('[data-step="-1"]'),next=box.querySelector('[data-step="1"]');
+ const sel=(i,focus)=>{tabs.forEach((t,j)=>{t.setAttribute('aria-selected',j===i);t.tabIndex=j===i?0:-1});panels.forEach((p,j)=>p.hidden=j!==i);
+  if(focus)tabs[i].focus();if(prev){prev.disabled=i===0;next.disabled=i===tabs.length-1}};
+ tabs.forEach((t,i)=>{t.addEventListener('click',()=>sel(i));t.addEventListener('keydown',e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();sel((i+d+tabs.length)%tabs.length,true)}})});
+ [prev,next].forEach(b=>b&&b.addEventListener('click',()=>{const cur=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');sel(Math.max(0,Math.min(tabs.length-1,cur+ +b.dataset.step)))}));
+ sel(0);
+});
+}
+</script>
+</body>
+</html>
