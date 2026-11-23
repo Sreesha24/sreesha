@@ -320,3 +320,25 @@
     clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('is-on'), 1600);
   }
 })();
+
+/* OptionsPlay featured card: start the hover animation only after the cursor rests briefly
+   (no flicker when scrolling past), and play it once on scroll for touch screens */
+(function () {
+  var card = document.querySelector('.card--op');
+  if (!card) return;
+  var t;
+  card.addEventListener('pointerenter', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(t); t = setTimeout(function () { card.classList.add('is-on'); }, 100);
+  });
+  card.addEventListener('pointerleave', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(t); card.classList.remove('is-on');
+  });
+  if (matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { io.disconnect(); setTimeout(function () { card.classList.add('is-on'); }, 250); }
+    }, { threshold: 0.6 });
+    io.observe(card.querySelector('.card__media'));
+  }
+})();
