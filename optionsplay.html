@@ -83,6 +83,18 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 .fig figcaption{font-size:15px;color:var(--muted);margin-top:10px;font-style:italic;text-align:center}
 .before-plate{position:relative;background:var(--plate);padding:clamp(16px,3vw,40px);border:1px solid var(--line)}
 .before-plate .lbl{position:absolute;top:14px;left:14px;background:var(--brand);color:#fff;font-size:16px;padding:4px 10px}
+.ba-f{position:relative;aspect-ratio:2559/1263;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.08);background:#fff;user-select:none;touch-action:pan-y}
+.ba img{border:0;box-shadow:none}
+.ba-a{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top}
+.ba-b{position:absolute;inset:0;background:#fff;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.ba-b img{width:100%;height:100%;object-fit:contain;object-position:center}
+.ba .lbl{top:12px;left:12px;z-index:2;pointer-events:none}
+.ba .lbl-r{left:auto;right:12px}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--brand);z-index:3;pointer-events:none}
+.ba-k{position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%);display:grid;place-items:center;background:var(--brand);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.ba-r{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:4}
+.ba-r:focus-visible~.ba-line .ba-k,.ba-f:has(.ba-r:focus-visible) .ba-k{outline:3px solid var(--ink);outline-offset:3px}
+.ba-cap{margin-top:12px;font-size:14px;color:#555557}
 .before-plate img{border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.08)}
 /* TL;DR */
 .tl-box{position:relative;border:1px solid #CFCFC8;padding:clamp(24px,3.5vw,48px);margin-top:34px}
@@ -487,7 +499,16 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
    <p class="cs-p"><b>As the company grew, one dashboard couldn't serve every type of trader.</b> Beginners needed clearer starting points, while experienced traders needed detailed analysis and flexible workflows.</p>
    <p class="cs-p">As the <b>sole product designer</b>, I led the end-to-end redesign collaborating with 2 engineers and 1 product manager to deliver the redesigned platform in 16 weeks. I also built their <b>design system</b> from scratch.</p>
    <ul class="chips" aria-label="Skills"><li>UX Research</li><li>Workflow Redesign</li><li>Information Architecture</li><li>Interaction Design</li><li>Design System</li><li>Usability Testing</li></ul>
-   <figure class="fig before-plate"><span class="lbl">Before</span><img src="assets/img/optionsplay/legacy-dashboard.webp" alt="The legacy OptionsPlay dashboard: an ideas list, a chart and strategy cards for one stock" width="915" height="519" loading="lazy"></figure>
+   <figure class="fig before-plate ba" style="--p:50%">
+    <div class="ba-f">
+     <img class="ba-a" src="assets/img/optionsplay/new-dashboard.webp" alt="After: the redesigned customizable dashboard with Insights, Markets, Quote Board, Webinars, Earnings Calendar and Reports Explorer widgets" width="2559" height="1263" loading="lazy">
+     <div class="ba-b"><img src="assets/img/optionsplay/legacy-dashboard.webp" alt="Before: the legacy OptionsPlay dashboard with an ideas list, a chart and strategy cards for one stock" width="915" height="519" loading="lazy"></div>
+     <span class="lbl">Before</span><span class="lbl lbl-r">After</span>
+     <span class="ba-line" aria-hidden="true"><span class="ba-k"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></span>
+     <input class="ba-r" type="range" min="0" max="100" value="50" step="1" aria-label="Compare before and after: drag left to see more of the after, right to see more of the before">
+    </div>
+    <figcaption class="ba-cap">Drag the handle to compare the legacy dashboard with the redesign.</figcaption>
+   </figure>
   </div>
 
   <div class="tl-block">
@@ -975,6 +996,7 @@ document.querySelectorAll('[data-tabs]').forEach(box=>{
  sel(0);
 });
 }
+document.querySelectorAll('.ba').forEach(f=>{const r=f.querySelector('.ba-r');const set=()=>f.style.setProperty('--p',r.value+'%');r.addEventListener('input',set);set()});
 </script>
 </body>
 </html>
