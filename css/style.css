@@ -337,15 +337,18 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .card:hover .card__ui--rgm { transform: translate(-50%, 0) scale(1.02); transform-origin: 50% 100%; }
 /* OptionsPlay featured card: widgets slide in around the hero on hover */
 .card--op .card__media { aspect-ratio: 1418 / 793; background: #dfe3d6; }
-.card--op .card__bg { transition: transform .8s cubic-bezier(.22,1,.36,1), filter .6s ease; }
+.card--op .card__bg { transition: none; }
+.card--op:hover .card__bg { transform: none; }
+.card__tab { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 100%; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.card--op:hover .card__tab, .card--op:focus-visible .card__tab { transform: scale(.9); }
 .card__pop { position: absolute; height: auto; opacity: 0; pointer-events: none; filter: drop-shadow(0 14px 28px rgba(0,0,0,.18));
   transition: transform .75s cubic-bezier(.22,1,.36,1), opacity .5s ease; }
 /* each widget grows out of the tablet screen and moves straight to its own corner; paths never cross */
 .card__pop--markets { width: 50%; top: 6%; right: 3%; transform-origin: 0 100%; transform: translate(-18%, 30%) scale(.7); }
 .card__pop--earnings { width: 58%; bottom: 6%; left: 3%; transform-origin: 100% 0; transform: translate(14%, -22%) scale(.7); transition-delay: .06s; }
 .card--op:hover .card__pop, .card--op:focus-visible .card__pop { opacity: 1; transform: none; }
-.card--op:hover .card__bg, .card--op:focus-visible .card__bg { transform: none; filter: brightness(.85) saturate(.92); }
-@media (prefers-reduced-motion: reduce) { .card__pop { transform: none; transition: opacity .3s; } .card--op:hover .card__bg { transform: none; } }
+
+@media (prefers-reduced-motion: reduce) { .card__pop { transform: none; transition: opacity .3s; } .card--op:hover .card__tab { transform: none; } }
 .card__body { display: flex; flex-direction: column; gap: 0; padding-top: 8px; min-width: 0; }
 .card--wide .card__body { padding: 0 0 0 8px; }   /* 24px gap + 8px = 32px to the image */
 .card__meta {
