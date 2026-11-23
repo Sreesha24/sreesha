@@ -27,36 +27,39 @@ a{color:var(--brand)}
 .wrap{max-width:1166px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:content-box}
 .cs-sec{margin-top:clamp(112px,12vw,200px)}
 .cs-eyebrow{margin:0 0 14px;font-size:clamp(13px,.25vw + 11px,15px);font-weight:600;color:var(--brand);text-transform:uppercase;letter-spacing:.01em}
-h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin:24px 0 28px;letter-spacing:-.035em}
+h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;margin:20px 0 14px;letter-spacing:-.03em;max-width:28ch}
 .cs-h2{font-size:clamp(26px,1.5vw + 13px,38px);line-height:1.25;font-weight:500;margin:0 0 28px;letter-spacing:-.01em}
 .cs-h3{font-size:clamp(21px,.8vw + 13px,28px);line-height:1.35;font-weight:500;margin:0 0 20px}
 .cs-p{margin:0 0 22px;max-width:68ch;color:#2A2926}
 .cs-p b{font-weight:600;color:var(--ink)}
 /* section nav */
-.snav{position:fixed;left:clamp(16px,2.2vw,40px);top:96px;z-index:6;display:none;width:180px;font-size:14px;line-height:1.3}
-.snav .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;margin-bottom:22px;min-height:24px}
-.snav .back:hover{color:var(--ink)}
-.snav ol{list-style:none;margin:0;padding:0;border-left:1px solid #DDDDD8}
-.snav li{margin:0}
-.snav a.t{position:relative;display:flex;align-items:center;min-height:32px;padding:4px 0 4px 18px;color:var(--muted);text-decoration:none;transition:color .2s}
-.snav a.t::before{content:"";position:absolute;left:-1px;top:50%;width:10px;border-top:1px solid #BDBDB8;transition:width .2s,border-color .2s}
-.snav a.t:hover{color:var(--ink)}
-.snav a.t[aria-current]{color:var(--ink);font-weight:600}
-.snav a.t[aria-current]::before{width:14px;border-top:2px solid var(--brand)}
-.snav ol ol{border:0;margin:0 0 6px;display:none}
-.snav li.open>ol{display:block}
-.snav ol ol a.t{padding-left:30px;min-height:28px;font-size:13px}
-.snav ol ol a.t::before{width:6px}
-.snav ol ol a.t[aria-current]::before{width:22px;border-top-width:2px}
-.snav .bar{position:absolute;left:-1px;top:0;width:2px;background:var(--brand);transform-origin:top;transition:transform .15s linear;height:100%;transform:scaleY(0);opacity:.25}
+/* site nav: same ruler as the homepage, collapses to a menu icon once you scroll */
+.site{position:fixed;left:clamp(16px,2.2vw,40px);top:96px;z-index:8;font:14px/1 Inter,sans-serif}
+.site ol{list-style:none;margin:0;padding:0}
+.site .ri{display:flex;align-items:center;gap:10px;min-height:28px;color:#414141;text-decoration:none;transition:color .2s}
+.site .ri i{display:block;width:6px;height:1px;background:#414141;transition:width .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+.site .ri span{display:inline-block;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.site .ri:hover{color:var(--ink)}.site .ri:hover i{width:12px;background:var(--ink)}.site .ri:hover span{transform:translateX(3px)}
+.site .ri[aria-current]{color:var(--ink);font-weight:600;font-size:16px}.site .ri[aria-current] i{width:22px;height:1.5px;background:var(--ink)}
+.site .mn{display:flex;flex-direction:column;gap:13px;padding:6.5px 0}.site .mn b{display:block;width:4px;height:1px;background:#414141}
+.mbtn{display:none;appearance:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;place-items:center;cursor:pointer;color:var(--ink)}
+.mbtn:hover{border-color:#BDBDB6}
+.site.col{top:8px}
+.site.col .mbtn{display:grid}
+.site.col .menu{position:absolute;top:52px;left:0;background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.08);padding:14px 22px 14px 18px;min-width:170px;display:none}
+.site.col.open .menu{display:block}
+.site.col .mn{display:none}
+@media (prefers-reduced-motion:reduce){.site *{transition:none!important}}
 .tbar{position:fixed;top:0;left:0;right:0;z-index:6;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transform:translateY(-100%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
 .tbar.on{transform:none;visibility:visible;transition:transform .25s ease}
 @media (prefers-reduced-motion:reduce){.tbar,.tbar.on{transition:none}}
-.tbar ol{list-style:none;display:flex;gap:4px;margin:0 auto;padding:8px clamp(20px,4vw,40px);max-width:1166px;overflow-x:auto;scrollbar-width:none}
+.tbar ol{list-style:none;display:flex;align-items:center;gap:4px;margin:0 auto;padding:8px clamp(20px,4vw,40px) 8px calc(clamp(20px,4vw,40px) + 56px);max-width:1246px;overflow-x:auto;scrollbar-width:none}
+.tbar .bk{color:var(--ink);font-weight:500;gap:6px;margin-right:12px;padding:0 14px 0 4px;border-right:1px solid var(--line)}
+.tbar .bk:hover{color:var(--brand)}
 .tbar ol::-webkit-scrollbar{display:none}
 .tbar a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:0;color:var(--muted);text-decoration:none;font-size:15px;white-space:nowrap}
 .tbar a[aria-current]{background:var(--brand);color:#fff}
-@media (min-width:1280px){.snav{display:block}.tbar{display:none}main,.cs-foot{margin-left:max(220px,calc((100vw - 1246px)/2))!important;margin-right:auto!important}.wrap{max-width:min(1166px,calc(100vw - 300px))}}
+@media (min-width:1280px){.tbar ol{max-width:none;margin-left:max(220px,calc((100vw - 1246px)/2));padding-left:clamp(20px,4vw,40px)}main,.cs-foot{margin-left:max(220px,calc((100vw - 1246px)/2))!important;margin-right:auto!important}.wrap{max-width:min(1166px,calc(100vw - 300px))}}
 /* hero */
 .cs-hero{padding-top:clamp(64px,8vw,150px)}
 .cs-hero .lead{font-size:clamp(17px,.5vw + 13px,21px);line-height:1.6;max-width:60ch;color:#2A2926;margin:0 0 36px}
@@ -452,7 +455,7 @@ h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="snav" id="snav" aria-label="On this page"><a class="back" href="/#work">← All work</a><ol id="snav-list"></ol></nav>
+<nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" ><i></i><span>playground</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
 
 <main id="main">
  <header class="cs-hero wrap">
@@ -936,22 +939,24 @@ tabs.forEach((t,i)=>{t.addEventListener('click',()=>select(t));
 {
 // section nav: built from [data-nav] sections and their [data-sub] blocks
 const secs=[...document.querySelectorAll('[data-nav]')];
-const list=document.getElementById('snav-list'),tlist=document.getElementById('tbar-list');
-list.innerHTML=secs.map(sc=>{const subs=[...sc.querySelectorAll('[data-sub]')];
- return `<li data-for="${sc.id}"><a class="t" href="#${sc.id}">${sc.dataset.nav}</a>${subs.length?'<ol>'+subs.map(x=>`<li><a class="t" href="#${x.id}">${x.dataset.sub}</a></li>`).join('')+'</ol>':''}</li>`}).join('');
-tlist.innerHTML=secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
+const tlist=document.getElementById('tbar-list');
+tlist.innerHTML='<li><a class="bk" href="index.html#work"><span aria-hidden="true">←</span>Back</a></li>'+secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
+const site=document.getElementById('site'),mb=site.querySelector('.mbtn');
+const closeM=()=>{site.classList.remove('open');mb.setAttribute('aria-expanded','false')};
+mb.addEventListener('click',()=>{const o=!site.classList.contains('open');site.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&site.classList.contains('open')){closeM();mb.focus()}});
+document.addEventListener('click',e=>{if(!site.contains(e.target))closeM()});
 const targets=[...secs,...document.querySelectorAll('[data-sub]')];
 const links=id=>document.querySelectorAll(`a[href="#${id}"]`);
 let raf=0;
 const tb=document.querySelector('.tbar'),tl=document.getElementById('tldr');
-const upd=()=>{raf=0;if(tb)tb.classList.toggle('on',scrollY>40);const y=innerHeight*.35;let cur=null,sub=null;
+const upd=()=>{raf=0;const sc=scrollY>40||innerWidth<1280;if(tb)tb.classList.toggle('on',scrollY>40);site.classList.toggle('col',sc);if(!sc)closeM();const y=innerHeight*.35;let cur=null,sub=null;
  for(const sc of secs){const r=sc.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=sc}
  if(cur)for(const x of cur.querySelectorAll('[data-sub]')){const r=x.getBoundingClientRect();if(r.top<=y&&r.bottom>y)sub=x}
- document.querySelectorAll('.snav a.t,.tbar a').forEach(a=>a.removeAttribute('aria-current'));
- list.querySelectorAll(':scope>li').forEach(li=>li.classList.toggle('open',!!cur&&li.dataset.for===cur.id));
- if(cur){links(cur.id).forEach(a=>{if(!sub||a.closest('.tbar'))a.setAttribute('aria-current','location')});
+ document.querySelectorAll('.tbar a').forEach(a=>a.removeAttribute('aria-current'));
+ if(cur){tlist.querySelectorAll(`a[href="#${cur.id}"]`).forEach(a=>a.setAttribute('aria-current','location'));
   const ta=tlist.querySelector(`a[href="#${cur.id}"]`);if(ta&&tlist.scrollWidth>tlist.clientWidth)tlist.scrollTo({left:ta.offsetLeft-24,behavior:'smooth'})}
- if(sub)list.querySelectorAll(`a[href="#${sub.id}"]`).forEach(a=>a.setAttribute('aria-current','location'));};
+ };
 addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd();
 }
 </script>
