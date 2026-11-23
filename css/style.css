@@ -345,7 +345,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
   transition: transform .75s cubic-bezier(.22,1,.36,1), opacity .5s ease; }
 /* each widget grows out of the tablet screen and moves straight to its own corner; paths never cross */
 .card__pop--markets { width: 50%; top: 6%; right: 3%; transform-origin: 0 100%; transform: translate(-18%, 30%) scale(.7); }
-.card__pop--earnings { width: 58%; bottom: 6%; left: 3%; transform-origin: 100% 0; transform: translate(14%, -22%) scale(.7); transition-delay: .06s; }
+.card__pop--earnings { width: 72%; bottom: 5%; left: 3%; transform-origin: 100% 0; transform: translate(14%, -22%) scale(.7); transition-delay: .06s; }
 .card--op:hover .card__pop, .card--op:focus-visible .card__pop { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) { .card__pop { transform: none; transition: opacity .3s; } .card--op:hover .card__tab { transform: none; } }
