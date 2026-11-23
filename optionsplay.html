@@ -16,6 +16,7 @@ COLOUR and TYPE: white, warm grey #F4F4F2 plates, ink #141312, portfolio green #
 LAYOUT: 1166px column, left section nav on wide screens, generous section spacing.
 */
 @font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-light.woff") format("woff");font-weight:300 400;font-style:normal;font-display:swap}
+@font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-regular.woff") format("woff");font-weight:500 600;font-style:normal;font-display:swap}
 @font-face{font-family:"Apple Garamond";src:url("assets/fonts/apple-garamond-light-italic.woff") format("woff");font-weight:300 400;font-style:italic;font-display:swap}
 :root{color-scheme:light;--serif:"Apple Garamond","Instrument Serif",Georgia,serif;--bg:#fff;--ink:#141312;--muted:#55534F;--line:#E4E4E0;--plate:#F4F4F2;--brand:#1B6A2C;--brand-ink:#fff;--brand-tint:#ECF4ED;--stage:#F4F4F2;--focus:#1B6A2C}
 *{box-sizing:border-box;min-width:0}
@@ -443,10 +444,7 @@ h1{font-size:clamp(36px,3vw + 12px,60px);line-height:1.08;font-weight:600;margin
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* ---------- site match: serif headings, square corners ---------- */
-h1,.cs-h2,.cs-h3,.ah-h{font-family:var(--serif);font-weight:300;letter-spacing:-.015em}
-h1{font-size:clamp(40px,3.4vw + 12px,68px);line-height:1.05}
-.cs-h2{font-size:clamp(30px,1.8vw + 15px,44px);line-height:1.15}
-.cs-h3,.ah-h{font-size:clamp(25px,1vw + 15px,34px);line-height:1.25}
+.cs-eyebrow,.kd-k{font-family:var(--serif);font-weight:500;font-size:clamp(16px,.3vw + 13.5px,19px);letter-spacing:.04em!important}
 .ptabs [role=tablist],.ptabs button,.cs-btn,.take,.dq span,.hero-img,.tags li,.chips li,
 .ah .tablist,.ah .tab,.ah .more,.ah .stage,.ah .pane,.ah .bpill,.ah .shot,.ah .zoom,.ah .ux,.ah .key li i,.ah .lp,.ah .cap,
 .ah .tradeoff,.ah .empty,.ah .arrow-c span,.mark,.ol,.brk,.kd .mk{border-radius:0!important}
