@@ -179,9 +179,23 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 .chap-list a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 #decisions{margin-top:clamp(112px,12vw,200px)}
 #decisions .sub{margin-top:clamp(120px,12vw,200px);padding-top:clamp(28px,3vw,40px);border-top:1px solid #DADAD3}
-#decisions .sub#d31{margin-top:clamp(80px,8vw,120px)}
+#decisions .sub{margin-top:clamp(112px,11vw,176px)}
+#decisions .sub#d31{margin-top:clamp(64px,6vw,96px)}
+#decisions .kd-row{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start}
+#decisions .kd-head .cs-h3{font-size:clamp(20px,.6vw + 15px,24px);line-height:1.35;font-weight:600;letter-spacing:-.01em;max-width:none;margin:0}
+#decisions .dn{font-size:13px;margin-bottom:10px}
+#decisions .kd-body .cs-p{font-size:17px;line-height:1.65;max-width:60ch;margin:0 0 16px}
+#decisions .kd-body .cs-p:last-child{margin-bottom:0}
+#decisions .cs-p{font-size:17px;line-height:1.65}
+#decisions h4.cs-h3{font-size:clamp(19px,.4vw + 15px,22px)!important;font-weight:600}
+#decisions .tradeoff-box p,#decisions .tradeoff-box p *,#decisions .dq p{font-size:17px!important;line-height:1.6}
+#decisions .tradeoff-box h4{font-size:15px}
+#decisions .kd-row+.fig,#decisions .kd-row+figure{margin-top:clamp(40px,4vw,56px)!important}
+@media (max-width:860px){#decisions .kd-row{grid-template-columns:1fr;gap:16px}}
+
+
 .dn{margin:0 0 12px;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1b6a2c}
-#decisions .cs-h3{font-size:clamp(24px,1.2vw + 14px,34px);line-height:1.25;font-weight:600;letter-spacing:-.015em;max-width:26ch;margin-bottom:24px}
+
 .tradeoff-box{background:#fff!important}
 
 .tradeoff-box{border:1px solid var(--line);background:#FAFAF8;padding:28px 32px;margin:clamp(48px,5vw,72px) auto 0;max-width:900px}
@@ -598,19 +612,16 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
  </section>
 
  <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
-  <div class="chap">
-   <div class="chap-in">
-    <p class="chap-ey">03 / Design decisions</p>
-    <h2 class="chap-h" id="s4">Key Design Decisions</h2>
-    <p class="chap-p">Five decisions that turned the research into a workspace for every type of trader.</p>
-    <ol class="chap-list"><li><a href="#d31"><span>01</span>Give traders more control without overwhelming beginners</a></li><li><a href="#d32"><span>02</span>Make dense trading data easier to scan</a></li><li><a href="#d33"><span>03</span>Help beginners learn without slowing down experts</a></li><li><a href="#d34"><span>04</span>Scale the design system without more UX debt</a></li><li><a href="#d35"><span>05</span>Add new widgets without redesigning their structure</a></li></ol>
-   </div>
+  <p class="cs-eyebrow">03 / Design decisions</p>
+  <h2 class="cs-h2" id="s4">Key Design Decisions</h2>
   </div>
 
   <div class="sub" id="d31" data-sub="3.1 Trader control">
-   <p class="dn">Decision 01</p>
-   <h3 class="cs-h3">How do we give traders more control without overwhelming beginners?</h3>
-   <p class="cs-p">Research showed that traders shared the same broad journey, discover, analyze and evaluate, but needed different tools and levels of detail at each stage.</p>
+   <div class="kd-row">
+    <div class="kd-head"><p class="dn">Decision 01</p>
+   <h3 class="cs-h3">How do we give traders more control without overwhelming beginners?</h3></div>
+    <div class="kd-body"><p class="cs-p">Research showed that traders shared the same broad journey, discover, analyze and evaluate, but needed different tools and levels of detail at each stage.</p></div>
+   </div>
    <figure class="fig" style="margin-top:clamp(48px,5vw,72px)"><img src="assets/img/optionsplay/journey.webp" alt="Current five-step one-size-fits-all workflow compared with the new adaptable workflow: start with a trading goal, open a relevant workspace, compare analysis in one place, evaluate with helpful context, make a decision" width="1165" height="523" loading="lazy"></figure>
    <div class="tradeoff-box"><h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>Trade-off</h4><div class="g"><p><b>What we preserved</b>Familiar trading workflows to minimize the learning curve</p><p><b>What we introduced</b>Greater user control at the cost of interaction and technical complexity</p></div></div>
    <div data-tabs>
@@ -645,10 +656,12 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
   </div>
 
   <div class="sub" id="d32" data-sub="3.2 Data hierarchy">
-   <p class="dn">Decision 02</p>
-   <h3 class="cs-h3">Making complex trading data easier to scan and strategies easier to evaluate</h3>
-   <p class="cs-p">Research revealed a tension: beginners struggled with dense trading widgets, while experienced traders relied on that depth of information.</p>
-   <p class="cs-p">Rather than removing advanced data, I focused on what traders needed to see first, what they needed to compare, and what could remain accessible on demand.</p>
+   <div class="kd-row">
+    <div class="kd-head"><p class="dn">Decision 02</p>
+   <h3 class="cs-h3">Making complex trading data easier to scan and strategies easier to evaluate</h3></div>
+    <div class="kd-body"><p class="cs-p">Research revealed a tension: beginners struggled with dense trading widgets, while experienced traders relied on that depth of information.</p>
+   <p class="cs-p">Rather than removing advanced data, I focused on what traders needed to see first, what they needed to compare, and what could remain accessible on demand.</p></div>
+   </div>
    <div class="iht">
     <p class="cs-eyebrow">Rethinking information hierarchy</p>
     <h4 class="cs-h3" style="margin:0">Not all trading information needed equal attention</h4>
@@ -817,8 +830,10 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
   </div>
 
   <div class="sub" id="d33" data-sub="3.3 Learning in place">
-   <p class="dn">Decision 03</p>
-   <h3 class="cs-h3">How do we help beginners make informed trading decisions without slowing down experts?</h3>
+   <div class="kd-row">
+    <div class="kd-head"><p class="dn">Decision 03</p>
+   <h3 class="cs-h3">How do we help beginners make informed trading decisions without slowing down experts?</h3></div>
+   </div>
    <div class="g33">
     <p class="cs-eyebrow">Research insights</p>
     <h4 class="cs-h4">Why traders needed more support</h4>
@@ -849,9 +864,11 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
   </div>
 
   <div class="sub" id="d34" data-sub="3.4 Design system">
-   <p class="dn">Decision 04</p>
-   <h3 class="cs-h3">How do we scale the Design System without more UX debt?</h3>
-   <p class="cs-p">OptionsPlay had operated for <b>12 years without a shared component library</b>, resulting in inconsistent UI patterns. After redesigning the trading dashboard, I built its <b>first design system to help turn the new UI into reusable components</b> and support future features without repeating the same inconsistencies.</p>
+   <div class="kd-row">
+    <div class="kd-head"><p class="dn">Decision 04</p>
+   <h3 class="cs-h3">How do we scale the Design System without more UX debt?</h3></div>
+    <div class="kd-body"><p class="cs-p">OptionsPlay had operated for <b>12 years without a shared component library</b>, resulting in inconsistent UI patterns. After redesigning the trading dashboard, I built its <b>first design system to help turn the new UI into reusable components</b> and support future features without repeating the same inconsistencies.</p></div>
+   </div>
    <div class="ds" data-tabs><div class="ds-steps" role="tablist" aria-label="Design system steps"><button type="button" role="tab" id="ds-t0" aria-controls="ds-p0" aria-selected="true" tabindex="0" data-tab><span class="dot">A</span>Audit new UI patterns</button><span class="ds-line" aria-hidden="true"></span><button type="button" role="tab" id="ds-t1" aria-controls="ds-p1" aria-selected="false" tabindex="-1" data-tab><span class="dot">B</span>Building Foundations</button><span class="ds-line" aria-hidden="true"></span><button type="button" role="tab" id="ds-t2" aria-controls="ds-p2" aria-selected="false" tabindex="-1" data-tab><span class="dot">C</span>Reusable components</button></div><div class="ds-panel" role="tabpanel" id="ds-p0" aria-labelledby="ds-t0" data-panel >
   <h4>A/ Auditing the new UI to extract patterns and variables</h4>
   <img src="assets/img/optionsplay/ds-a.webp" alt="Tablet showing the new dashboard surrounded by extracted patterns: buttons, toggles, input states, color ramps and a type scale. 01 Identified reusable UI patterns, 02 Mapped interaction states and variations, 03 Grouped shared layouts across widget structures" width="1116" height="690" loading="lazy">
@@ -865,8 +882,10 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
   </div>
 
   <div class="sub" id="d35" data-sub="Widget architecture" aria-labelledby="sd">
-   <p class="dn">Decision 05</p>
-   <h3 class="cs-h3" id="sd">Scaling new trading widgets without redesigning their structure</h3>
+   <div class="kd-row">
+    <div class="kd-head"><p class="dn">Decision 05</p>
+   <h3 class="cs-h3" id="sd">Scaling new trading widgets without redesigning their structure</h3></div>
+   </div>
    <div class="dq"><span>The question</span><p>How could OptionsPlay introduce more trading widgets without redesigning their structure every time?</p></div>
    <div class="decs">
     <div class="dec"><b>01</b><h4>Standardized the shared widget structure</h4><p>Defined consistent headers, control bars, content regions and footers, so each widget didn't need a new layout.</p></div>
