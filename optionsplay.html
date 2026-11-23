@@ -944,7 +944,7 @@ const targets=[...secs,...document.querySelectorAll('[data-sub]')];
 const links=id=>document.querySelectorAll(`a[href="#${id}"]`);
 let raf=0;
 const tb=document.querySelector('.tbar'),tl=document.getElementById('tldr');
-const upd=()=>{raf=0;if(tb&&tl)tb.classList.toggle('on',tl.getBoundingClientRect().bottom<64);const y=innerHeight*.35;let cur=null,sub=null;
+const upd=()=>{raf=0;if(tb)tb.classList.toggle('on',scrollY>40);const y=innerHeight*.35;let cur=null,sub=null;
  for(const sc of secs){const r=sc.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=sc}
  if(cur)for(const x of cur.querySelectorAll('[data-sub]')){const r=x.getBoundingClientRect();if(r.top<=y&&r.bottom>y)sub=x}
  document.querySelectorAll('.snav a.t,.tbar a').forEach(a=>a.removeAttribute('aria-current'));
