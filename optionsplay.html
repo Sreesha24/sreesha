@@ -42,6 +42,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 .site .ri:hover{color:var(--ink)}.site .ri:hover i{width:12px;background:var(--ink)}.site .ri:hover span{transform:translateX(3px)}
 .site .ri[aria-current]{color:var(--ink);font-weight:600;font-size:16px}.site .ri[aria-current] i{width:22px;height:1.5px;background:var(--ink)}
 .site .mn{display:flex;flex-direction:column;gap:13px;padding:6.5px 0}.site .mn b{display:block;width:4px;height:1px;background:#414141}
+.site .ri em{font-style:normal;font-size:12px;color:#555557;border:1px solid #CFCFC8;padding:2px 6px}
 .mbtn{display:none;appearance:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;place-items:center;cursor:pointer;color:var(--ink)}
 .mbtn:hover{border-color:#BDBDB6}
 .site.col{top:8px}
@@ -455,7 +456,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" ><i></i><span>playground</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
+<nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" data-soon aria-disabled="true"><i></i><span>playground</span><em>soon</em></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
 
 <main id="main">
  <header class="cs-hero wrap">
@@ -943,6 +944,7 @@ const tlist=document.getElementById('tbar-list');
 tlist.innerHTML='<li><a class="bk" href="index.html#work"><span aria-hidden="true">←</span>Back</a></li>'+secs.map(sc=>`<li><a href="#${sc.id}">${sc.dataset.nav}</a></li>`).join('');
 const site=document.getElementById('site'),mb=site.querySelector('.mbtn');
 const closeM=()=>{site.classList.remove('open');mb.setAttribute('aria-expanded','false')};
+site.querySelectorAll('[data-soon]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
 mb.addEventListener('click',()=>{const o=!site.classList.contains('open');site.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&site.classList.contains('open')){closeM();mb.focus()}});
 document.addEventListener('click',e=>{if(!site.contains(e.target))closeM()});
