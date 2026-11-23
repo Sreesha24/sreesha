@@ -84,16 +84,17 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 .before-plate{position:relative;background:var(--plate);padding:clamp(16px,3vw,40px);border:1px solid var(--line)}
 .before-plate .lbl{position:absolute;top:14px;left:14px;background:var(--brand);color:#fff;font-size:16px;padding:4px 10px}
 .ba-f{position:relative;aspect-ratio:2559/1263;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.08);background:#fff;user-select:none;touch-action:pan-y}
+.ba.before-plate{background:none;padding:0;border:0}
 .ba img{border:0;box-shadow:none}
 .ba-a{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top}
 .ba-b{position:absolute;inset:0;background:#fff;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
 .ba-b img{width:100%;height:100%;object-fit:cover;object-position:left top}
-.ba .lbl{top:auto;bottom:14px;left:14px;z-index:2;pointer-events:none;display:flex;flex-direction:column;gap:2px;padding:8px 12px;font-size:15px;font-weight:600;line-height:1.2;transition:opacity .2s}
+.ba .lbl{top:14px;bottom:auto;left:14px;z-index:2;pointer-events:none;display:flex;flex-direction:column;gap:2px;padding:8px 12px;font-size:15px;font-weight:600;line-height:1.2;transition:opacity .2s}
 .ba .lbl small{font-size:13px;font-weight:400;opacity:1;color:#E6F0E8}
 .ba .lbl-b{background:#2B2B29}
 .ba .lbl-r{left:auto;right:14px;text-align:right}
 .ba.lo .lbl-b,.ba.hi .lbl-r{opacity:0}
-@media (max-width:640px){.ba .lbl{padding:4px 8px;font-size:13px;bottom:8px;left:8px}.ba .lbl-r{left:auto;right:8px}.ba .lbl small{display:none}.ba-k{width:44px;height:44px}}
+@media (max-width:640px){.ba .lbl{padding:4px 8px;font-size:13px;top:8px;left:8px}.ba .lbl-r{left:auto;right:8px}.ba .lbl small{display:none}.ba-k{width:44px;height:44px}}
 .ba-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 0 12px rgba(0,0,0,.2);z-index:3;pointer-events:none}
 .ba-k{position:absolute;top:50%;left:50%;width:48px;height:48px;border:2px solid #fff;transition:transform .15s;transform:translate(-50%,-50%);display:grid;place-items:center;background:var(--brand);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2)}
 .ba-r{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:4}
@@ -514,7 +515,6 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
      <span class="ba-line" aria-hidden="true"><span class="ba-k"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></span>
      <input class="ba-r" type="range" min="0" max="100" value="50" step="1" aria-label="Compare before and after: drag left to see more of the after, right to see more of the before">
     </div>
-    <figcaption class="ba-cap">Drag to compare. 12 years of legacy UI on the left, the redesigned workspace on the right.</figcaption>
    </figure>
   </div>
 
