@@ -31,7 +31,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
 @font-face{font-family:"AG";src:url(assets/fonts/apple-garamond-light.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"AG";src:url(assets/fonts/apple-garamond-light-italic.woff) format("woff");font-weight:400;font-style:italic;font-display:swap}
 /* chapter titles carry the homepage voice: serif with italic accent letters + sparkle */
-.cs-h2.vo{font-family:"AG",Georgia,serif;font-weight:400;font-size:clamp(34px,2.2vw + 16px,52px);line-height:1.08;letter-spacing:-.02em;display:flex;align-items:flex-start;gap:12px;max-width:24ch}
+.cs-h2.vo{font-family:Inter,system-ui,sans-serif;font-weight:600;line-height:1.15;letter-spacing:-.025em;max-width:28ch}
 .cs-h2.vo em{font-style:italic}
 .spark{width:22px;height:22px;flex:none;margin-top:.15em;transform:rotate(var(--spin,0deg))}
 /* green kept rare: labels go quiet grey; green stays for highlights, tabs and new-experience visuals */
@@ -531,7 +531,7 @@ h1{font-size:clamp(28px,1.4vw + 16px,42px);line-height:1.15;font-weight:600;marg
    Label    eyebrows, "Decision 01", table headers      14px / 600, sentence case
    (widget recreations inside the tab demos keep their own UI sizes) */
 :root{--fs-h3:clamp(20px,.6vw + 15px,24px);--fs-h4:clamp(18px,.3vw + 15px,20px);--fs-body:17px;--fs-sm:15px;--fs-lbl:14px}
-main .cs-h2.vo{font-size:clamp(34px,1.8vw + 18px,48px)}
+main .cs-h2.vo{font-size:clamp(28px,1.2vw + 18px,40px)}
 main .cs-h3,#decisions .kd-head .cs-h3{font-size:var(--fs-h3)!important;font-weight:600!important;line-height:1.35!important;letter-spacing:-.01em}
 main h4.cs-h3,main .cs-h4,main .ah-h,main .ds-panel>h4,main .gp-h,main .find h5,main .tradeoff-box h4{font-size:var(--fs-h4)!important;font-weight:600!important;line-height:1.4!important;letter-spacing:-.005em}
 main .cs-p,main .callout p,main .sol li p,main .lede,main .tradeoff-box p,main .tradeoff-box p *,main .dq p,main .find p,main .gp-pts p,main .kd-f,#decisions .kd-body .cs-p{font-size:var(--fs-body)!important;line-height:1.65!important}
@@ -547,10 +547,10 @@ main .stage-top p{font-size:var(--fs-sm)!important}
 main .cs-p,#decisions .kd-body .cs-p,main .cs-h4,main .lede,main .callout p,main .find p,main .gp-pts p{max-width:none!important}
 /* TL;DR moment: the page turns green while the TL;DR box fills the view; the box stays white */
 body{transition:background-color .6s ease}
-body.tl-green{background:#1b6a2c}
+body.tl-green{background:#141312}
 .tl-box{background:#fff;transition:border-color .6s ease}
 body.tl-green .tl-box{border-color:#fff}
-body.tl-green .tl-box::before{background:#fff;color:#1b6a2c}
+body.tl-green .tl-box::before{background:#fff;color:#141312}
 @media (prefers-reduced-motion:reduce){body{transition:none}}
 </style>
 </head>
@@ -577,7 +577,7 @@ body.tl-green .tl-box::before{background:#fff;color:#1b6a2c}
  <section class="cs-sec wrap" id="tldr" data-nav="TL;DR" aria-labelledby="s1">
  <div class="tl-box">
   <p class="cs-eyebrow">01 / TL;DR</p>
-  <h2 class="cs-h2 vo" id="s1"><span>About Option<em>s</em>Pla<em>y</em></span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
+  <h2 class="cs-h2 vo" id="s1">About OptionsPlay</h2>
   <p class="cs-p">OptionsPlay is an <b>options trading platform</b> that helps discover trading opportunities, and make informed investment decisions.</p>
   <div class="cs-stats"><div class="cs-stat "><strong>10K+</strong><span>Daily active users</span></div><div class="cs-stat "><strong>12+</strong><span>Years in the market</span></div><div class="cs-stat "><strong>8+</strong><span>financial companies whitelabel the platform</span></div></div>
   <div class="trusted"><p>Trusted by leading financial institutions</p><img src="assets/img/optionsplay/logos.png" alt="Charles Schwab, Fidelity Investments, tastytrade, BMO" width="517" height="56" loading="lazy"></div>
@@ -617,7 +617,7 @@ body.tl-green .tl-box::before{background:#fff;color:#1b6a2c}
 
  <section class="cs-sec wrap" id="research" data-nav="Research" aria-labelledby="s2">
   <p class="cs-eyebrow">02 / Research and problem discovery</p>
-  <h2 class="cs-h2 vo" id="s2"><span>I started by investigating why trader<em>s</em> were dropping off during their fir<em>s</em>t session</span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
+  <h2 class="cs-h2 vo" id="s2">I started by investigating why traders were dropping off during their first session</h2>
   <div class="cs-stats"><div class="cs-stat "><strong>7</strong><span>trader interviews across experience levels</span></div><div class="cs-stat "><strong>9</strong><span>competitive analysis of trading platforms</span></div><div class="cs-stat "><strong>2</strong><span>analytics tools: Hotjar and Mixpanel</span></div></div>
 
   <div class="sub">
@@ -654,7 +654,7 @@ body.tl-green .tl-box::before{background:#fff;color:#1b6a2c}
 
  <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
   <p class="cs-eyebrow">03 / Design decisions</p>
-  <h2 class="cs-h2 vo" id="s4"><span>Key De<em>s</em>ign Deci<em>s</em>ions</span><img class="spark spin-on-scroll" src="assets/img/optionsplay/sparkle.webp" alt="" width="22" height="22"></h2>
+  <h2 class="cs-h2 vo" id="s4">Key Design Decisions</h2>
   </div>
 
   <div class="sub" id="d31" data-sub="3.1 Trader control">
@@ -1108,7 +1108,6 @@ document.querySelectorAll('.ba').forEach(f=>{const r=f.querySelector('.ba-r');
  const io=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;io.disconnect();f.classList.add('anim');
   setTimeout(()=>set(35),300);setTimeout(()=>set(62),1100);setTimeout(()=>{set(50);setTimeout(()=>f.classList.remove('anim'),800)},1900)},{threshold:.6});io.observe(f)});
 </script>
-<script>(()=>{const sp=[...document.querySelectorAll('.spark')];if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;addEventListener('scroll',()=>sp.forEach(x=>x.style.setProperty('--spin',(scrollY*.25)+'deg')),{passive:true})})();</script>
 <script>(()=>{const box=document.querySelector('.tl-box');if(!box)return;let raf=0;
 const upd=()=>{raf=0;const r=box.getBoundingClientRect(),h=innerHeight;document.body.classList.toggle('tl-green',r.top<h*.45&&r.bottom>h*.6)};
 addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd()})();</script>
