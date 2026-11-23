@@ -547,11 +547,20 @@ main .stage-top p{font-size:var(--fs-sm)!important}
 main .cs-p,#decisions .kd-body .cs-p,main .cs-h4,main .lede,main .callout p,main .find p,main .gp-pts p{max-width:none!important}
 /* TL;DR moment: the page turns green while the TL;DR box fills the view; the box stays white */
 body{transition:background-color .6s ease}
-body.tl-green{background:#141312}
 .tl-box{background:#fff;transition:border-color .6s ease}
-body.tl-green .tl-box{border-color:#fff}
-body.tl-green .tl-box::before{background:#fff;color:#141312}
 @media (prefers-reduced-motion:reduce){body{transition:none}}
+/* chapter curtain: page fades to near-black for the Key design decisions title, then back to white */
+body{transition:background-color .7s ease}
+body.cur{background:#141312}
+.curtain{min-height:min(64vh,640px);display:flex;flex-direction:column;justify-content:center}
+.curtain .cs-eyebrow,.curtain .cs-h2,.curtain-p{transition:color .7s ease}
+.curtain .cs-h2{margin-bottom:0}
+.curtain-p{margin:16px 0 0;font-size:var(--fs-body);line-height:1.65;color:#5F5E5A}
+body.cur .curtain .cs-h2{color:#fff}
+body.cur .curtain .cs-eyebrow{color:#B9B7B0!important}
+body.cur .curtain-p{color:#D6D4CD}
+#decisions .sub#d31{margin-top:clamp(24px,3vw,48px)}
+@media (prefers-reduced-motion:reduce){body,.curtain *{transition:none!important}}
 </style>
 </head>
 <body>
@@ -653,8 +662,10 @@ body.tl-green .tl-box::before{background:#fff;color:#141312}
  </section>
 
  <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
-  <p class="cs-eyebrow">03 / Design decisions</p>
-  <h2 class="cs-h2 vo" id="s4">Key Design Decisions</h2>
+  <div class="curtain">
+   <p class="cs-eyebrow">03 / Design decisions</p>
+   <h2 class="cs-h2 vo" id="s4">Key Design Decisions</h2>
+   <p class="curtain-p">Five decisions that turned the research into a workspace for every type of trader.</p>
   </div>
 
   <div class="sub" id="d31" data-sub="3.1 Trader control">
@@ -1108,8 +1119,8 @@ document.querySelectorAll('.ba').forEach(f=>{const r=f.querySelector('.ba-r');
  const io=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;io.disconnect();f.classList.add('anim');
   setTimeout(()=>set(35),300);setTimeout(()=>set(62),1100);setTimeout(()=>{set(50);setTimeout(()=>f.classList.remove('anim'),800)},1900)},{threshold:.6});io.observe(f)});
 </script>
-<script>(()=>{const box=document.querySelector('.tl-box');if(!box)return;let raf=0;
-const upd=()=>{raf=0;const r=box.getBoundingClientRect(),h=innerHeight;document.body.classList.toggle('tl-green',r.top<h*.45&&r.bottom>h*.6)};
+<script>(()=>{const c=document.querySelector('.curtain');if(!c)return;let raf=0;
+const upd=()=>{raf=0;const r=c.getBoundingClientRect(),h=innerHeight;document.body.classList.toggle('cur',r.top<h*.55&&r.bottom>h*.45)};
 addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',upd);upd()})();</script>
 </body>
 </html>
