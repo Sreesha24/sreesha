@@ -561,9 +561,36 @@ body.cur .curtain .cs-eyebrow{color:#B9B7B0!important}
 body.cur .curtain-p{color:#D6D4CD}
 #decisions .sub#d31{margin-top:clamp(24px,3vw,48px)}
 @media (prefers-reduced-motion:reduce){body,.curtain *{transition:none!important}}
+/* Solution intro (curtain) */
+.curtain-ul{margin:28px 0 0;padding-left:1.2em;font-size:var(--fs-body);line-height:1.65;color:#2A2926;max-width:880px;transition:color .7s ease}
+.curtain-ul li+li{margin-top:4px}
+.curtain .curtain-p{margin-top:28px;color:#2A2926}
+body.cur .curtain-ul{color:#D6D4CD}body.cur .curtain-ul b{color:#fff}
+/* Decision 01 stacked header (from Figma) */
+.kd-stack .dn{margin:0 0 10px}
+.kd-stack .cs-h3{font-size:var(--fs-h3)!important;max-width:611px;margin:0 0 24px}
+.kd-stack .cs-p{font-size:var(--fs-body)!important;line-height:1.65!important;margin:0}
+.kd-stack .cs-p+.cs-p{margin-top:1.65em}
+.kd-gap{margin-top:clamp(72px,8.6vw,124px)!important}
+/* trade-off (from Figma) */
+.to2{max-width:850px;margin-left:auto;margin-right:auto;text-align:center}
+.to2 h4{margin:0;font-size:18px;font-weight:600;line-height:1.5}
+.to2-g{display:grid;grid-template-columns:356fr 454fr;gap:40px;margin-top:43px}
+.to2-g>div{display:flex;flex-direction:column;align-items:center;gap:18px}
+.to2-pill{margin:0;background:#222;color:#fff;font-size:18px;font-weight:500;line-height:1.5;padding:8px}
+.to2-t{margin:0;font-size:18px;font-weight:500;line-height:1.5;color:#0D0D0D}
+@media (max-width:760px){.to2-g{grid-template-columns:1fr;gap:32px}.to2-pill,.to2-t,.to2 h4{font-size:17px}}
+/* background guide lines, same as the homepage */
+.gridlines{position:absolute;inset:0 0 auto 0;height:100%;max-width:1444px;margin:0 auto;pointer-events:none;z-index:0;transition:opacity .7s ease}
+.gridlines span{position:absolute;top:0;bottom:0;width:1px;background:#ececec}
+.gridlines span:nth-child(1){left:4.986%}.gridlines span:nth-child(2){left:30.817%}.gridlines span:nth-child(3){left:56.648%}.gridlines span:nth-child(4){left:82.479%}
+body{position:relative}
+main,.cs-foot,.cs-hero{position:relative;z-index:1}
+body.cur .gridlines{opacity:.08}
 </style>
 </head>
 <body>
+<div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 <a class="skip" href="#main">Skip to content</a>
 <nav class="site" id="site" aria-label="Site"><button class="mbtn" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span class="bars" aria-hidden="true"><b></b><b></b><b></b></span></button><ol class="menu" id="site-menu"><li><a class="ri" href="index.html" ><i></i><span>home</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#work" aria-current="page"><i></i><span>work</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="about.html" ><i></i><span>about</span></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="playground.html" data-soon aria-disabled="true"><i></i><span>playground</span><em>soon</em></a></li><li class="mn" aria-hidden="true"><b></b><b></b></li><li><a class="ri" href="index.html#contact-footer" ><i></i><span>contact</span></a></li></ol></nav>
 
@@ -661,21 +688,32 @@ body.cur .curtain-p{color:#D6D4CD}
   <div class="callout"><p class="cs-eyebrow">Business and design opportunity from research</p><p>Make options trading easier for beginners while preserving advanced functionality, reducing first-session drop-offs and increasing premium upgrades.</p></div>
  </section>
 
- <section class="cs-sec wrap" id="decisions" data-nav="Key design decisions" aria-labelledby="s4">
+ <section class="cs-sec wrap" id="decisions" data-nav="Solution" aria-labelledby="s4">
   <div class="curtain">
-   <p class="cs-eyebrow">03 / Design decisions</p>
-   <h2 class="cs-h2 vo" id="s4">Key Design Decisions</h2>
-   <p class="curtain-p">Five decisions that turned the research into a workspace for every type of trader.</p>
+   <p class="cs-eyebrow">03 / Solution</p>
+   <h2 class="cs-h2 vo" id="s4">Solution</h2>
+   <ul class="curtain-ul">
+    <li>I <b>reframed the experience</b> from the <b>ground up</b>.</li>
+    <li>Instead of fixing scattered parts, I <b>reimagined</b> the entire trading setup as <b>one journey, with clear chapters, contextual help, and embedded intelligence.</b></li>
+   </ul>
+   <p class="curtain-p">Here’s what I did:</p>
   </div>
 
   <div class="sub" id="d31" data-sub="3.1 Trader control">
-   <div class="kd-row">
-    <div class="kd-head"><p class="dn">Decision 01</p>
-   <h3 class="cs-h3">How do we give traders more control without overwhelming beginners?</h3></div>
-    <div class="kd-body"><p class="cs-p">Research showed that traders shared the same broad journey, discover, analyze and evaluate, but needed different tools and levels of detail at each stage.</p></div>
+   <div class="kd-stack">
+    <p class="dn">Decision 01</p>
+    <h3 class="cs-h3">How do we give expert traders more control without overwhelming beginners?</h3>
+    <p class="cs-p">According to my research, all traders shared the same journey to evaluate options but they needed different tools and levels of detail based on experience.</p>
+    <p class="cs-p">Rather than designing separate experiences, I focused on creating customizable workspaces that let traders access relevant tools, compare strategies, and make decisions without constantly switching between sections.</p>
    </div>
-   <figure class="fig" style="margin-top:clamp(48px,5vw,72px)"><img src="assets/img/optionsplay/journey.webp" alt="Current five-step one-size-fits-all workflow compared with the new adaptable workflow: start with a trading goal, open a relevant workspace, compare analysis in one place, evaluate with helpful context, make a decision" width="1165" height="523" loading="lazy"></figure>
-   <div class="tradeoff-box"><h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>Trade-off</h4><div class="g"><p><b>What we preserved</b>Familiar trading workflows to minimize the learning curve</p><p><b>What we introduced</b>Greater user control at the cost of interaction and technical complexity</p></div></div>
+   <figure class="fig kd-gap"><img src="assets/img/optionsplay/journey.webp" alt="Current five-step one-size-fits-all workflow compared with the new adaptable workflow: start with a trading goal, open a relevant workspace, compare analysis in one place, evaluate with helpful context, make a decision" width="1166" height="523" loading="lazy"></figure>
+   <div class="to2 kd-gap">
+    <h4>What was the tradeoff?</h4>
+    <div class="to2-g">
+     <div><p class="to2-pill">Familiarity &gt; reinvention</p><p class="to2-t">Preserved existing trading workflows to reduce the learning curve</p></div>
+     <div><p class="to2-pill">Flexibility &gt; technical simplicity</p><p class="to2-t">Introduced customizable workspaces, adding technical complexity to support different trading needs</p></div>
+    </div>
+   </div>
    <div data-tabs>
     <div class="ptabs"><div role="tablist" aria-label="3.1 stages"><button type="button" role="tab" id="j-t0" aria-controls="j-p0" aria-selected="true" data-tab>Current</button><button type="button" role="tab" id="j-t1" aria-controls="j-p1" aria-selected="false" tabindex="-1" data-tab>Iterations</button></div></div>
     <div class="ppanel" role="tabpanel" id="j-p0" aria-labelledby="j-t0" data-panel>
