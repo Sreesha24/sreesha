@@ -6,6 +6,7 @@
   --pg-gap: clamp(12px, 1.4vw, 20px);
   --tab-bg: #efefef;
   --tab-ink: #595959;      /* 6.1:1 on the tab grey */
+  --nav-x: max(20px, calc((100vw - var(--page)) / 2 - 24px));   /* side nav sits further left on this page */
 }
 
 .pg { padding-top: 72px; }
@@ -17,11 +18,11 @@
   align-items: start; margin-bottom: 36px;
 }
 .pg__title {
-  font-family: var(--serif); font-weight: 300; font-size: clamp(2.75rem, 4.6vw, 4.25rem); line-height: 1;
+  font-family: var(--serif); font-weight: 300; font-size: clamp(2.75rem, 4.2vw, 3.75rem); line-height: 1.05;   /* 60px, matches the Framer title */
   letter-spacing: -0.5px; color: #b8325f;   /* 5.6:1 on white */
 }
 .pg__title em { font-style: italic; }
-.pg__intro { font-size: 1.125rem; line-height: 1.5; letter-spacing: -0.2px; color: var(--ink); max-width: 62ch; padding-top: 6px; }
+.pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: var(--ink); max-width: 62ch; padding-top: 6px; }
 
 /* ---------- Tabs + pause ---------- */
 .pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
