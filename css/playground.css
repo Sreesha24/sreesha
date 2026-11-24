@@ -106,18 +106,18 @@
   .pg-card.is-entering { animation: none; }
 }
 
-/* ---------- Closing statement ---------- */
-.pg-note { margin-top: clamp(80px, 10vw, 160px); }
+/* ---------- Closing statement: polaroid left, line about me right (same columns + type as the header) ---------- */
+.pg-note { margin-top: clamp(80px, 10vw, 160px); display: grid; grid-template-columns: 33% minmax(0, 1fr); align-items: center; }
 .page-playground .pg-note.wrap { width: auto; margin-right: var(--gutter); }
-.pg-note__text {
-  margin-left: 33%;   /* lines up with the intro above */
-  max-width: 24em;
-  font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 2.6vw, 2.5rem); line-height: 1.25; letter-spacing: -0.3px;
-  color: var(--ink);
+.pg-note__photo { margin: 0; width: min(100%, 300px); transform: rotate(-3deg); transition: transform .5s cubic-bezier(.3,1.4,.5,1); }
+.pg-note__photo:hover { transform: rotate(-1deg) translateY(-4px); }
+.pg-note__photo img { width: 100%; height: auto; }
+.pg-note__text { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: #333; }
+@media (max-width: 760px) {
+  .pg-note { grid-template-columns: 1fr; row-gap: 28px; }
+  .pg-note__photo { width: min(70%, 260px); }
 }
-.pg-note__text em { font-style: italic; }
-.pg-note__accent { color: #b8325f; }
-@media (max-width: 760px) { .pg-note__text { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .pg-note__photo { transition: none; } }
 
 /* ---------- Click to view a piece full size ---------- */
 .pg-card__open {
