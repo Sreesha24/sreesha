@@ -27,9 +27,34 @@
     syncVideos();
   }
 
+  /* counts beside each filter */
+  tabs.forEach((t) => {
+    const k = t.dataset.filter;
+    const n = k === 'all' ? cards.length : cards.filter((c) => c.dataset.cat.split(' ').includes(k)).length;
+    const c = t.querySelector('.pg__count');
+    if (c) { c.textContent = String(n).padStart(2, '0'); c.setAttribute('aria-label', `${n} pieces`); }
+  });
+
+  /* the marker glides under the selected filter */
+  const tabsBox = pg.querySelector('.pg__tabs');
+  const marker = pg.querySelector('.pg__marker');
+  function placeMarker() {
+    const on = tabs.find((t) => t.getAttribute('aria-pressed') === 'true');
+    if (!on || !marker) return;
+    const lab = on.querySelector('.pg__label');
+    const b = tabsBox.getBoundingClientRect(), r = lab.getBoundingClientRect();
+    marker.style.setProperty('--x', `${r.left - b.left}px`);
+    marker.style.setProperty('--w', `${on.getBoundingClientRect().right - r.left}px`);
+    marker.style.top = `${on.offsetTop + on.offsetHeight - 1}px`; marker.style.bottom = 'auto';
+  }
+  window.addEventListener('resize', placeMarker);
+  if (document.fonts) document.fonts.ready.then(placeMarker);
+  placeMarker();
+
   tabs.forEach((t) => t.addEventListener('click', () => {
     tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === t)));
-    applyFilter(t.dataset.filter, t.textContent.trim());
+    placeMarker();
+    applyFilter(t.dataset.filter, t.querySelector('.pg__label').textContent.trim());
   }));
 
   /* videos only play while on screen, visible and not paused */
@@ -53,7 +78,8 @@
     paused = p;
     pg.classList.toggle('is-paused', p);
     pauseBtn.setAttribute('aria-pressed', String(p));
-    pauseBtn.setAttribute('aria-label', p ? 'Play motion' : 'Pause motion');
+    const lbl = pauseBtn.querySelector('.pg__pause-text');
+    if (lbl) lbl.textContent = p ? 'play motion' : 'pause motion';
     syncVideos();
   }
   pauseBtn.addEventListener('click', () => setPaused(!paused));

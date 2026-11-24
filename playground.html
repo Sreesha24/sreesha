@@ -42,14 +42,16 @@
       <!-- Filter tabs + pause -->
       <div class="pg__bar">
         <div class="pg__tabs" role="group" aria-label="Filter playground">
-          <button type="button" class="pg__tab" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" class="pg__tab" data-filter="graphic" aria-pressed="false">Graphic Design</button>
-          <button type="button" class="pg__tab" data-filter="3d" aria-pressed="false">3D &amp; Digital Art</button>
-          <button type="button" class="pg__tab" data-filter="motion" aria-pressed="false">Motion</button>
+          <button type="button" class="pg__tab" data-filter="all" aria-pressed="true"><span class="pg__label">All</span><span class="pg__count"></span></button>
+          <button type="button" class="pg__tab" data-filter="graphic" aria-pressed="false"><span class="pg__label">Graphic Design</span><span class="pg__count"></span></button>
+          <button type="button" class="pg__tab" data-filter="3d" aria-pressed="false"><span class="pg__label">3D &amp; Digital Art</span><span class="pg__count"></span></button>
+          <button type="button" class="pg__tab" data-filter="motion" aria-pressed="false"><span class="pg__label">Motion</span><span class="pg__count"></span></button>
+          <span class="pg__marker" aria-hidden="true"></span>
         </div>
-        <button type="button" class="pg__pause" id="pgPause" aria-pressed="false" aria-label="Pause motion">
-          <svg class="pg__ico pg__ico--pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-          <svg class="pg__ico pg__ico--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+        <button type="button" class="pg__pause" id="pgPause" aria-pressed="false">
+          <svg class="pg__ico pg__ico--pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="6" width="3" height="12"/><rect x="14" y="6" width="3" height="12"/></svg>
+          <svg class="pg__ico pg__ico--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12l10-6z"/></svg>
+          <span class="pg__pause-text">pause motion</span>
         </button>
       </div>
       <p class="sr-only" role="status" id="pgStatus"></p>

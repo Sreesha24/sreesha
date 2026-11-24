@@ -1,12 +1,9 @@
 /* Playground page — builds on style.css (same tokens, ruler nav, CTA + footer).
-   Layout: pill filter tabs + pause button on one row, then a 3-column masonry of tiles. */
+   Layout: text filters on a hairline with a gliding marker + pause, then a 3-column masonry of pieces. */
 
 .page-playground {
   --pg-radius: 0px;        /* site rule: square corners. Set to 28px for the rounded look of the reference */
   --pg-gap: clamp(20px, 2.8vw, 40px);   /* 40px between pieces, as on the Framer page */
-  --tab-bg: #e8e8e6;
-  --tab-edge: #cdcdca;
-  --tab-ink: #555555;      /* 6.1:1 on the tab grey */
 }
 
 .page-playground {
@@ -34,31 +31,47 @@
 .pg__title em { font-style: italic; }
 .pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: #333; padding-top: 6px; }
 
-/* ---------- Tabs + pause ---------- */
-.pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 32px; }
-.pg__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+/* ---------- Filters + pause: plain text on a hairline, like the side-nav ruler ---------- */
+.pg__bar {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+  margin-bottom: 32px; border-bottom: 1px solid #d9d9d6;
+}
+.pg__tabs { position: relative; display: flex; flex-wrap: wrap; column-gap: 28px; }
 .pg__tab {
-  appearance: none; border: 0; cursor: pointer;
-  min-height: 34px; padding: 0 14px;
-  border-radius: var(--pg-radius);
-  background: var(--tab-bg); color: var(--tab-ink); box-shadow: inset 0 0 0 1px var(--tab-edge);
-  font: 500 0.875rem/1 var(--sans); letter-spacing: -0.1px;
-  transition: background .2s, color .2s, box-shadow .2s;
+  appearance: none; border: 0; background: none; cursor: pointer;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  min-height: 40px; padding: 10px 0 12px;
+  font: 400 0.9375rem/1 var(--sans); letter-spacing: -0.2px; color: #5a5a5a;
+  transition: color .2s;
 }
-.pg__tab:hover { color: var(--ink); background: #dededb; }
-.pg__tab[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px #bdbdba, 0 2px 6px rgba(0,0,0,.08); }
+.pg__label { display: inline-block; transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+.pg__count { font-family: var(--serif); font-style: italic; font-size: 0.9375rem; color: #6b6b6b; }
+.pg__tab:hover { color: var(--ink); }
+.pg__tab:hover .pg__label { transform: translateY(-1px); }
+.pg__tab[aria-pressed="true"] { color: var(--ink); font-weight: 500; }
+.pg__tab[aria-pressed="true"] .pg__count { color: #b8325f; }
+
+/* the marker that glides under the selected filter (sits on the hairline) */
+.pg__marker {
+  position: absolute; left: 0; bottom: -1px; height: 2px; width: var(--w, 0px);
+  background: var(--ink); transform: translateX(var(--x, 0px));
+  transition: transform .45s cubic-bezier(.3,1.3,.4,1), width .45s cubic-bezier(.3,1.3,.4,1);
+}
+.no-marker .pg__tab[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--ink); }   /* before JS measures */
+
 .pg__pause {
-  appearance: none; border: 0; cursor: pointer; flex: none;
-  width: 36px; height: 36px; display: grid; place-items: center;
-  border-radius: var(--pg-radius); background: var(--tab-bg); color: #2b2b2b; box-shadow: inset 0 0 0 1px var(--tab-edge); transition: background .2s;
+  appearance: none; border: 0; background: none; cursor: pointer; flex: none;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px 0 10px;
+  font: 400 0.875rem/1 var(--sans); color: #5a5a5a; transition: color .2s;
 }
-.pg__pause:hover { background: #dededb; }
-.pg__ico { width: 20px; height: 20px; fill: currentColor; }
+.pg__pause:hover { color: var(--ink); }
+.pg__ico { width: 18px; height: 18px; fill: currentColor; }
 .pg__ico--play, .pg__pause[aria-pressed="true"] .pg__ico--pause { display: none; }
 .pg__pause[aria-pressed="true"] .pg__ico--play { display: block; }
-@media (pointer: coarse) { .pg__tab { min-height: 44px; } .pg__pause { width: 44px; height: 44px; } }
+@media (pointer: coarse) { .pg__tab, .pg__pause { min-height: 44px; } }
 
-.pg__tab:focus-visible, .pg__pause:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.pg__tab:focus-visible, .pg__pause:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .pg__marker, .pg__label { transition: none; } }
 
 /* ---------- Masonry grid: full-bleed pieces, tight gaps, small captions ---------- */
 .pg__grid { columns: 3; column-gap: var(--pg-gap); }
