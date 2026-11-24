@@ -245,6 +245,13 @@
       const t = parseFloat(n.style.getPropertyValue('--in')) || 0;
       n.classList.toggle('early', t <= 0.7);
     });
+    // let the first two real flowers open in the preview too, so the nudge ends in a bloom
+    const blooms = [...cta.querySelectorAll('.garden .flower')]
+      .map((n) => [n, parseFloat(n.style.getPropertyValue('--in')) || 0])
+      .sort((a, b) => a[1] - b[1]).slice(0, 2);
+    const reach = Math.max(0.7, ...blooms.map(([, t]) => t));
+    cta.querySelectorAll('.garden .stem').forEach((n) => { if ((parseFloat(n.style.getPropertyValue('--in')) || 0) <= reach) n.classList.add('early'); });
+    blooms.forEach(([n]) => n.classList.add('early', 'peek-bloom'));
   }
   function stopPeek() { peekT.forEach(clearTimeout); peekT = []; cta.classList.remove('is-peek', 'is-peek-out'); }
   function peek() {
@@ -253,10 +260,10 @@
     // one slow breath: grow in, rest, ease back out; then once more after a pause
     const once = (at) => {
       peekT.push(setTimeout(() => cta.classList.add('is-peek'), at));
-      peekT.push(setTimeout(() => { cta.classList.remove('is-peek'); cta.classList.add('is-peek-out'); }, at + 2300));
-      peekT.push(setTimeout(() => cta.classList.remove('is-peek-out'), at + 4300));
+      peekT.push(setTimeout(() => { cta.classList.remove('is-peek'); cta.classList.add('is-peek-out'); }, at + 3600));   // long enough for the two flowers to open
+      peekT.push(setTimeout(() => cta.classList.remove('is-peek-out'), at + 5600));
     };
-    once(400); once(5600);
+    once(400); once(7200);
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     buildGarden(); markEarly();
