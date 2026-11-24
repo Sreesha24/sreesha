@@ -34,10 +34,11 @@
   --gutter: 72px;          /* outer margin in design */
   --content: 1135px;       /* main column width */
   --content-left: 188px;   /* main column x in design */
-  --nav-x: max(24px, calc((100vw - var(--page)) / 2 + 40px));  /* side nav left edge */
+  --nav-x: max(20px, calc((100vw - var(--page)) / 2 - 24px));  /* side nav left edge */
+  --col-base: max(24px, calc((100vw - var(--page)) / 2 + 40px));  /* where the nav used to sit: content stays anchored to this */
   --nav-w: 96px;           /* widest nav label ("playground") + tick */
   --nav-gap: clamp(56px, 5.5vw, 80px);  /* space between nav and content */
-  --col-left: calc(var(--nav-x) + var(--nav-w) + var(--nav-gap));  /* main column x */
+  --col-left: calc(var(--col-base) + var(--nav-w) + var(--nav-gap));  /* main column x */
 }
 
 *, *::before, *::after { box-sizing: border-box; }

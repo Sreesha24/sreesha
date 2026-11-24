@@ -7,14 +7,13 @@
   --tab-bg: #e8e8e6;
   --tab-edge: #cdcdca;
   --tab-ink: #555555;      /* 6.1:1 on the tab grey */
-  --nav-x: max(20px, calc((100vw - var(--page)) / 2 - 24px));   /* side nav sits further left on this page */
 }
 
 .page-playground {
   /* a white veil keeps the paper soft so it never competes with the work */
   background-color: #f6f6f5;
-  background-image: linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)), url("../assets/img/playground/paper.webp");
-  background-image: linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)), image-set(url("../assets/img/playground/paper.avif") type("image/avif"), url("../assets/img/playground/paper.webp") type("image/webp"));
+  background-image: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.75)), url("../assets/img/playground/paper.webp");
+  background-image: linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.75)), image-set(url("../assets/img/playground/paper.avif") type("image/avif"), url("../assets/img/playground/paper.webp") type("image/webp"));
   background-size: cover; background-position: center top;
   background-attachment: fixed;   /* the paper stays put while the work scrolls over it */
 }

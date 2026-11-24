@@ -57,7 +57,7 @@
 .ab-pile__scroller { margin-top: 126px; }
 .ab-pile {
   position: relative; margin: 0 auto;
-  width: min(1161px, calc(100vw - 2 * (var(--nav-x) + var(--nav-w) + 8px)));
+  width: min(1161px, calc(100vw - 2 * (var(--col-base) + var(--nav-w) + 8px)));
   aspect-ratio: 1161 / 408;
 }
 .pc {
