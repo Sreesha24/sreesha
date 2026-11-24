@@ -4,10 +4,21 @@
 .page-playground {
   --pg-radius: 0px;        /* site rule: square corners. Set to 28px for the rounded look of the reference */
   --pg-gap: clamp(12px, 1.4vw, 20px);
-  --tab-bg: #efefef;
-  --tab-ink: #595959;      /* 6.1:1 on the tab grey */
+  --tab-bg: #e8e8e6;
+  --tab-edge: #cdcdca;
+  --tab-ink: #555555;      /* 6.1:1 on the tab grey */
   --nav-x: max(20px, calc((100vw - var(--page)) / 2 - 24px));   /* side nav sits further left on this page */
 }
+
+.page-playground {
+  /* a white veil keeps the paper soft so it never competes with the work */
+  background-color: #f6f6f5;
+  background-image: linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)), url("../assets/img/playground/paper.webp");
+  background-image: linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)), image-set(url("../assets/img/playground/paper.avif") type("image/avif"), url("../assets/img/playground/paper.webp") type("image/webp"));
+  background-size: cover; background-position: center top;
+  background-attachment: fixed;   /* the paper stays put while the work scrolls over it */
+}
+@media (hover: none) { .page-playground { background-attachment: scroll; } }   /* fixed backgrounds jitter on phones */
 
 .pg { padding-top: 72px; }
 .pg.wrap { width: auto; margin-right: var(--gutter); }
@@ -31,18 +42,18 @@
   appearance: none; border: 0; cursor: pointer;
   min-height: 34px; padding: 0 14px;
   border-radius: var(--pg-radius);
-  background: var(--tab-bg); color: var(--tab-ink);
+  background: var(--tab-bg); color: var(--tab-ink); box-shadow: inset 0 0 0 1px var(--tab-edge);
   font: 500 0.875rem/1 var(--sans); letter-spacing: -0.1px;
   transition: background .2s, color .2s, box-shadow .2s;
 }
-.pg__tab:hover { color: var(--ink); background: #e6e6e6; }
-.pg__tab[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px #dcdcdc, 0 2px 6px rgba(0,0,0,.08); }
+.pg__tab:hover { color: var(--ink); background: #dededb; }
+.pg__tab[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px #bdbdba, 0 2px 6px rgba(0,0,0,.08); }
 .pg__pause {
   appearance: none; border: 0; cursor: pointer; flex: none;
   width: 36px; height: 36px; display: grid; place-items: center;
-  border-radius: var(--pg-radius); background: var(--tab-bg); color: #2b2b2b; transition: background .2s;
+  border-radius: var(--pg-radius); background: var(--tab-bg); color: #2b2b2b; box-shadow: inset 0 0 0 1px var(--tab-edge); transition: background .2s;
 }
-.pg__pause:hover { background: #e3e3e3; }
+.pg__pause:hover { background: #dededb; }
 .pg__ico { width: 20px; height: 20px; fill: currentColor; }
 .pg__ico--play, .pg__pause[aria-pressed="true"] .pg__ico--pause { display: none; }
 .pg__pause[aria-pressed="true"] .pg__ico--play { display: block; }
