@@ -107,12 +107,12 @@
 }
 
 /* ---------- Closing statement: polaroid left, line about me right (same columns + type as the header) ---------- */
-.pg-note { margin-top: clamp(80px, 10vw, 160px); display: grid; grid-template-columns: 33% minmax(0, 1fr); align-items: center; }
+.pg-note { margin-top: clamp(80px, 10vw, 160px); display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(32px, 4vw, 64px); align-items: center; }
 .page-playground .pg-note.wrap { width: auto; margin-right: var(--gutter); }
-.pg-note__photo { margin: 0; width: min(100%, 300px); transform: rotate(-3deg); transition: transform .5s cubic-bezier(.3,1.4,.5,1); }
+.pg-note__photo { margin: 0; width: 300px; max-width: 100%; transform: rotate(-3deg); transition: transform .5s cubic-bezier(.3,1.4,.5,1); }
 .pg-note__photo:hover { transform: rotate(-1deg) translateY(-4px); }
 .pg-note__photo img { width: 100%; height: auto; }
-.pg-note__text { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: #333; }
+.pg-note__text { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: #333; max-width: 52ch; }
 @media (max-width: 760px) {
   .pg-note { grid-template-columns: 1fr; row-gap: 28px; }
   .pg-note__photo { width: min(70%, 260px); }
