@@ -60,7 +60,7 @@
       <ul class="pg__grid" id="pgGrid">
         <li class="pg-card" data-cat="graphic">
           <figure>
-            <img src="assets/img/playground/coco-bait.webp" alt="Coco Bait brand logo in pink retro lettering over chocolate spread and toast" width="1000" height="714" loading="lazy">
+            <img src="assets/img/playground/coco-bait.webp" data-full="assets/img/playground/coco-bait-lg.webp" alt="Coco Bait brand logo in pink retro lettering over chocolate spread and toast" width="1000" height="714" loading="lazy">
             <figcaption><span>01/</span> Branding &amp; Logo Design</figcaption>
           </figure>
         </li>
@@ -74,14 +74,14 @@
 
         <li class="pg-card" data-cat="graphic">
           <figure>
-            <img src="assets/img/playground/yard-fest.webp" alt="Yard Fest event poster for IU Indy Campus Recreation, with students holding frisbees" width="933" height="1400" loading="lazy">
+            <img src="assets/img/playground/yard-fest.webp" data-full="assets/img/playground/yard-fest-lg.webp" alt="Yard Fest event poster for IU Indy Campus Recreation, with students holding frisbees" width="933" height="1400" loading="lazy">
             <figcaption><span>03/</span> University Event Flyer</figcaption>
           </figure>
         </li>
 
         <li class="pg-card" data-cat="graphic">
           <figure>
-            <img src="assets/img/playground/rich-spirit.webp" alt="Rich Spirit poster: collage of a man lying back with a camcorder, an old phone and a vintage car, with bold title type" width="1000" height="1003" loading="lazy">
+            <img src="assets/img/playground/rich-spirit.webp" data-full="assets/img/playground/rich-spirit-lg.webp" alt="Rich Spirit poster: collage of a man lying back with a camcorder, an old phone and a vintage car, with bold title type" width="1000" height="1003" loading="lazy">
             <figcaption><span>04/</span> Album Cover Design</figcaption>
           </figure>
         </li>
@@ -102,26 +102,31 @@
 
         <li class="pg-card" data-cat="graphic">
           <figure>
-            <img src="assets/img/playground/eatwell.webp" alt="Jags EatWell Challenge poster for IU Indy students, with illustrated fruit and vegetables" width="964" height="1249" loading="lazy">
+            <img src="assets/img/playground/eatwell.webp" data-full="assets/img/playground/eatwell-lg.webp" alt="Jags EatWell Challenge poster for IU Indy students, with illustrated fruit and vegetables" width="964" height="1249" loading="lazy">
             <figcaption><span>07/</span> University Event Poster</figcaption>
           </figure>
         </li>
 
         <li class="pg-card" data-cat="graphic">
           <figure>
-            <img src="assets/img/playground/regatta-merch.webp" alt="Regatta t-shirts and water bottles I designed, laid out on a table at the event" width="1000" height="1048" loading="lazy">
+            <img src="assets/img/playground/regatta-merch.webp" data-full="assets/img/playground/regatta-merch-lg.webp" alt="Regatta t-shirts and water bottles I designed, laid out on a table at the event" width="1000" height="1048" loading="lazy">
             <figcaption><span>08/</span> University Merch Design</figcaption>
           </figure>
         </li>
 
         <li class="pg-card" data-cat="3d">
           <figure>
-            <img src="assets/img/playground/forest.webp" alt="Digital painting of a creature crossing a fallen log in a sunlit forest" width="1000" height="561" loading="lazy">
+            <img src="assets/img/playground/forest.webp" data-full="assets/img/playground/forest-lg.webp" alt="Digital painting of a creature crossing a fallen log in a sunlit forest" width="1000" height="561" loading="lazy">
             <figcaption><span>09/</span> 2D Digital Art</figcaption>
           </figure>
         </li>
       </ul>
       <p class="pg__empty" id="pgEmpty" hidden>Nothing here yet — check back soon.</p>
+    </section>
+
+    <!-- Closing statement -->
+    <section class="pg-note wrap" aria-label="About my approach">
+      <p class="pg-note__text">I specialize in product design, but I <em>don’t limit myself</em> to it. I’m a multidisciplinary product designer who thrives on experimenting across mediums, interfaces, and ideas. I believe great design isn’t confined to <em class="pg-note__accent">one box.</em></p>
     </section>
 
     <!-- WORK WITH ME (same as the other pages) -->
@@ -145,6 +150,25 @@
     </nav>
     <p class="footer__meta is-empty" id="lastVisitor">last visitor: <span></span></p>
   </footer>
+
+  <!-- Full-size view: opened by clicking a piece -->
+  <dialog class="pg-view" id="pgView" aria-labelledby="pgViewCap">
+    <div class="pg-view__inner">
+      <button type="button" class="pg-view__close" id="pgViewClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+      <button type="button" class="pg-view__nav pg-view__nav--prev" id="pgViewPrev" aria-label="Previous piece">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <figure class="pg-view__fig">
+        <div class="pg-view__media" id="pgViewMedia"></div>
+        <figcaption class="pg-view__cap" id="pgViewCap"></figcaption>
+      </figure>
+      <button type="button" class="pg-view__nav pg-view__nav--next" id="pgViewNext" aria-label="Next piece">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="js/reveal.js"></script>

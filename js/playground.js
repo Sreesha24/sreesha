@@ -112,4 +112,67 @@
   pauseBtn.addEventListener('click', () => setPaused(!paused));
   setPaused(paused);
   layout();
+
+  /* ---------- Click a piece to see it full size ---------- */
+  const view = document.getElementById('pgView');
+  if (view && typeof view.showModal === 'function') {
+    const vMedia = document.getElementById('pgViewMedia');
+    const vCap = document.getElementById('pgViewCap');
+    const vPrev = document.getElementById('pgViewPrev');
+    const vNext = document.getElementById('pgViewNext');
+    let idx = -1, opener = null;
+
+    // make each piece a real button
+    cards.forEach((c) => {
+      const media = c.querySelector('img, video');
+      const title = c.querySelector('figcaption').textContent.replace(/^\s*\d+\/\s*/, '').trim();
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'pg-card__open';
+      b.setAttribute('aria-label', `View ${title} full size`);
+      media.parentNode.insertBefore(b, media); b.appendChild(media);
+      b.addEventListener('click', () => open(c, b));
+    });
+
+    const visible = () => cards.filter((c) => !c.hidden);
+    function show(card) {
+      const list = visible(); idx = list.indexOf(card);
+      const src = card.querySelector('img, video');
+      vMedia.textContent = '';
+      let el;
+      if (src.tagName === 'VIDEO') {
+        el = document.createElement('video');
+        el.src = src.currentSrc || src.src; el.poster = src.poster;
+        el.muted = true; el.loop = true; el.playsInline = true; el.controls = true;
+        el.setAttribute('aria-label', src.getAttribute('aria-label') || '');
+        if (!paused) el.play().catch(() => {});
+      } else {
+        el = document.createElement('img');
+        el.src = src.dataset.full || src.currentSrc || src.src; el.alt = src.alt;
+      }
+      vMedia.appendChild(el);
+      vCap.innerHTML = card.querySelector('figcaption').innerHTML;
+      vPrev.hidden = idx <= 0; vNext.hidden = idx >= list.length - 1;
+    }
+    function open(card, btn) {
+      opener = btn; show(card);
+      document.documentElement.classList.add('pg-view-open');
+      view.showModal();
+      document.getElementById('pgViewClose').focus();
+    }
+    function close() { view.close(); }
+    view.addEventListener('close', () => {
+      document.documentElement.classList.remove('pg-view-open');
+      vMedia.textContent = '';
+      if (opener) opener.focus();
+    });
+    document.getElementById('pgViewClose').addEventListener('click', close);
+    vPrev.addEventListener('click', () => { const l = visible(); if (idx > 0) show(l[idx - 1]); });
+    vNext.addEventListener('click', () => { const l = visible(); if (idx < l.length - 1) show(l[idx + 1]); });
+    view.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); vPrev.click(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); vNext.click(); }
+    });
+    // click on the empty space around the piece closes it
+    view.addEventListener('click', (e) => { if (e.target === view || e.target.classList.contains('pg-view__inner') || e.target === vMedia) close(); });
+  }
 })();
