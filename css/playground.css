@@ -1,0 +1,92 @@
+/* Playground page — builds on style.css (same tokens, ruler nav, CTA + footer).
+   Layout: pill filter tabs + pause button on one row, then a 3-column masonry of tiles. */
+
+.page-playground {
+  --pg-radius: 0px;        /* site rule: square corners. Set to 28px for the rounded look of the reference */
+  --pg-gap: clamp(20px, 2.6vw, 44px);
+  --tab-bg: #efefef;
+  --tab-ink: #595959;      /* 6.1:1 on the tab grey */
+}
+
+.pg { padding-top: 112px; }
+.pg.wrap { width: min(1260px, calc(100% - var(--col-left) - var(--gutter))); }
+
+/* ---------- Tabs + pause ---------- */
+.pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 48px; }
+.pg__tabs { display: flex; flex-wrap: wrap; gap: 10px; }
+.pg__tab {
+  appearance: none; border: 0; cursor: pointer;
+  min-height: 44px; padding: 0 20px;
+  border-radius: var(--pg-radius);
+  background: var(--tab-bg); color: var(--tab-ink);
+  font: 500 1rem/1 var(--sans); letter-spacing: -0.2px;
+  transition: background .2s, color .2s, box-shadow .2s, transform .2s;
+}
+.pg__tab:hover { color: var(--ink); background: #e6e6e6; }
+.pg__tab[aria-pressed="true"] {
+  background: #fff; color: var(--ink);
+  box-shadow: 0 0 0 1px #e2e2e2, 0 2px 6px rgba(0,0,0,.08);
+}
+.pg__pause {
+  appearance: none; border: 0; cursor: pointer; flex: none;
+  width: 48px; height: 48px; display: grid; place-items: center;
+  border-radius: var(--pg-radius); background: var(--tab-bg); color: #2b2b2b;
+  transition: background .2s;
+}
+.pg__pause:hover { background: #e3e3e3; }
+.pg__ico { width: 22px; height: 22px; fill: currentColor; }
+.pg__ico--play, .pg__pause[aria-pressed="true"] .pg__ico--pause { display: none; }
+.pg__pause[aria-pressed="true"] .pg__ico--play { display: block; }
+
+.pg__tab:focus-visible, .pg__pause:focus-visible, .pg-card:focus-visible {
+  outline: 3px solid var(--ink); outline-offset: 3px;
+}
+
+/* ---------- Masonry grid ---------- */
+.pg__grid { columns: 3; column-gap: var(--pg-gap); }
+.pg-card {
+  break-inside: avoid; margin: 0 0 var(--pg-gap);
+  background: var(--tile, #f3f3f3);
+  border-radius: var(--pg-radius); overflow: hidden;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), opacity .3s;
+}
+.pg-card figure { margin: 0; }
+.pg-card img, .pg-card video { width: 100%; height: auto; }
+.pg-card:hover { transform: translateY(-4px); }
+.pg-card:hover img, .pg-card:hover video { transform: scale(1.02); }
+.pg-card img, .pg-card video { transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+
+/* media fills the tile; its title is for screen readers only (the image speaks for itself) */
+.pg-card--fill figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* media sits on a coloured tile with a centred title underneath (like "Hatching - Waves") */
+.pg-card--pad figure { padding: 14% 12% 9%; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.pg-card--pad figcaption { font: 400 1.375rem/1.2 var(--sans); letter-spacing: -0.4px; color: var(--cap, var(--ink)); text-align: center; }
+
+/* filtering: hidden cards leave the flow so the columns reflow */
+.pg-card[hidden] { display: none; }
+.pg-card.is-entering { animation: pgIn .45s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes pgIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.pg__empty { font-size: 1rem; color: var(--text-muted); padding: 40px 0; }
+
+/* paused: no hover motion either */
+.pg.is-paused .pg-card, .pg.is-paused .pg-card img, .pg.is-paused .pg-card video { transition: none; transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-card, .pg-card img, .pg-card video { transition: none; }
+  .pg-card:hover, .pg-card:hover img, .pg-card:hover video { transform: none; }
+  .pg-card.is-entering { animation: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .pg { padding-top: 48px; }
+  .pg.wrap { width: auto; }
+}
+@media (max-width: 860px) { .pg__grid { columns: 2; } }
+@media (max-width: 560px) {
+  .pg__grid { columns: 1; }
+  .pg__bar { align-items: flex-start; margin-bottom: 28px; }
+  .pg__tab { padding: 0 16px; }
+}

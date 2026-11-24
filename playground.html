@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playground — Sreesha Suresh</title>
+  <meta name="description" content="Sreesha Suresh's playground: graphic design, 3D and digital art, and motion experiments.">
+  <link rel="preload" href="assets/fonts/apple-garamond-light.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script>document.documentElement.classList.add('js', 'intro');</script>
+  <link rel="stylesheet" href="css/playground.css">
+</head>
+<body class="page-playground">
+  <div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+  <nav class="ruler" aria-label="Primary">
+    <span class="ruler__indicator" aria-hidden="true"></span>
+    <ol class="ruler__list">
+      <li><a class="ruler__item" href="index.html" data-nav="home"><span class="ruler__tick"></span><span class="ruler__label">home</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="index.html#work" data-nav="work"><span class="ruler__tick"></span><span class="ruler__label">work</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="about.html" data-nav="about"><span class="ruler__tick"></span><span class="ruler__label">about</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item is-active" href="playground.html" data-nav="playground" aria-current="page"><span class="ruler__tick"></span><span class="ruler__label">playground</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="#contact-footer" data-nav="contact"><span class="ruler__tick"></span><span class="ruler__label">contact</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="pg wrap" aria-labelledby="pg-title">
+      <h1 class="sr-only" id="pg-title">Playground</h1>
+
+      <!-- Filter tabs + pause -->
+      <div class="pg__bar">
+        <div class="pg__tabs" role="group" aria-label="Filter playground">
+          <button type="button" class="pg__tab" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="pg__tab" data-filter="graphic" aria-pressed="false">Graphic Design</button>
+          <button type="button" class="pg__tab" data-filter="3d" aria-pressed="false">3D &amp; Digital Art</button>
+          <button type="button" class="pg__tab" data-filter="motion" aria-pressed="false">Motion</button>
+        </div>
+        <button type="button" class="pg__pause" id="pgPause" aria-pressed="false" aria-label="Pause motion">
+          <svg class="pg__ico pg__ico--pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="pg__ico pg__ico--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+        </button>
+      </div>
+      <p class="sr-only" role="status" id="pgStatus"></p>
+
+      <!-- Masonry grid. Each card: data-cat = graphic | 3d | motion (space-separate for more than one).
+           Tile looks: pg-card--fill (media fills the tile) or pg-card--pad (media sits on a coloured tile with its title). -->
+      <ul class="pg__grid" id="pgGrid">
+        <li class="pg-card pg-card--fill" data-cat="motion" style="--tile:#1e1e1e">
+          <figure>
+            <video src="assets/video/stopmotion.mp4" poster="assets/img/otc-stopmotion-poster.jpg" muted loop playsinline preload="metadata" aria-label="Stop-motion animation"></video>
+            <figcaption>Stop-motion</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--pad" data-cat="graphic" style="--tile:#dfe9f5">
+          <figure>
+            <img src="assets/img/otc-flyer.webp" alt="IxDA event flyer: Keeping Agents on the Rails" width="383" height="371" loading="lazy">
+            <figcaption>IxDA Indy flyer</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--pad" data-cat="3d" style="--tile:#dcf5d8">
+          <figure>
+            <img src="assets/img/otc-art-3.webp" alt="Glowing landscape concept art" width="364" height="193" loading="lazy">
+            <figcaption>Glowing landscape</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--fill" data-cat="graphic" style="--tile:#f1efea">
+          <figure>
+            <img src="assets/img/otc-merch.webp" alt="Merch design" width="674" height="706" loading="lazy">
+            <figcaption>Merch</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--pad" data-cat="3d" style="--tile:#d9d6cf">
+          <figure>
+            <img src="assets/img/otc-art-2.webp" alt="Sci-fi interior concept art" width="364" height="190" loading="lazy">
+            <figcaption>Sci-fi interior</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--fill" data-cat="3d" style="--tile:#f3e6e1">
+          <figure>
+            <img src="assets/img/otc-artbook.webp" alt="Holding my artbook" width="394" height="486" loading="lazy">
+            <figcaption>Artbook</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--fill" data-cat="graphic" style="--tile:#f5f5f3">
+          <figure>
+            <img src="assets/img/otc-designers-table.webp" alt="The Designer’s Table community collage" width="820" height="410" loading="lazy">
+            <figcaption>The Designer’s Table</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card pg-card--pad" data-cat="3d" style="--tile:#262626;--cap:#e8e8e8">
+          <figure>
+            <img src="assets/img/otc-art-1.webp" alt="Environment concept art" width="364" height="174" loading="lazy">
+            <figcaption>Environment study</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <p class="pg__empty" id="pgEmpty" hidden>Nothing here yet — check back soon.</p>
+    </section>
+
+    <!-- WORK WITH ME (same as the other pages) -->
+    <section class="cta wrap" id="contact">
+      <div class="cta__inner">
+        <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Wor<em>k</em> w<em>i</em>th me</a></h2>
+        <span class="cta__badge" aria-label="Open to full-time roles"><span class="cta__badge-text" aria-hidden="true">Open to full-time roles</span><span class="cta__caret" aria-hidden="true"></span></span>
+        <svg class="garden garden--back" id="gardenBack" aria-hidden="true"></svg>
+        <svg class="garden garden--front" id="gardenFront" aria-hidden="true"></svg>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap-wide" id="contact-footer">
+    <p class="footer__meta">© 2026 Sreesha Suresh</p>
+    <nav class="footer__links" aria-label="Footer contact links">
+      <a class="lk" href="https://drive.google.com/file/d/1b1VnWoGGykMFzYRLNkzvDyww56HtdHeI/view?usp=sharing" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">resume</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+      <a class="lk" href="https://www.linkedin.com/in/sreesha-suresh/" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">linkedin</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+      <button type="button" class="lk lk--copy" data-copy="sreesha24@gmail.com" aria-label="Copy email address sreesha24@gmail.com"><span class="lk__b">[</span><span class="lk__t">sreesha24@gmail.com</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span><span class="lk__toast" aria-hidden="true">copied</span></button>
+      <a class="lk" href="https://x.com/sreesha24" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">X</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
+    </nav>
+    <p class="footer__meta is-empty" id="lastVisitor">last visitor: <span></span></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/reveal.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/playground.js"></script>
+  <script src="js/garden.js"></script>
+  <script src="js/sparkles.js"></script>
+  <p class="sr-only" role="status" id="copyStatus"></p>
+</body>
+</html>
