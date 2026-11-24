@@ -11,6 +11,32 @@
   const pauseBtn = document.getElementById('pgPause');
   let paused = reduceMotion;   // reduced motion: start paused, the visitor can still press play
 
+  /* ---------- Masonry: each visible piece goes into the shortest column, in page order ---------- */
+  const grid = document.getElementById('pgGrid');
+  function layout() {
+    const cs = getComputedStyle(grid);
+    const cols = parseInt(cs.getPropertyValue('--cols'), 10) || 3;
+    const gap = Math.round(parseFloat(cs.columnGap) || 0);
+    const vis = cards.filter((c) => !c.hidden);
+    if (cols < 2) { grid.classList.remove('is-masonry'); vis.forEach((c) => { c.style.gridColumn = ''; c.style.gridRow = ''; }); return; }
+    grid.classList.add('is-masonry');
+    const h = new Array(cols).fill(0);
+    vis.forEach((c) => {
+      let col = 0;
+      for (let i = 1; i < cols; i++) if (h[i] < h[col] - 1) col = i;
+      const ht = Math.ceil(c.getBoundingClientRect().height);
+      c.style.gridColumn = String(col + 1);
+      c.style.gridRow = `${h[col] + 1} / span ${Math.max(1, ht)}`;
+      h[col] += ht + gap;
+    });
+  }
+  let raf = 0;
+  const relayout = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); };
+  window.addEventListener('resize', relayout);
+  if (document.fonts) document.fonts.ready.then(relayout);
+  cards.forEach((c) => c.querySelectorAll('img, video').forEach((m) => m.addEventListener(m.tagName === 'IMG' ? 'load' : 'loadedmetadata', relayout)));
+  if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(grid.parentElement);
+
   function applyFilter(key, label) {
     let shown = 0;
     cards.forEach((c) => {
@@ -23,6 +49,7 @@
       }
     });
     empty.hidden = shown > 0;
+    layout();
     if (status) status.textContent = `${label}: ${shown} ${shown === 1 ? 'piece' : 'pieces'}`;
     syncVideos();
   }
@@ -84,4 +111,5 @@
   }
   pauseBtn.addEventListener('click', () => setPaused(!paused));
   setPaused(paused);
+  layout();
 })();

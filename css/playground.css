@@ -74,8 +74,14 @@
 @media (prefers-reduced-motion: reduce) { .pg__marker, .pg__label { transition: none; } }
 
 /* ---------- Masonry grid: full-bleed pieces, tight gaps, small captions ---------- */
-.pg__grid { columns: 3; column-gap: var(--pg-gap); }
-.pg-card { break-inside: avoid; margin: 0 0 var(--pg-gap); }
+.pg__grid {
+  --cols: 3;
+  display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--pg-gap); row-gap: var(--pg-gap); align-items: start;
+}
+/* with JS: 1px rows, and each piece is placed into the shortest column in order */
+.pg__grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; }
+.pg-card { min-width: 0; }
 .pg-card figure { margin: 0; }
 .pg-card img, .pg-card video {
   width: 100%; height: auto; border-radius: var(--pg-radius);
@@ -106,9 +112,9 @@
   .pg.wrap { margin-right: var(--gutter); }
 }
 @media (max-width: 760px) { .pg__head { grid-template-columns: 1fr; row-gap: 14px; margin-bottom: 32px; } .pg__title { font-size: 2.75rem; } }
-@media (max-width: 860px) { .pg__grid { columns: 2; } }
+@media (max-width: 860px) { .pg__grid { --cols: 2; } }
 @media (max-width: 560px) {
-  .pg__grid { columns: 1; }
+  .pg__grid { --cols: 1; }
   .pg__bar { align-items: flex-start; }
   .pg__intro { font-size: 1rem; }
 }
