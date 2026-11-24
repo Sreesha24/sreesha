@@ -144,7 +144,7 @@
   const otc = document.querySelector('.otc');
   const track = document.getElementById('otcTrack');
   const CANVAS_W = 3687, CANVAS_H = 608;
-  let distance = 0, scale = 1;
+  let distance = 0, scale = 1, hold = 0, total = 0;   // hold: scroll spent on the hand-off + a pause on the awards before the strip travels
   const prog = document.getElementById('otcProgress');
   const TICKS = 31;
   for (let k = 0; k < TICKS; k++) prog.appendChild(document.createElement('i'));
@@ -172,17 +172,22 @@
     const pad = Math.max(0, Math.min(1150, (vw * 0.22) / scale - 276));   // awards sit left of centre
     otc.style.setProperty('--pad', `${pad.toFixed(1)}px`);
     distance = Math.max(0, (CANVAS_W + pad) * scale - vw);
-    otc.style.height = `${vh + distance}px`;
+    hold = Math.round(vh * 0.85);
+    total = hold + distance;
+    otc.style.height = `${vh + total}px`;
     updateOtc();
   }
   function updateOtc() {
     const vh = window.innerHeight;
-    const raw = Math.min(1, Math.max(0, (window.scrollY - otc.offsetTop) / (distance || 1)));
-    // gentle start: the first stretch of scrolling moves the strip slowly so the awards get a proper look
-    const p = raw < 0.12 ? (raw / 0.12) ** 2 * 0.04 : 0.04 + (raw - 0.12) / 0.88 * 0.96;
+    const s = Math.max(0, window.scrollY - otc.offsetTop);
+    // 1) hand-off: the strip comes into focus while it stays still (first ~45% of the hold)
+    // 2) it rests on "4x global design awards" (rest of the hold), which get a little moment
+    // 3) then it travels; the first stretch eases in
+    const k = Math.min(1, s / (hold * 0.45 || 1));
+    const tr = Math.min(1, Math.max(0, (s - hold) / (distance || 1)));
+    const p = tr < 0.08 ? (tr / 0.08) ** 2 * 0.04 : 0.04 + (tr - 0.08) / 0.92 * 0.96;
     track.style.transform = `translate3d(${-p * distance}px,0,0)`;
-    // focus hand-off: logos full size on arrival, easing back as the strip starts to move; strip does the reverse
-    const k = Math.min(1, Math.max(0, (raw - 0.04) / 0.26));
+    otc.classList.toggle('is-awards', k >= 1 && tr < 0.06);
     const ek = k * k * (3 - 2 * k);
     otc.style.setProperty('--cz', (1 - 0.08 * ek).toFixed(4)); otc.style.setProperty('--co', (1 - 0.55 * ek).toFixed(3));
     otc.style.setProperty('--sz', (szStart + (1 - szStart) * ek).toFixed(4)); otc.style.setProperty('--so', (0.6 + 0.4 * ek).toFixed(3));
@@ -229,9 +234,9 @@
   // phones: a sideways swipe on the strip also drives it (maps to the same scroll position)
   const sticky = otc.querySelector('.otc__sticky');
   let tx = 0, ty = 0, axis = null, lastX = 0, lastT = 0, vel = 0, glide = 0;
-  const pinned = () => window.scrollY >= otc.offsetTop - 4 && window.scrollY <= otc.offsetTop + distance + 4;
+  const pinned = () => window.scrollY >= otc.offsetTop - 4 && window.scrollY <= otc.offsetTop + total + 4;
   const nudge = (dx) => {
-    const y = Math.min(otc.offsetTop + distance, Math.max(otc.offsetTop, window.scrollY + dx));
+    const y = Math.min(otc.offsetTop + total, Math.max(otc.offsetTop, window.scrollY + dx));
     window.scrollTo(0, y);
   };
   sticky.addEventListener('touchstart', (e) => {
