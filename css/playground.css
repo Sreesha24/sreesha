@@ -24,15 +24,15 @@
 
 /* ---------- Header: title + intro ---------- */
 .pg__head {
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); column-gap: clamp(32px, 6vw, 96px);
-  align-items: start; margin-bottom: 36px;
+  display: grid; grid-template-columns: minmax(0, 411fr) minmax(0, 729fr); column-gap: 15px;   /* matches the Figma frame */
+  align-items: center; margin-bottom: 36px;
 }
 .pg__title {
-  font-family: var(--serif); font-weight: 300; font-size: clamp(2.75rem, 4.2vw, 3.75rem); line-height: 1.05;   /* 60px, matches the Framer title */
-  letter-spacing: -0.5px; color: #b8325f;   /* 5.6:1 on white */
+  font-family: var(--serif); font-weight: 500; font-size: 2.625rem; line-height: 1.5;   /* Apple Garamond Regular, 42px, as in Figma */
+  letter-spacing: 0; color: #b8325f;   /* 5.6:1 on white */
 }
 .pg__title em { font-style: italic; }
-.pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: var(--ink); max-width: 62ch; padding-top: 6px; }
+.pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: var(--ink); }
 
 /* ---------- Tabs + pause ---------- */
 .pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
