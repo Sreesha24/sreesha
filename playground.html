@@ -34,7 +34,10 @@
 
   <main>
     <section class="pg wrap" aria-labelledby="pg-title">
-      <h1 class="sr-only" id="pg-title">Playground</h1>
+      <header class="pg__head">
+        <h1 class="pg__title" id="pg-title">Gr<em>a</em>phic Desi<em>g</em>n</h1>
+        <p class="pg__intro">I am a Multi-disciplinary designer at core. For the past 7 years, I’ve been doing event branding, posters, email marketing, motion design, album covers, logos, 3D game assets, and 2D digital art.</p>
+      </header>
 
       <!-- Filter tabs + pause -->
       <div class="pg__bar">
@@ -51,69 +54,68 @@
       </div>
       <p class="sr-only" role="status" id="pgStatus"></p>
 
-      <!-- Masonry grid. Each card: data-cat = graphic | 3d | motion (space-separate for more than one).
-           Tile looks: pg-card--fill (media fills the tile) or pg-card--pad (media sits on a coloured tile with its title). -->
+      <!-- Masonry grid. Each card: data-cat = graphic | 3d | motion (space-separate for more than one); caption = "NN/ Title". -->
       <ul class="pg__grid" id="pgGrid">
-        <li class="pg-card pg-card--fill" data-cat="graphic" style="--tile:#1e1e1e">
-          <figure>
-            <img src="assets/img/playground/rich-spirit.webp" alt="Rich Spirit poster: collage of a man lying back with a camcorder, an old phone and a vintage car, with bold title type" width="1000" height="1003" loading="lazy">
-            <figcaption>Rich Spirit poster</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--fill" data-cat="graphic" style="--tile:#e9e9ef">
-          <figure>
-            <img src="assets/img/playground/regatta-merch.webp" alt="Regatta t-shirts and water bottles I designed, laid out on a table at the event" width="1000" height="1048" loading="lazy">
-            <figcaption>Regatta merch</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--fill" data-cat="motion" style="--tile:#1e1e1e">
-          <figure>
-            <video src="assets/video/pg-batman.mp4" poster="assets/img/playground/batman-poster.jpg" muted loop playsinline preload="metadata" width="400" height="226" aria-label="Animated Batman title in yellow brush lettering on black"></video>
-            <figcaption>Batman title animation</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--fill" data-cat="3d" style="--tile:#f4f1e8">
-          <figure>
-            <video src="assets/video/pg-artbook.mp4" poster="assets/img/playground/artbook-poster.jpg" muted loop playsinline preload="metadata" width="1000" height="500" aria-label="Flipping through the Luminaflora artbook: plant sketches and glowing 3D flower renders"></video>
-            <figcaption>Luminaflora artbook</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--pad" data-cat="graphic" style="--tile:#f6e3e1">
-          <figure>
-            <img src="assets/img/playground/yard-fest.webp" alt="Yard Fest event poster for IU Indy Campus Recreation, with students holding frisbees" width="933" height="1400" loading="lazy">
-            <figcaption>Yard Fest campaign</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--fill" data-cat="motion" style="--tile:#e8c840">
-          <figure>
-            <video src="assets/video/pg-stopmotion.mp4" poster="assets/img/playground/stopmotion-poster.jpg" muted loop playsinline preload="metadata" width="400" height="266" aria-label="Stop-motion clip of a clay character in a kitchen"></video>
-            <figcaption>Stop-motion</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--pad" data-cat="graphic" style="--tile:#e4f2dc">
-          <figure>
-            <img src="assets/img/playground/eatwell.webp" alt="Jags EatWell Challenge poster for IU Indy students, with illustrated fruit and vegetables" width="964" height="1249" loading="lazy">
-            <figcaption>Jags EatWell campaign</figcaption>
-          </figure>
-        </li>
-
-        <li class="pg-card pg-card--fill" data-cat="graphic" style="--tile:#4a2a25">
+        <li class="pg-card" data-cat="graphic">
           <figure>
             <img src="assets/img/playground/coco-bait.webp" alt="Coco Bait brand logo in pink retro lettering over chocolate spread and toast" width="1000" height="714" loading="lazy">
-            <figcaption>Coco Bait branding</figcaption>
+            <figcaption><span>01/</span> Branding &amp; Logo Design</figcaption>
           </figure>
         </li>
 
-        <li class="pg-card pg-card--fill" data-cat="3d" style="--tile:#20301f">
+        <li class="pg-card" data-cat="motion">
+          <figure>
+            <video src="assets/video/pg-stopmotion.mp4" poster="assets/img/playground/stopmotion-poster.jpg" muted loop playsinline preload="metadata" width="400" height="266" aria-label="Stop-motion clip of a clay character in a kitchen"></video>
+            <figcaption><span>02/</span> Stopmotion short film</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="3d">
           <figure>
             <img src="assets/img/playground/forest.webp" alt="Digital painting of a creature crossing a fallen log in a sunlit forest" width="1000" height="561" loading="lazy">
-            <figcaption>Forest crossing</figcaption>
+            <figcaption><span>03/</span> 2D Digital Art</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="3d">
+          <figure>
+            <video src="assets/video/pg-artbook.mp4" poster="assets/img/playground/artbook-poster.jpg" muted loop playsinline preload="metadata" width="1000" height="500" aria-label="Flipping through the Luminaflora artbook: plant sketches and glowing 3D flower renders"></video>
+            <figcaption><span>04/</span> 3D Artbook</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="graphic">
+          <figure>
+            <img src="assets/img/playground/rich-spirit.webp" alt="Rich Spirit poster: collage of a man lying back with a camcorder, an old phone and a vintage car, with bold title type" width="1000" height="1003" loading="lazy">
+            <figcaption><span>05/</span> Album Cover Design</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="motion">
+          <figure>
+            <video src="assets/video/pg-batman.mp4" poster="assets/img/playground/batman-poster.jpg" muted loop playsinline preload="metadata" width="400" height="226" aria-label="Animated Batman title in yellow brush lettering on black"></video>
+            <figcaption><span>06/</span> Motion Design</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="graphic">
+          <figure>
+            <img src="assets/img/playground/regatta-merch.webp" alt="Regatta t-shirts and water bottles I designed, laid out on a table at the event" width="1000" height="1048" loading="lazy">
+            <figcaption><span>07/</span> University Merch Design</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="graphic">
+          <figure>
+            <img src="assets/img/playground/eatwell.webp" alt="Jags EatWell Challenge poster for IU Indy students, with illustrated fruit and vegetables" width="964" height="1249" loading="lazy">
+            <figcaption><span>08/</span> University Event Poster</figcaption>
+          </figure>
+        </li>
+
+        <li class="pg-card" data-cat="graphic">
+          <figure>
+            <img src="assets/img/playground/yard-fest.webp" alt="Yard Fest event poster for IU Indy Campus Recreation, with students holding frisbees" width="933" height="1400" loading="lazy">
+            <figcaption><span>09/</span> University Event Flyer</figcaption>
           </figure>
         </li>
       </ul>
