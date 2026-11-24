@@ -3,7 +3,7 @@
 
 .page-playground {
   --pg-radius: 0px;        /* site rule: square corners. Set to 28px for the rounded look of the reference */
-  --pg-gap: clamp(12px, 1.4vw, 20px);
+  --pg-gap: clamp(20px, 2.8vw, 40px);   /* 40px between pieces, as on the Framer page */
   --tab-bg: #e8e8e6;
   --tab-edge: #cdcdca;
   --tab-ink: #555555;      /* 6.1:1 on the tab grey */
@@ -19,23 +19,23 @@
 }
 @media (hover: none) { .page-playground { background-attachment: scroll; } }   /* fixed backgrounds jitter on phones */
 
-.pg { padding-top: 72px; }
+.pg { padding-top: clamp(96px, 11vw, 180px); }   /* title sits as low as on the Framer page */
 .pg.wrap { width: auto; margin-right: var(--gutter); }
 
 /* ---------- Header: title + intro ---------- */
 .pg__head {
-  display: grid; grid-template-columns: minmax(0, 411fr) minmax(0, 729fr); column-gap: 15px;   /* matches the Figma frame */
-  align-items: center; margin-bottom: 36px;
+  display: grid; grid-template-columns: 33% minmax(0, 1fr); column-gap: 0;   /* intro starts where it does on the Framer page */
+  align-items: start; margin-bottom: 56px;
 }
 .pg__title {
-  font-family: var(--serif); font-weight: 500; font-size: 2.625rem; line-height: 1.5;   /* Apple Garamond Regular, 42px, as in Figma */
+  font-family: var(--serif); font-weight: 400; font-size: 3.75rem; line-height: 1.05;   /* Apple Garamond Light cut, 60px */
   letter-spacing: 0; color: #b8325f;   /* 5.6:1 on white */
 }
 .pg__title em { font-style: italic; }
-.pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: var(--ink); }
+.pg__intro { font-size: 1rem; line-height: 1.375; letter-spacing: -0.2px; color: #333; padding-top: 6px; }
 
 /* ---------- Tabs + pause ---------- */
-.pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.pg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 32px; }
 .pg__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
 .pg__tab {
   appearance: none; border: 0; cursor: pointer;
@@ -69,7 +69,7 @@
   background: #f1f1f1; transition: transform .6s cubic-bezier(.2,.7,.2,1);
 }
 .pg-card:hover img, .pg-card:hover video { transform: translateY(-3px); }
-.pg-card figcaption { margin-top: 8px; font-size: 0.875rem; line-height: 1.35; letter-spacing: -0.2px; color: var(--ink); }
+.pg-card figcaption { margin-top: 10px; font-size: 0.875rem; line-height: 1.35; letter-spacing: -0.2px; color: var(--ink); }
 .pg-card figcaption span { color: var(--text-muted); }
 
 /* filtering: hidden cards leave the flow so the columns reflow */
@@ -92,7 +92,7 @@
   .pg { padding-top: 36px; }
   .pg.wrap { margin-right: var(--gutter); }
 }
-@media (max-width: 760px) { .pg__head { grid-template-columns: 1fr; row-gap: 14px; } }
+@media (max-width: 760px) { .pg__head { grid-template-columns: 1fr; row-gap: 14px; margin-bottom: 32px; } .pg__title { font-size: 2.75rem; } }
 @media (max-width: 860px) { .pg__grid { columns: 2; } }
 @media (max-width: 560px) {
   .pg__grid { columns: 1; }
