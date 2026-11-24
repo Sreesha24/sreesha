@@ -108,7 +108,7 @@
 
 /* ---------- Closing statement: polaroid left, line about me right (same columns + type as the header) ---------- */
 .pg-note { margin-top: clamp(80px, 10vw, 160px); display: grid; grid-template-columns: auto minmax(0, 640px); column-gap: clamp(32px, 4vw, 64px); align-items: center; justify-content: center; }
-.page-playground .pg-note.wrap { width: auto; --side: max(var(--gutter), calc(var(--nav-x) + var(--nav-w) + 24px)); margin-left: var(--side); margin-right: var(--side); }   /* centred on the page, not the content column */
+.page-playground .pg-note.wrap { width: auto; margin-right: var(--gutter); }   /* centred within the three-column grid */
 .pg-note__photo { margin: 0; width: 300px; max-width: 100%; transform: rotate(-3deg); transition: transform .5s cubic-bezier(.3,1.4,.5,1); }
 .pg-note__photo:hover { transform: rotate(-1deg) translateY(-4px); }
 .pg-note__photo img { width: 100%; height: auto; }
