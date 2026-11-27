@@ -9,49 +9,23 @@
 <link rel="preload" href="assets/fonts/apple-garamond-light-italic.woff" as="font" type="font/woff" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/motion.css">
+<script>document.documentElement.classList.add('js', 'intro');</script>
 <style>
 /* VOICE: warm, personal, quietly playful — a designer's notebook page
    IDEA: a scrapbook spread: handwritten notes + arrows pointing at the good stuff
    PICTURE: the photo pile, with margin notes drawing themselves in as you scroll
    COLOUR and TYPE: white paper, faint gridlines, black ink, one green (#43854d) for notes
    LAYOUT: 1440 design grid, single reading column, records in two columns */
-@font-face{font-family:"Apple Garamond";src:url(assets/fonts/apple-garamond-light.woff) format("woff");font-weight:300 400;font-style:normal;font-display:swap}
-@font-face{font-family:"Apple Garamond";src:url(assets/fonts/apple-garamond-light-italic.woff) format("woff");font-weight:300 400;font-style:italic;font-display:swap}
-@font-face{font-family:"Apple Garamond";src:url(assets/fonts/apple-garamond-regular.woff) format("woff");font-weight:500 700;font-style:normal;font-display:swap}
-@font-face{font-family:"Apple Garamond";src:url(assets/fonts/apple-garamond-italic.woff) format("woff");font-weight:500 700;font-style:italic;font-display:swap}
-:root{color-scheme:light;--ink:#000;--grey:#414141;--soft:#6b6b6b;--green:#43854d;--badge:#039100;--rule:#e3e3e3;--grid:#ececec;
-  --serif:"Apple Garamond","EB Garamond",Garamond,Georgia,serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-*{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--ink);font:400 16px/1.5 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
-p{margin:0}
-a{color:inherit}
-a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
-
-.page{position:relative;max-width:1440px;margin:0 auto;padding-bottom:64px}
-.grid{position:absolute;inset:0;pointer-events:none;z-index:0}
-.grid i{position:absolute;top:0;bottom:0;width:1px;background:var(--grid)}
-.grid i:nth-child(1){left:5%}.grid i:nth-child(2){left:30.83%}.grid i:nth-child(3){left:56.67%}.grid i:nth-child(4){left:82.5%}
-
-/* ruler nav */
-.ruler{position:fixed;left:max(20px,calc((100vw - 1440px)/2 + 20px));top:87px;z-index:5;margin:0;padding:0;list-style:none}
-.ruler li{position:relative;height:14px;display:flex;align-items:center}
-.ruler li.minor{height:28px;flex-direction:column;justify-content:space-around;align-items:flex-start}
-.ruler li.minor i{display:block;width:4px;height:1px;background:#9a9a9a}
-.ruler a{display:flex;align-items:center;gap:7px;text-decoration:none;font-size:14px;color:var(--grey);min-height:24px;transition:color .2s}
-.ruler a::before{content:"";width:6px;height:1px;background:#6b6b6b;transition:width .25s}
-.ruler a:hover{color:var(--ink)}
-.ruler a[aria-current]{font-size:16px;font-weight:600;color:#141312}
-.ruler a[aria-current]::before{width:22px;height:1.5px;background:#141312}
-
-.wrap{position:relative;z-index:1;width:min(1156px,calc(100% - 184px));margin-left:160px}
+a:focus-visible,button:focus-visible{outline:3px solid #43854d;outline-offset:3px;border-radius:2px}
 
 /* intro */
 .intro{padding-top:104px;margin:0 auto;width:660px;max-width:100%}
 .title{font:400 28px/1.25 var(--serif);margin:0;letter-spacing:0;min-height:35px}
 .title em{font-style:italic}
-.title .me{color:var(--green);display:inline-block;transition:transform .45s cubic-bezier(.3,1.6,.5,1);transform-origin:50% 80%}
+.title .me{color:#43854d;display:inline-block;transition:transform .45s cubic-bezier(.3,1.6,.5,1);transform-origin:50% 80%}
 .title:hover .me{transform:rotate(-8deg) translateY(-2px)}
 .title .ch{display:inline-block;white-space:pre}
 .copy{display:grid;gap:20px;font-size:16px;line-height:24px}
@@ -85,7 +59,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offs
   text-shadow:0 0 1px #c8f7c5,1.6px 0 0 #c8f7c5,-1.6px 0 0 #c8f7c5,0 1.6px 0 #c8f7c5,0 -1.6px 0 #c8f7c5,1.1px 1.1px 0 #c8f7c5,-1.1px 1.1px 0 #c8f7c5,1.1px -1.1px 0 #c8f7c5,-1.1px -1.1px 0 #c8f7c5,0 0 4px #ededea}
 .note .ch{display:inline-block;white-space:pre}
 .arrow{position:absolute;overflow:visible}
-.arrow path{fill:none;stroke:var(--badge);stroke-linecap:round}
+.arrow path{fill:none;stroke:#039100;stroke-linecap:round}
 
 .story{margin:114px auto 0;width:614px;max-width:100%;text-align:center;display:grid;gap:24px;font-size:16px;line-height:24px}
 .story b{font-weight:600}
@@ -101,14 +75,14 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offs
 .exp .bhead .note{left:214px}
 .aw .bhead .arrow{left:97px;top:6px;width:47px}
 .aw .bhead .note{left:149px}
-.block h2{font:600 16px/22.4px var(--sans);color:var(--grey);margin:0 0 16px}
+.block h2{font:600 16px/22.4px var(--sans);color:#414141;margin:0 0 16px}
 .rows{list-style:none;margin:0;padding:0}
-.rows li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px 0;border-bottom:.67px solid var(--rule);font-size:14px;line-height:19.6px;color:var(--grey)}
+.rows li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px 0;border-bottom:.67px solid #e3e3e3;font-size:14px;line-height:19.6px;color:#414141}
 .rows li:first-child{padding-top:0}
-.rows b{font-weight:600;color:var(--ink)}
+.rows b{font-weight:600;color:#000}
 .rows .sl{font-size:16px;margin:0 6px}
 .rows .d{white-space:nowrap;flex:none}
-.rows .aw-t{color:var(--ink)}
+.rows .aw-t{color:#000}
 
 /* stranger */
 .stranger{margin:114px auto 0;text-align:center}
@@ -135,9 +109,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offs
 }
 
 @media (max-width:1100px){
-  .ruler{position:static;display:flex;flex-wrap:wrap;align-items:center;gap:4px 22px;padding:24px 24px 0;max-width:1156px;margin:0 auto}
-  .ruler li.minor{display:none}
-  .wrap{width:min(1156px,calc(100% - 48px));margin:0 auto}
   .intro{padding-top:72px}
   .records{grid-template-columns:minmax(0,560px);justify-content:center;margin-left:0;row-gap:72px}
   .block.exp,.block.aw{grid-column:1}
@@ -162,77 +133,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offs
   .stranger{margin-top:72px}
   .stranger .links{gap:4px 14px;font-size:18px}
   }
-/* ---- "Work with me" + footer, ported from sreeshasuresh.com (homepage) ---- */
-main, .footer { position: relative; z-index: 1; }
-.lk { position: relative; display: inline-flex; align-items: baseline; transition: color .2s; outline: none; text-decoration: none; color: inherit; }
-.lk__b, .lk__t { position: relative; display: inline-block; transition: color .2s, transform .3s cubic-bezier(.3,1.5,.5,1); }
-.lk:focus-visible { outline: 1.5px solid #1b6a2c; outline-offset: 3px; }
-.lk__a { display: inline-block; align-self: center; width: 0; height: .58em; margin-left: 0; background: #1b6a2c;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.2 8.8 8.6 1.4M3.2 1.2h5.6v5.6' fill='none' stroke='%23000' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.2 8.8 8.6 1.4M3.2 1.2h5.6v5.6' fill='none' stroke='%23000' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  opacity: 0; transform: translate(-3px, 3px);
-  transition: width .3s cubic-bezier(.3,1.3,.5,1), margin .3s cubic-bezier(.3,1.3,.5,1), opacity .2s, transform .35s cubic-bezier(.3,1.5,.5,1); }
-.lk:hover .lk__a, .lk:focus-visible .lk__a { width: .58em; margin-left: .22em; opacity: 1; transform: none; }
-.lk .lk__t { text-decoration: underline 1px transparent; text-underline-offset: 4px; transition: color .2s, text-decoration-color .2s; }
-.lk:hover .lk__t, .lk:focus-visible .lk__t { color: #1b6a2c; text-decoration-color: currentColor; }
-.lk:hover .lk__b:first-child, .lk:focus-visible .lk__b:first-child { transform: translateX(-4px); }
-.lk:hover .lk__b:last-child, .lk:focus-visible .lk__b:last-child { transform: translateX(4px); }
-button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
-.lk--copy .lk__a {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-2h-9v9h2' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='5.5' y='5.5' width='8' height='8' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M10.5 3.5v-2h-9v9h2' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
-  height: .7em; }
-.lk--copy:hover .lk__a, .lk--copy:focus-visible .lk__a, .lk--copy.is-copied .lk__a { width: .7em; margin-left: .22em; opacity: 1; transform: none; }
-.lk--copy.is-copied .lk__a {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5l3.5 3.5 7.5-8' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-.lk--copy.is-copied .lk__t { color: #1b6a2c; }
-.lk__toast { position: absolute; left: 50%; bottom: calc(100% + 8px); white-space: nowrap; pointer-events: none; font-family: var(--sans); font-size: 13px; line-height: 1; padding: 6px 9px; background: #1b6a2c; color: #fff; opacity: 0; transform: translate(-50%, 6px) scale(.9); transition: opacity .2s, transform .35s cubic-bezier(.3,1.5,.5,1); }
-.lk--copy.is-copied .lk__toast { opacity: 1; transform: translate(-50%, 0) scale(1); }
-.footer .lk__toast { bottom: calc(100% + 6px); }
-@keyframes blink { 50% { opacity: 0; } }
-@keyframes fadeout { to { opacity: 0; } }
-.cta { margin-top: 143px; display: flex; justify-content: center; position: relative; z-index: 1; }
-.cta__inner { position: relative; }
-.cta__title { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 184px; line-height: 1.3; letter-spacing: -.035em; white-space: nowrap; color: #000; position: relative; z-index: 1; }
-.cta__title em { font-style: italic; }
-.cta__title a { display: inline-block; color: inherit; text-decoration: none; }
-.cta__badge { position: absolute; left: calc(100% + 13px); top: 25px; z-index: 3; background: #039100; color: #fff; padding: 8px; white-space: nowrap; font: 500 16px/1.2 var(--sans); letter-spacing: -.64px; display: inline-flex; align-items: center; min-height: calc(1.2em + 16px); }
-.cta__caret { display: inline-block; width: 1.5px; height: 1em; margin-left: 2px; background: #fff; animation: blink 1s steps(1) infinite; }
-.cta__caret.is-done { animation: blink 1s steps(1) 2, fadeout .3s 2s forwards; }
-.garden { position: absolute; left: -200px; top: -200px; width: calc(100% + 400px); height: calc(100% + 400px); overflow: visible; pointer-events: none; z-index: 0; }
-.garden--front { z-index: 2; }
-.garden .stem { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); transition: stroke-dashoffset var(--dout, .5s) cubic-bezier(.5,0,.75,.4) var(--out, 0s); }
-.garden .leaf, .garden .flower, .garden .bud { transform-box: view-box; transform-origin: var(--ox) var(--oy); transform: rotate(var(--r0, 0deg)) scale(0); opacity: 0; transition: transform .45s cubic-bezier(.5,0,.75,.4) var(--out, 0s), opacity .3s var(--out, 0s); }
-.garden .leaf { transform: rotate(var(--rot)) scale(0); }
-.cta__inner.is-grown .garden .stem { stroke-dashoffset: 0; transition: stroke-dashoffset var(--dur, 1s) cubic-bezier(.35,.1,.45,1) var(--in, 0s); }
-.cta__inner.is-grown .garden .leaf { transform: rotate(var(--rot)) scale(1); opacity: 1; transition: transform .7s cubic-bezier(.25,1.4,.5,1) var(--in, 0s), opacity .2s var(--in, 0s); }
-.cta__inner.is-grown .garden .bud { transform: scale(1); opacity: 1; transition: transform .6s cubic-bezier(.25,1.5,.5,1) var(--in, 0s), opacity .2s var(--in, 0s); }
-.cta__inner.is-grown .garden .flower { transform: rotate(0deg) scale(1); opacity: 1; transition: transform 1.1s cubic-bezier(.2,1.25,.35,1) var(--in, 0s), opacity .35s var(--in, 0s); }
-.cta__inner.is-peek .garden .stem.early { stroke-dashoffset: 0; transition: stroke-dashoffset calc(var(--dur, 1s) * 1.8) cubic-bezier(.4,.05,.3,1) calc(var(--in, 0s) * 1.8); }
-.cta__inner.is-peek .garden .leaf.early { transform: rotate(var(--rot)) scale(1); opacity: 1; transition: transform 1.1s cubic-bezier(.3,.9,.4,1) calc(var(--in, 0s) * 1.8 + .15s), opacity .5s calc(var(--in, 0s) * 1.8 + .15s); }
-.cta__inner.is-peek .garden .bud.early { transform: scale(1); opacity: 1; transition: transform 1s cubic-bezier(.3,.9,.4,1) calc(var(--in, 0s) * 1.8 + .2s), opacity .5s calc(var(--in, 0s) * 1.8 + .2s); }
-.cta__inner.is-peek .garden .flower.early { transform: rotate(0deg) scale(1); opacity: 1; transition: transform 1.4s cubic-bezier(.3,.9,.4,1) calc(var(--in, 0s) * 1.8 + .2s), opacity .6s calc(var(--in, 0s) * 1.8 + .2s); }
-.cta__inner.is-peek .garden .flower.peek-bloom { transition: transform 1.3s cubic-bezier(.25,1.2,.4,1) calc(var(--in, 0s) * 1.8), opacity .5s calc(var(--in, 0s) * 1.8); }
-.cta__inner.is-peek-out .garden .stem.early { transition: stroke-dashoffset 1.6s cubic-bezier(.45,0,.2,1) .35s; }
-.cta__inner.is-peek-out .garden .leaf.early, .cta__inner.is-peek-out .garden .bud.early, .cta__inner.is-peek-out .garden .flower.early { transition: transform .9s cubic-bezier(.45,0,.3,1), opacity .7s .1s; }
-@media (prefers-reduced-motion: reduce) { .garden * { transition: none !important; } }
-.footer { max-width: 1440px; margin: 64px auto 0; padding: 0 72px 73px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.footer p { margin: 0; }
-.footer__meta.is-empty { visibility: hidden; }
-.footer__meta { font-size: 14px; line-height: 24px; color: #6b6b6b; }
-.footer__links { display: flex; gap: 64px; font-family: var(--serif); font-size: 20px; color: #000; }
-@media (max-width: 1100px) { .cta__title { font-size: clamp(72px, 15vw, 184px); } }
-@media (max-width: 860px) {
-  .cta { margin-top: 96px; overflow-x: clip; }
-  .cta__inner { display: flex; flex-direction: column; align-items: center; }
-  .cta__badge { position: static; order: -1; margin-bottom: 8px; }
-  .footer { flex-direction: column; gap: 16px; padding: 24px 24px 56px; margin-top: 0; text-align: center; }
-  .footer__links { gap: 24px; flex-wrap: wrap; justify-content: center; }
-}
-@media (max-width: 560px) { .footer__links { font-size: 18px; gap: 16px; } }
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
 /* green highlighter */
 .hl{background:linear-gradient(transparent 56%,#c8f7c5 56%,#c8f7c5 94%,transparent 94%);padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
@@ -246,7 +146,7 @@ button.lk { background: none; border: 0; padding: 0; margin: 0; font: inherit; c
 .bulb__cap,.bulb__base{fill:#8a8a8a}
 .bulb__glass{fill:#ffe98a;stroke:#141312;stroke-width:1.3;filter:drop-shadow(0 0 8px rgba(255,214,74,.75));transition:fill .3s,filter .3s,stroke .3s}
 .bulb__fil{fill:none;stroke:#b26a00;stroke-width:1.1;stroke-linecap:round}
-.bulb:focus-visible{outline:3px solid var(--green);outline-offset:4px;border-radius:6px}
+.bulb:focus-visible{outline:3px solid #43854d;outline-offset:4px;border-radius:6px}
 .bulb.is-pull svg{animation:pull .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pull{30%{transform:translateY(10px)}70%{transform:translateY(-2px)}}
 html.dark .bulb__glass{fill:#2a2a2a;stroke:#b0b0b0;filter:none}
@@ -255,16 +155,17 @@ html.dark .bulb__cord{stroke:#8a8a8a}
 body{transition:background-color .5s ease,color .5s ease}
 html.dark{color-scheme:dark}
 html.dark body{background:#121212;color:#e8e8e8}
-html.dark .grid i{background:rgba(255,255,255,.06)}
+html.dark .gridlines span{background:rgba(255,255,255,.06)}
 html.dark :is(.title,.lead,.copy,.copy b,.pull,.glance dd,.glance__h,.story,.stranger p,.rows b,.rows .aw-t,.cta__title,.footer__links,.links,.block h2,.title-row){color:#e8e8e8}
 html.dark :is(.rows li,.rows .d,.glance dt,.footer__meta){color:#b0b0b0}
-html.dark .ruler a{color:#b0b0b0} html.dark .ruler a[aria-current]{color:#e8e8e8} html.dark .ruler a::before,html.dark .ruler a[aria-current]::before{background:#b0b0b0}
-html.dark .ruler li.minor i{background:#5a5a5a}
+html.dark .ruler__item{color:#b0b0b0} html.dark .ruler__item.is-active,html.dark .ruler__item:hover .ruler__label{color:#e8e8e8} html.dark :is(.ruler__tick,.ruler__minor i){background:#8a8a8a} html.dark .ruler__item:hover .ruler__tick{background:#e8e8e8} html.dark .ruler__indicator{background:#e8e8e8}
+@media (max-width:1100px){ html.dark .ruler{background:rgba(18,18,18,.88);border-bottom-color:#2f2f2f} }
 html.dark :is(.rows li,.glance dl div){border-color:#2f2f2f}
 html.dark .title .me{color:#7fc98a}
 html.dark :is(.note,.mnote){color:#e8e8e8;text-shadow:0 0 12px rgba(127,201,138,.35)}
 html.dark .hl{color:#fff;background:linear-gradient(transparent 56%,#2d6a3a 56%,#2d6a3a 94%,transparent 94%)}
 html.dark .tags li{background:#1e1e1e;border-color:#3a3a3a;color:#e8e8e8}
+html.dark .cta__title a{color:#e8e8e8}
 html.dark .lk:hover .lk__t,html.dark .lk:focus-visible .lk__t,html.dark .lk--copy.is-copied .lk__t{color:#7fc98a}
 html.dark .lk__a{background:#7fc98a}
 html.dark .arrow path,html.dark .mnote__arrow path{stroke:#7fc98a}
@@ -282,7 +183,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
 @media (prefers-reduced-motion: reduce){ .marker{transition:none} }
 </style>
 </head>
-<body>
+<body class="page-about">
 <button type="button" class="bulb" aria-pressed="false" aria-label="Dark mode" title="Pull to turn the lights off, or grab it and swing it">
   <svg viewBox="0 0 40 132" aria-hidden="true">
     <line class="bulb__cord" x1="20" y1="0" x2="20" y2="80"/>
@@ -292,24 +193,25 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
     <rect class="bulb__base" x="14.5" y="120.5" width="11" height="5" rx="1"/>
   </svg>
 </button>
-<div class="page">
-  <div class="grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="gridlines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
-  <nav aria-label="Main">
-    <ul class="ruler">
-      <li><a href="index.html">home</a></li>
-      <li class="minor" aria-hidden="true"><i></i><i></i></li>
-      <li><a href="index.html#work">work</a></li>
-      <li class="minor" aria-hidden="true"><i></i><i></i></li>
-      <li><a href="about.html" aria-current="page">about</a></li>
-      <li class="minor" aria-hidden="true"><i></i><i></i></li>
-      <li><a href="playground.html">playground</a></li>
-      <li class="minor" aria-hidden="true"><i></i><i></i></li>
-      <li><a href="#contact-footer">contact</a></li>
-    </ul>
+  <nav class="ruler" aria-label="Primary">
+    <span class="ruler__indicator" aria-hidden="true"></span>
+    <ol class="ruler__list">
+      <li><a class="ruler__item" href="index.html" data-nav="home"><span class="ruler__tick"></span><span class="ruler__label">home</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="index.html#work" data-nav="work"><span class="ruler__tick"></span><span class="ruler__label">work</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item is-active" href="about.html" data-nav="about" aria-current="page"><span class="ruler__tick"></span><span class="ruler__label">about</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="playground.html" data-nav="playground"><span class="ruler__tick"></span><span class="ruler__label">playground</span></a></li>
+      <li class="ruler__minor" aria-hidden="true"><i></i><i></i></li>
+      <li><a class="ruler__item" href="#contact-footer" data-nav="contact"><span class="ruler__tick"></span><span class="ruler__label">contact</span></a></li>
+    </ol>
   </nav>
 
-  <main class="wrap" id="top">
+  <main id="top">
+    <div class="wrap">
     <section class="intro" aria-labelledby="about-title">
       <div class="title-row">
       <h1 class="title" id="about-title" aria-label="A lil about me" data-write>A lil ab<em>o</em>ut <span class="me">m<em>e</em></span></h1>
@@ -329,7 +231,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
       </div>
     </section>
     <div class="pile-scroll">
-    <section class="pile" id="pile" aria-label="Photos and clips from life outside work">
+    <section class="pile" id="about-pile" aria-label="Photos and clips from life outside work">
       <img class="pc photo" src="assets/img/about/medals.webp" alt="Two Run 317 finisher medals held up side by side" style="--x:0;--y:0;--w:168;--h:224" draggable="false">
       <video class="pc photo" src="assets/video/about-aquarium.mp4" poster="assets/img/about/aquarium-poster.jpg" muted loop playsinline preload="none" aria-label="Fish and a shark gliding past in an aquarium" style="--x:180;--y:70;--w:171;--h:307"></video>
       <img class="pc cut" src="assets/img/about/tiramisu.webp" alt="A slice of tiramisu" style="--x:269;--y:15;--w:148;--h:121" draggable="false">
@@ -371,7 +273,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
       </div>
     </section>
 
-    <section class="stranger fade" data-reveal aria-label="Get in touch">
+    <section class="stranger fade ab-life" data-reveal aria-label="Get in touch">
       <p><span class="marker" id="stranger-mark">don’t be a stranger</span> 🤝</p>
       <div class="links">
         <a class="lk" href="https://drive.google.com/file/d/1b1VnWoGGykMFzYRLNkzvDyww56HtdHeI/view?usp=sharing" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">resume</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
@@ -379,20 +281,23 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
         <button type="button" class="lk lk--copy" data-copy="sreesha24@gmail.com" aria-label="Copy email address sreesha24@gmail.com"><span class="lk__b">[</span><span class="lk__t">sreesha24@gmail.com</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span><span class="lk__toast" aria-hidden="true">copied</span></button>
       </div>
     </section>
+    </div>
+
+    <section class="cta wrap" id="contact">
+      <div class="cta__inner">
+        <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Wor<em>k</em> w<em>i</em>th me</a></h2>
+        <span class="cta__badge" aria-label="i know you want to"><span class="cta__badge-text" aria-hidden="true">i know you want to</span><span class="cta__caret" aria-hidden="true"></span></span>
+        <svg class="garden garden--back" id="gardenBack" aria-hidden="true"></svg>
+        <svg class="garden garden--front" id="gardenFront" aria-hidden="true"></svg>
+      </div>
+    </section>
   </main>
 
-  <section class="cta" id="contact" aria-label="Work with me">
-    <div class="cta__inner">
-      <h2 class="cta__title"><a href="mailto:sreesha24@gmail.com">Wor<em>k</em> w<em>i</em>th me</a></h2>
-      <span class="cta__badge" aria-label="i know you want to"><span class="cta__badge-text" aria-hidden="true">i know you want to</span><span class="cta__caret" aria-hidden="true"></span></span>
-      <svg class="garden garden--back" id="gardenBack" aria-hidden="true"></svg>
-      <svg class="garden garden--front" id="gardenFront" aria-hidden="true"></svg>
-    </div>
-  </section>
 
-  <footer class="footer" id="contact-footer">
+
+  <footer class="footer wrap-wide" id="contact-footer">
     <p class="footer__meta">© 2026 Sreesha Suresh</p>
-    <nav class="footer__links" aria-label="Contact links">
+    <nav class="footer__links" aria-label="Footer contact links">
       <a class="lk" href="https://drive.google.com/file/d/1b1VnWoGGykMFzYRLNkzvDyww56HtdHeI/view?usp=sharing" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">resume</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
       <a class="lk" href="https://www.linkedin.com/in/sreesha-suresh/" target="_blank" rel="noopener"><span class="lk__b">[</span><span class="lk__t">linkedin</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span></a>
       <button type="button" class="lk lk--copy" data-copy="sreesha24@gmail.com" aria-label="Copy email address sreesha24@gmail.com"><span class="lk__b">[</span><span class="lk__t">sreesha24@gmail.com</span><span class="lk__a" aria-hidden="true"></span><span class="lk__b">]</span><span class="lk__toast" aria-hidden="true">copied</span></button>
@@ -401,7 +306,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
     <p class="footer__meta is-empty" id="lastVisitor">last visitor: <span></span></p>
   </footer>
   <p class="sr-only" id="copyStatus" role="status" aria-live="polite"></p>
-</div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 {
@@ -503,7 +408,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
 
 
   /* photo pile — same behaviour as sreeshasuresh.com/about */
-  const pile = document.getElementById('pile');
+  const pile = document.getElementById('about-pile');
   {
     const pieces = [...pile.querySelectorAll('.pc')];
     const tilts = [-2.5, 2, -1.5, 3, -2, 2.5, -3, 2, 1.5, -2, 2.5];
@@ -643,41 +548,11 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
   }
 
 
-  // "last visitor: city" — same as the homepage (counts each browser session once)
-  {
-    const el = document.getElementById('lastVisitor');
-    if (el && location.protocol !== 'file:') {
-      let seen = false;
-      try { seen = sessionStorage.getItem('lv-sent') === '1'; } catch (e) {}
-      fetch('/api/last-visitor', { method: seen ? 'GET' : 'POST' })
-        .then((r) => r.json())
-        .then(({ last }) => {
-          try { sessionStorage.setItem('lv-sent', '1'); } catch (e) {}
-          if (last) { el.querySelector('span').textContent = last; el.classList.remove('is-empty'); }
-        })
-        .catch(() => {});
-    }
-  }
-
-  // email buttons copy the address and say so (same as sreeshasuresh.com)
-  const status = document.getElementById('copyStatus');
-  document.querySelectorAll('.lk--copy').forEach((btn) => {
-    let t;
-    btn.addEventListener('click', async () => {
-      const text = btn.dataset.copy;
-      try { await navigator.clipboard.writeText(text); }
-      catch (e) {
-        const ta = Object.assign(document.createElement('textarea'), { value: text });
-        ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch (_) {} ta.remove();
-      }
-      btn.classList.add('is-copied');
-      if (status) { status.textContent = ''; setTimeout(() => { status.textContent = 'Email address copied'; }, 30); }
-      clearTimeout(t); t = setTimeout(() => btn.classList.remove('is-copied'), 1800);
-    });
-  });
 }
 </script>
+<script src="js/reveal.js"></script>
+<script src="js/nav.js"></script>
 <script src="js/garden.js"></script>
+<script src="js/sparkles.js"></script>
 </body>
 </html>
