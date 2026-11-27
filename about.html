@@ -113,6 +113,15 @@ a:focus-visible,button:focus-visible{outline:3px solid #43854d;outline-offset:3p
   .records{grid-template-columns:minmax(0,560px);justify-content:center;margin-left:0;row-gap:72px}
   .block.exp,.block.aw{grid-column:1}
     }
+/* bigger photo pile: break out of the text column on desktop; nav fades while the pile is under it */
+@media (min-width:1101px){
+  .pile-scroll{--pile-w:min(calc(100vw - 64px),1760px);width:var(--pile-w);margin-left:calc((100vw - var(--pile-w)) / 2 - var(--col-left));margin-top:72px;margin-bottom:80px}
+  .ruler{transition:opacity .35s ease,visibility .35s}
+  body.pile-over .ruler{opacity:0;visibility:hidden}
+}
+@media (min-width:601px) and (max-width:1100px){
+  .pile-scroll{margin-left:calc(16px - var(--gutter));margin-right:calc(16px - var(--gutter));margin-top:48px}
+}
 @media (max-width:600px){
   .ab-hello{padding-top:48px}
   .title-row{margin-bottom:24px}
@@ -580,6 +589,21 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
 
 
 }
+</script>
+<script>
+(() => {
+  const pile = document.querySelector('.pile'), ruler = document.querySelector('.ruler');
+  if (!pile || !ruler) return;
+  let tk = false;
+  const chk = () => {
+    tk = false;
+    const p = pile.getBoundingClientRect(), r = ruler.getBoundingClientRect();
+    document.body.classList.toggle('pile-over', innerWidth > 1100 && p.top < r.bottom + 24 && p.bottom > r.top - 24);
+  };
+  addEventListener('scroll', () => { if (!tk) { tk = true; requestAnimationFrame(chk); } }, { passive: true });
+  addEventListener('resize', chk);
+  chk();
+})();
 </script>
 <script src="js/reveal.js"></script>
 <script src="js/nav.js"></script>
