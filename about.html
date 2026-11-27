@@ -115,7 +115,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #43854d;outline-offset:3p
     }
 /* bigger photo pile: break out of the text column on desktop; nav fades while the pile is under it */
 @media (min-width:1101px){
-  .pile-scroll{--pile-w:min(calc(100vw - 64px),1760px);width:var(--pile-w);margin-left:calc((100vw - var(--pile-w)) / 2 - var(--col-left));margin-top:72px;margin-bottom:80px}
+  .pile-scroll{--pile-w:min(calc(100vw - 240px),1440px);width:var(--pile-w);margin-left:calc((100vw - var(--pile-w)) / 2 - var(--col-left));margin-top:72px;margin-bottom:80px}
   .ruler{transition:opacity .35s ease,visibility .35s}
   body.pile-over .ruler{opacity:0;visibility:hidden}
 }
