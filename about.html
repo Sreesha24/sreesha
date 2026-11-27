@@ -22,7 +22,7 @@
 a:focus-visible,button:focus-visible{outline:3px solid #43854d;outline-offset:3px;border-radius:2px}
 
 /* intro */
-.intro{padding-top:104px;margin:0 auto;width:660px;max-width:100%}
+.ab-hello{padding-top:104px;margin:0 auto;width:660px;max-width:100%}
 .title{font:400 28px/1.25 var(--serif);margin:0;letter-spacing:0;min-height:35px}
 .title em{font-style:italic}
 .title .me{color:#43854d;display:inline-block;transition:transform .45s cubic-bezier(.3,1.6,.5,1);transform-origin:50% 80%}
@@ -109,12 +109,12 @@ a:focus-visible,button:focus-visible{outline:3px solid #43854d;outline-offset:3p
 }
 
 @media (max-width:1100px){
-  .intro{padding-top:72px}
+  .ab-hello{padding-top:72px}
   .records{grid-template-columns:minmax(0,560px);justify-content:center;margin-left:0;row-gap:72px}
   .block.exp,.block.aw{grid-column:1}
     }
 @media (max-width:600px){
-  .intro{padding-top:48px}
+  .ab-hello{padding-top:48px}
   .title-row{margin-bottom:32px}
   .copy{font-size:15px;line-height:23px}
   .pile-scroll{margin:104px -14px 0}
@@ -181,6 +181,9 @@ html.dark .pc.photo{background:#1e1e1e}
 .marker.on{background-size:100% 100%}
 html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#2d6a3a 94%,transparent 94%)}
 @media (prefers-reduced-motion: reduce){ .marker{transition:none} }
+
+/* "Work with me" badge sits a touch closer to the final e */
+@media (min-width:861px){ .page-about .cta__badge{margin-left:-12px} }
 </style>
 </head>
 <body class="page-about">
@@ -212,7 +215,7 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
 
   <main id="top">
     <div class="wrap">
-    <section class="intro" aria-labelledby="about-title">
+    <section class="ab-hello" aria-labelledby="about-title">
       <div class="title-row">
       <h1 class="title" id="about-title" aria-label="A lil about me" data-write>A lil ab<em>o</em>ut <span class="me">m<em>e</em></span></h1>
       </div>
@@ -464,6 +467,34 @@ html.dark .marker{background-image:linear-gradient(transparent 56%,#2d6a3a 56%,#
     }
   }
 
+
+
+  // "i know you want to" -> (2s) -> "Open to full-time roles"
+  {
+    const badge = document.querySelector('.cta__badge');
+    const text = badge && badge.querySelector('.cta__badge-text');
+    const caret = badge && badge.querySelector('.cta__caret');
+    const NEXT = 'Open to full-time roles';
+    if (badge && text && caret) {
+      let started = false;
+      const swap = () => {
+        if (started) return; started = true;
+        badge.setAttribute('aria-label', NEXT);
+        if (reduce) { text.textContent = NEXT; return; }
+        setTimeout(() => {
+          caret.classList.remove('is-done');
+          const del = () => {
+            if (text.textContent.length) { text.textContent = text.textContent.slice(0, -1); setTimeout(del, 28); }
+            else { let i = 0; const type = () => { text.textContent = NEXT.slice(0, ++i); if (i < NEXT.length) setTimeout(type, 38 + Math.random() * 40); else caret.classList.add('is-done'); }; setTimeout(type, 250); }
+          };
+          del();
+        }, 2000);
+      };
+      // garden.js types the first line; when its caret finishes, start the swap
+      new MutationObserver(() => { if (caret.classList.contains('is-done') && text.textContent === 'i know you want to') swap(); })
+        .observe(caret, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
 
   // light bulb: pull for dark mode (remembered for this browser)
   {

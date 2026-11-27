@@ -201,7 +201,7 @@
     // rest just above where the footer will sit once you reach the bottom (measured, so it never overlaps)
     const foot = document.getElementById('contact-footer');
     const maxY = document.documentElement.scrollHeight - vh;
-    const footTop = foot ? foot.getBoundingClientRect().top + (maxY - window.scrollY) : vh - 120;
+    const footTop = foot ? foot.getBoundingClientRect().top - (maxY - window.scrollY) : vh - 120;
     const room = footTop - 40 - (ruler.offsetTop + ruler.offsetHeight);
     ruler.style.setProperty('--navdrop', `${Math.max(0, room)}px`);
     // too short a window to fit it above the footer: tuck the nav away as the footer arrives
